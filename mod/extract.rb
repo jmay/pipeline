@@ -2,12 +2,10 @@
 
 # Use CustomExtractor to convert source data to NSF
 
-$LOAD_PATH.unshift("/Users/jmay/Projects/Numbrary/numbrary/trunk/lib/dataset/lib")
-
-require "util"
-require "extractor"
 require "fastercsv"
 require "yaml"
+
+require "dataset"
 
 # datafile, codefile = ARGV
 codefile = ARGV.shift
