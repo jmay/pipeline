@@ -1,0 +1,96 @@
+#!/usr/bin/perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+use YAML;
+
+=head1 NAME
+
+filter2 - restrict rows in TSV pipeline, based on filtering rules from another (TSV) source
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, apply filter rules, write to stdout
+
+=head1 CONTRACT
+
+Expects input in TSV
+
+Expects input to have no empty lines
+
+Expects input fields to have been stripped of leading & trailing whitespace
+
+Expects input in UTF-8
+
+Same expectations on the filter source
+
+Writes UTF-8 as output.
+
+=head1 OPTIONS
+
+  --filter filename [REQUIRED] file to read filter rules from
+  --column colnum [REQUIRED] column in input to filter on
+  --fcol colnum [REQUIRED] column in filter to match with
+
+=cut
+
+my $USAGE = "usage: filter2 --filter filename --column colnum --fcol colnum";
+
+my ($filter, $column, $fcol);
+GetOptions(
+  'filter=s' => \$filter,
+  'column=i' => \$column,
+  'fcol=i' => \$fcol);
+die $USAGE, "\n" unless defined($filter) && defined($column) && defined($fcol);
+
+my $stats = {
+  filter_rows => 0,
+  filter_active_rows => 0,
+  nrows => 0,
+};
+
+######################################################################
+## PROCESS THE FILTER
+######################################################################
+
+my %filter_includes;
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+open(FILTER, "<$filter") or die $!;
+binmode FILTER, ":utf8";
+while (<FILTER>) {
+  if (my $status = $csv->parse($_)) {
+    $stats->{filter_rows}++;
+    my @fields = $csv->fields;
+    $filter_includes{$fields[$fcol]}++;
+  }
+}
+close FILTER;
+
+$stats->{filter_active_rows} = scalar(keys %filter_includes);
+
+######################################################################
+## RUN THE FILTER
+######################################################################
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    if ($filter_includes{$fields[$column]}) {
+      $stats->{nrows}++;
+      print;
+    }
+  }
+}
+
+print STDERR YAML::Dump($stats);

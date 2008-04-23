@@ -1,0 +1,76 @@
+#!/usr/bin/perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+use YAML::Syck;
+
+=head1 NAME
+
+review - produce YAML statistics on the input
+
+=head1 DESCRIPTION
+
+Reads from stdin
+
+Records are inspected on the way through and statistics are written in YAML to stderr.
+
+=head1 CONTRACT
+
+NSF for input
+
+YAML output for stats
+
+=head1 OPTIONS
+
+  --structure filename [REQUIRED]
+
+=head1 TODO
+
+Assemble column metrics:
+
+* number of distinct values for strings
+* min/max values for numerics
+
+=cut
+
+my $USAGE = "usage: review --structure filename";
+
+my $stats = {
+  nrows => 0,
+  ncols => {}, # map from column count to number of rows with that count; *should* have exactly one member
+  # columns => [], # array of column stats
+};
+
+######################################################################
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+# my @columns;
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+    print;
+
+    $stats->{nrows}++;
+    $stats->{ncols}->{scalar(@fields)}++;
+  }
+}
+
+# my @colcounts = keys %{$stats->{ncols}};
+# if (scalar(@colcounts) == 1) {
+#   my $ncolumns = @colcounts[0];
+#   for my $i (0..$ncolumns-1) {
+#     
+#   }
+# }
+
+print STDERR Dump($stats);

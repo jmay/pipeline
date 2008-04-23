@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+use strict;
+
+=head1 NAME
+
+filter - restrict rows in TSV pipeline
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, apply filter rules, write to stdout
+
+=head1 CONTRACT
+
+Expects input in TSV
+
+Expects input to have no empty lines
+
+Expects input fields to have been stripped of leading & trailing whitespace
+
+Expects input in UTF-8
+
+Writes UTF-8 as output.
+
+=head1 OPTIONS
+
+  -f colnum [REQUIRED] column number to filter on
+  -v value [REQUIRED] string value to match
+
+=cut
+
+my $USAGE = "usage: filter -f colnum -v value";
+
+use Getopt::Std;
+my %opts;
+getopts('f:v:', \%opts);
+die $USAGE, "\n" unless defined($opts{f}) && defined($opts{v});
+
+my $colnum = $opts{f};
+my $value = $opts{v};
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+while (<>) {
+  my @input_fields = split(/\t/);
+  next unless $input_fields[$colnum] eq $value;
+
+  # output is the input line, unchanged
+  print;
+}

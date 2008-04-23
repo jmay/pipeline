@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+
+=head1 NAME
+
+channels - read multiple files
+
+=head1 USAGE
+
+  channels file file file ...
+
+=head1 DESCRIPTION
+
+Read a set of filenames, and do something with each one.
+
+If "-" is passed for a filename, STDIN is used.  The STDIN marker can only appear once in the arguments;
+other filenames can appear multiple times.
+
+=cut
+
+my $USAGE = "usage: channels filenames...";
+
+my @sources;
+
+for my $filename (@ARGV) {
+  my $source = { filename => $filename };
+  open($source->{fd}, "cat $filename |") or die $!;
+  
+  push @sources, $source;
+}
+
+for my $source (@sources) {
+  print "FILE: $source->{filename}\n";
+  my $fd = $source->{fd};
+  my @lines = <$fd>;
+  print "\tLINE COUNT: ", scalar @lines, "\n";
+}
+
+for my $source (@sources) {
+  close $source->{fd};
+}

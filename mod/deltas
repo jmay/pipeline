@@ -1,0 +1,116 @@
+#!/usr/bin/env perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+
+=head1 NAME
+
+deltas - calculate internal deltas in the input data
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, compute deltas, write results to stdout
+
+=head1 CONTRACT
+
+Standard TSV contract for input and output
+
+The C<ordercol> column is EXPECTED to contain integer values
+
+The C<ordercol> values are EXPECTED to be unique.  No duplicate detection will be done.
+
+Output WILL BE ordered by the C<ordercol> values.
+
+=head1 OPTIONS
+
+  --ordercol colnum [REQUIRED] input column containing the ordered sequence (usually chron)
+  --datacol colnum [REQUIRED] column containing data to compute deltas on
+  --interval number [OPTIONAL, DEFAULT = 1] interval in the ordering column to calculate deltas on
+  --percent [OPTIONAL, DEFAULT = absolute] compute absolute or percentage deltas
+  --float [OPTIONAL, default is integer] interpret input data as floats instead of integers
+
+=head1 NOTES
+
+If there are gaps in the ordering (chron) series in the input, there will be gaps in the output.
+Gaps will not cause errors.
+
+=cut
+
+my $USAGE = "usage: deltas --ordercol colnum --datacol colnum [--interval interval] [--percent] [--float]";
+
+my ($ordercol, $datacol, $interval, $percent, $float);
+GetOptions(
+  'ordercol=i' => \$ordercol,
+  'datacol=i' => \$datacol,
+  'interval=i' => \$interval,
+  'percent' => \$percent,
+  'float' => \$float,
+  );
+die $USAGE, "\n" unless defined($ordercol) && defined($datacol);
+
+# defaults
+$interval ||= 1;
+
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+######################################################################
+## CONVERT INPUT
+######################################################################
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my (%fullrows, %data);
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    my $chron = $fields[$ordercol];
+
+    $fullrows{$chron} = \@fields;
+
+    my $value = $fields[$datacol];
+    $data{$chron} = $value;
+  }
+}
+
+my %results;
+for my $chron (sort keys %fullrows) {
+  my $prev_chron = $chron - $interval;  # step back N intervals (months, quarters, years, whatever)
+
+  next if !defined $data{$prev_chron};  # the output won't have a result row for this chron
+
+  my $this_value = $data{$chron};
+  my $prev_value = $data{$prev_chron};
+
+  my @result_row = @{$fullrows{$chron}};
+
+  if ($percent) {
+    # relative (percent) change
+    $result_row[$datacol] = sprintf("%0.3f", ($this_value - $prev_value) / $prev_value * 100);
+  } else {
+    # absolute change
+    if ($float) {
+      $result_row[$datacol] = sprintf("%0.3f", $this_value - $prev_value);
+    } else {
+      # integer difference
+      $result_row[$datacol] = $this_value - $prev_value;
+    }
+  }
+
+  $results{$chron} = \@result_row;
+}
+
+for my $chron (sort keys %results) {
+  my @fields = @{$results{$chron}};
+  if ($csv->combine(@fields)) {
+    print $csv->string, "\n";
+  }
+}

@@ -1,0 +1,62 @@
+#!/usr/bin/perl
+
+use strict;
+use Getopt::Long; # for GetOptions()
+use Text::CSV_XS;
+
+=head1 NAME
+
+glue_columns - stick two or more columns together in a NSF source
+
+=head1 DESCRIPTION
+
+Read NSF from stdin, attaches the specified columns together using optional delimiter, write to stdout
+
+The glued-together value will replace the first 
+
+=head1 OPTIONS
+
+  --columns colnum,colnum... [REQUIRED] column numbers (at least 2) to stick together
+  --delim delimiter [OPTIONAL] string to put between the column, default is nothing
+
+=cut
+
+my $USAGE = "usage: glue_columns --columns colnum,colnum[,...]";
+
+my ($columns, $delimiter);
+GetOptions(
+  'columns=s' => \$columns,
+  'delim=s' => \$delimiter,
+  );
+die $USAGE, "\n" unless defined($columns);
+
+my @colnums = split(/\s*,\s*/, $columns);
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my @exclude_colnums = reverse sort @colnums[1..$#colnums];
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    my @glue_values = @fields[@colnums];
+    my $glued_value = join($delimiter, @glue_values);
+    $fields[$colnums[0]] = $glued_value;
+
+    for my $colnum (@exclude_colnums) {
+      splice(@fields, $colnum, 1);
+    }
+
+    if ($csv->combine(@fields)) {
+      print $csv->string, "\n";
+    }
+  }
+}

@@ -1,0 +1,155 @@
+#!/usr/bin/env perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+use Data::Dumper;
+use YAML::Syck;
+
+my %MONTH_ABBREV = (
+  JAN => 1,
+  FEB => 2,
+  MAR => 3,
+  APR => 4,
+  MAY => 5,
+  JUN => 6,
+  JUL => 7,
+  AUG => 8,
+  SEP => 9,
+  OCT => 10,
+  NOV => 11,
+  DEC => 12
+);
+
+=head1 NAME
+
+chronify - convert values in one or more columns to numeric Numbrary chron values
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, apply chron conversion, write to stdout
+
+One or more column specifiers must be provided.
+
+In the output, the original chron columns will be removed and a single new chron column inserted
+as the first column.
+
+=head1 CONTRACT
+
+Standard TSV contract for input and output
+
+=head1 OPTIONS
+
+  --column colnum:"format" [AT LEAST ONE REQUIRED] column number in input and format to extract
+
+=head1 TODO
+
+Support for multiple chron formats (full month name, month number, quarter, year-only, week, day)
+
+=cut
+
+my $USAGE = "usage: chronify --column colnum:format [additional column specifiers]";
+
+my @column;
+GetOptions(
+  'column=s' => \@column,
+  );
+die $USAGE, "\n" unless @column;
+
+my $chron_format = {};
+foreach (@column) {
+  my ($colnum, $format) = /^(\d+):(.*)$/;
+  $chron_format->{$colnum} = $format;
+}
+my @chron_columns = sort keys %$chron_format;
+
+my $chron = "YYYYMM";
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+######################################################################
+## CONVERT INPUT
+######################################################################
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my $input_rows = 0;
+my $output_rows = 0;
+my $rejected_rows = 0;
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    $input_rows++;
+    my @fields = $csv->fields;
+
+    my %chrons;
+    while (my ($colnum, $format) = each %$chron_format) {
+      $chrons{$format} = $fields[$colnum];
+    }
+    my $chron = convert_chron(%chrons);
+    if ($chron) {
+      for my $colnum (reverse @chron_columns) {
+        splice(@fields, $colnum, 1);
+      }
+      unshift @fields, $chron;
+
+      if ($csv->combine(@fields)) {
+        print $csv->string, "\n";
+        $output_rows++;
+      }
+    } else {
+      $rejected_rows++;
+    }
+  }
+}
+
+######################################################################
+# OUTPUT EXECUTION STATS
+#
+# number of rows processed
+# number of rows output
+# number of rejected rows
+# chron result
+
+my $stats = {
+  ":rows_in" => $input_rows,
+  ":rows_out" => $output_rows,
+  ":rows_rejected" => $rejected_rows,
+  ":chron" => $chron,
+};
+print STDERR Dump($stats);
+
+exit;
+
+
+sub convert_chron {
+  my %chrons = @_;
+
+  # validate
+  return unless $chrons{'YYYY'} =~ /^\d\d\d\d$/;
+  return unless defined $MONTH_ABBREV{uc($chrons{'Mon'})};
+
+  # print Dumper(\%chrons);
+  # print uc($chrons{'Mon'}), "\n";
+  # print Dumper(\%MONTH_ABBREV);
+  # print $MONTH_ABBREV{uc($chrons{'Mon'})}, "\n";
+  my $val = $chrons{'YYYY'} * 12 + $MONTH_ABBREV{uc($chrons{'Mon'})}-1;
+  return $val;
+
+  # my ($value, $chron) = @_;
+  # 
+  # if ($chron eq "YYYYMM") {
+  #   my ($month, $year) = $value =~ /^(\d\d?)\/(\d\d\d\d)$/;
+  #   return $year * 12 + $month - 1;
+  # } elsif ($chron eq "YYYYQ") {
+  #   my ($year, $quarter) = $value =~ /^(\d\d\d\d)Q(\d)$/;
+  #   $year * 4 + $quarter - 1;
+  # } else {
+  #   die "Invalid chron $chron"
+  # }
+}

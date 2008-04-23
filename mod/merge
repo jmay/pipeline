@@ -1,0 +1,103 @@
+#!/usr/bin/perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+use YAML;
+
+=head1 NAME
+
+merge - combine rows from two sources (stdin and named file), based on a column identified in each
+
+=head1 DESCRIPTION
+
+Read secondary source as TSV
+
+Read primary source from stdin, merge with secondary source, write merged records to stdout
+
+Secondary fields will be injected into the output immediately following the merge column
+
+=head1 CONTRACT
+
+Standard expectations (TSV, no blank lines, stripped, UTF-8) for both source files
+
+Expects that secondary source rows will be unique based on the key column;
+this expectation does not apply to the primary source
+
+Output will be normalized TSV also
+
+=head1 OPTIONS
+
+  --file filename [REQUIRED] file to read secondary source from
+  --cola colnum [REQUIRED] column in stdin to match on (starting from zero)
+  --colb colnum [REQUIRED] column in secondary source to match with (starting from zero)
+
+=head1 TODO
+
+What to do if you merge with a source that is missing some mappings?  Does this have an implicit filter?
+
+=cut
+
+my $USAGE = "usage: merge --file filename --cola colnum --colb colnum";
+
+my ($secondary, $cola, $colb);
+GetOptions(
+  'file=s' => \$secondary,
+  'cola=i' => \$cola,
+  'colb=i' => \$colb);
+die $USAGE, "\n" unless defined($secondary) && defined($cola) && defined($colb);
+
+my $stats = {
+  filter_rows => 0,
+  nrows => 0,
+};
+
+######################################################################
+## PULL THE SECONDARY SOURCE ROWS INTO MEMORY
+######################################################################
+
+my %merge;
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+open(SECONDARY, "<$secondary") or die $!;
+binmode SECONDARY, ":utf8";
+while (<SECONDARY>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    my $key = $fields[$colb];
+    splice(@fields, $colb, 1);
+    $merge{$key} = \@fields;
+  }
+}
+close SECONDARY;
+
+$stats->{filter_rows} = scalar(keys %merge);
+
+######################################################################
+## MERGE
+######################################################################
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    my $key = $fields[$cola];
+    splice(@fields, $cola+1, 0, @{$merge{$key}});
+
+    if ($csv->combine(@fields)) {
+      $stats->{nrows}++;
+      print $csv->string, "\n";
+    }
+  }
+}
+
+print STDERR YAML::Dump($stats);

@@ -1,0 +1,13 @@
+---
+- command: extract
+  code: |
+    html
+    pre_section
+    if text =~ /^Series Id,/
+      self.notes = $PREMATCH
+      self.text = $MATCH + $POSTMATCH
+    end
+    csv
+    autoheaders
+    headers.pop
+    data.pop while data.last.size != headers.size

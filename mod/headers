@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+use strict;
+
+=head1 NAME
+
+headers - remove header and footer lines from input
+
+=head1 DESCRIPTION
+
+Snips off lines from the top of a file
+
+The trimmed input is send to stdout.  The removed lines are sent to a named file, or dropped if no filename is provided.
+
+=head1 CONTRACT
+
+Expects input to be newline-delimited
+
+Expects input in UTF-8
+
+Writes UTF-8 as output.
+
+=head1 OPTIONS
+
+  -h nrows [REQUIRED] number of header lines to remove
+  -o filename [OPTIONAL] filename to write removed lines to
+
+=cut
+
+my $USAGE = "usage: headers -h nrows [-o filename]";
+
+use Getopt::Std;
+my %opts;
+getopts('h:o:', \%opts);
+die $USAGE, "\n" unless defined($opts{h});
+
+my $header_rows = $opts{h};
+my $outfile = $opts{o};
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my @headers;
+
+for (1..$header_rows) {
+  my $line = <>;
+  push @headers, $line;
+}
+
+print while <>; # push the rest of the input to stdout
+
+# write the headers to another file
+if (defined $outfile) {
+  open(OUT, ">$outfile") or die $!;
+  print OUT @headers;
+  close OUT;
+}

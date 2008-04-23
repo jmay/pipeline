@@ -1,0 +1,861 @@
+<HTML><HEAD>
+<TITLE>Bureau of Labor Statistics Data</TITLE>
+<link href="/blsstyle.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/yui/sam/container.css" />
+<link rel="stylesheet" type="text/css" href="/css/yui/sam/button.css" />
+<script type="text/javascript" src="/js/yui/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/js/yui/element-beta-min.js"></script> 
+<script type="text/javascript" src="/js/yui/container-min.js"></script>
+<script type="text/javascript" src="/js/yui/button-beta-min.js"></script>
+<script type="text/javascript" src="/js/survey.js"></script>
+<script type="text/javascript">
+	window.onload = show_survey;
+</script>
+<meta name="agency" content="BLS">
+<meta name="audience" content="general">
+<base href="http://www.bls.gov">
+</HEAD>
+<script language="JavaScript">
+<!--
+function validateYears(){ 
+var from_yr = document.format.from_year.options[document.format.from_year.selectedIndex].text;
+var to_yr = document.format.to_year.options[document.format.to_year.selectedIndex].text;
+if (from_yr > to_yr){
+alert("Please select the valid years : From Year should be less or equal to To Year" );}} 
+//-->
+</script>
+<BODY BGCOLOR="#ffffff" leftMargin="0" topMargin="0" marginwidth="0" marginheight="0" >
+<div align="center">
+<center>
+<!-- BEGIN BANNER, FOLLOWED BY TOP NAV-->
+  <TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" BORDER="0" VSPACE="0" HSPACE="0"> 
+	<tr>
+	  <!-- ****************************************** Begin ADA SKIP LINKS ********************************************* -->   
+	    <td width="87" align="left" valign="top" nowrap class="hide"><a href="#content" class="hide" title="This link allows people with disabilities to skip to the main part of the page."><font color="white">Skip Navigation Links</font></a></td>
+<td align="left" valign="top" nowrap class="hide">&nbsp;</td>
+<td width="363" align="right" valign="top" nowrap class="hide"><a href="#latest" class="hide" title="This link allows people with disabilities to skip to the latest number box."><font COLOR="White">Latest Numbers</font></a></td>
+
+	  <!-- ****************************************** End ADA SKIP LINKS *********************************************** -->        
+	</tr>	
+    <tr> 
+	  <!-- ****************************************** Begin GLOBAL BANNER ********************************************** -->   
+	    <td rowspan="2" width="76"><a href="http://www.dol.gov/" target="new"><img src="/images/seal.gif" width="75" height="75" border="0" alt="DOL Seal - Link to DOL Home Page" hspace="0" vspace="0"></a></td> 
+	  <td valign="middle"><span class="banner-usdol">U.S. Department of Labor</span><br><span class="banner-agency">Bureau of Labor Statistics</span></td> 
+      <td align="right" valign="top"><IMG SRC="/images/header-montage.jpg" ALIGN="RIGHT" WIDTH="356" HEIGHT="60" BORDER="0" HSPACE="0" VSPACE="0" ALT="Photos representing the workforce - Digital Imageryý copyright 2001 PhotoDisc, Inc."></td> 
+	  <!-- ****************************************** End GLOBAL BANNER ************************************************ -->        
+    </tr>
+    <tr> 
+	  <!-- ****************************************** Begin LOCAL BANNER ********************************************** -->   
+      	      <td colspan="2" align="left" valign="top"><span class="banner-tagline">Bureau of Labor Statistics Data</span></td> 
+
+ 
+	  <!-- ****************************************** End LOCAL BANNER ************************************************ -->   
+    </tr>
+  </table> 
+  
+  <TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="100%" VSPACE="0" HSPACE="0" BORDER="0"> 
+    <TR> 
+	<!-- ****************************************** Begin SEARCH BAR ************************************************ -->  
+		<td align="left" bgcolor="#ffcc00" width="15" valign="top"><img src="/images/curve-wh-left.gif" align="left" width="15" height="18" border="0" hspace="0" vspace="0" alt=" "></td>
+      <td width="200" align="left" bgcolor="#ffcc00"><span class="agencyurl"><a href="/home.htm" class="agencyurl">www.bls.gov</a></span></td>
+      <td align="right" valign="bottom" bgcolor="#ffcc00" width="15"><img src="/images/curve-bl-bot.gif" align="right" width="15" height="18" border="0" hspace="0" vspace="0" alt=" "></td>
+      <td width="80%" align="right" valign="middle" bgcolor="#003399">
+	  <span class="search-bar"> <font face="verdana, arial, sans-serif, helvetica" size="-1" color="#ffffff">
+	  <a href="/search/search.srch">Advanced Search</a> | <a href="/bls/topicsaz.htm">A-Z Index</a></font></span>
+	  </td>
+      <td bgcolor="#003399" align="right" valign="top" width="15"><img src="/images/curve-wh-right.gif" align="right" width="15" height="18" border="0" hspace="0" vspace="0" alt=" "></td>
+  
+  	<!-- ****************************************** End SEARCH BAR ************************************************** -->   
+	</TR> 
+    <TR> 
+  	<!-- ****************************************** Begin GLOBAL NAV BAR ********************************************** -->  
+		<td height="20" colspan="5" valign="middle" bgcolor="#3366CC" bordercolor="#3366CC">	  	 
+        <DIV CLASS="topnavbar">&nbsp;
+		<a href="/home.htm"><font face="Verdana" size="1" color="#FFFFCC">BLS Home</font></a> | 
+		<a href="/bls/proghome.htm"><font face="Verdana" size="1" color="#FFFFCC">Programs & Surveys</font></a> |
+		<a href="/data/home.htm"><font face="Verdana" size="1" color="#FFFFCC">Get Detailed Statistics</font></a> |
+		<a href="/bls/glossary.htm"><font face="Verdana" size="1" color="#FFFFCC">Glossary</font></a> |
+		<a href="/bls/whatsnew.htm"><font face="Verdana" size="1" color="#FFFFCC">What's New</font></a> |
+		<a href="http://www.dol.gov/dol/findit.htm"><font face="Verdana" size="1" color="#FFFFCC">Find It! In DOL</font></a>				
+		</DIV></td> 
+  
+  	<!-- ****************************************** End GLOBAL NAV BAR ************************************************ -->   
+    </TR> 
+    <TR> 
+      <td height="7px" colspan="5" bgcolor="#FFFFFF" background="/images/shadow-bot-wh.gif"></td> 
+    </TR>
+  </tr>  
+  </TABLE> 
+  
+</div>
+</center>
+<!-- END OF TOP NAV & BANNER -->
+<!-- THIS BEGIN THE MAIN CONTENT TABLE-->
+<div align="center">
+<center>	  
+	<TABLE BORDER="0" WIDTH="95%" CELLPADDING="10" CELLSPACING="0">
+	<TR><TD WIDTH="100%" HEIGHT="5" COLSPAN="3" VALIGN="TOP">
+	<!-- INSERT CONTENT HERE-->	
+	<a name="content"></a>
+	
+<!-- BEGIN MAIN CONTENT -->
+<TABLE cellSpacing="1" cellPadding="0" width="80%" border="0"><TBODY><TR>
+<FORM NAME="format" action="http://data.bls.gov/PDQ/servlet/SurveyOutputServlet" METHOD="POST">
+<input type="hidden" name="request_action" value="get_data">
+<input type="hidden" name="reformat" value="true">
+<input type="hidden" name="from_results_page" value="true">
+<TD vAlign="center" align="left" width="15%"><FONT face=helvetica,arial size=-1><STRONG>Change Output Options:</STRONG></FONT></TD>
+<TD vAlign="center" align="left" width="2%"><FONT face=helvetica,arial size=-2>From:</FONT></TD>
+<TD vAlign="center" align="left" width="2%"><FONT face=helvetica,arial size=-2>
+<SELECT onchange=validateYears() name='from_year'>
+<OPTION>1964</OPTION>
+<OPTION>1965</OPTION>
+<OPTION>1966</OPTION>
+<OPTION>1967</OPTION>
+<OPTION>1968</OPTION>
+<OPTION>1969</OPTION>
+<OPTION>1970</OPTION>
+<OPTION>1971</OPTION>
+<OPTION>1972</OPTION>
+<OPTION>1973</OPTION>
+<OPTION>1974</OPTION>
+<OPTION>1975</OPTION>
+<OPTION>1976</OPTION>
+<OPTION>1977</OPTION>
+<OPTION>1978</OPTION>
+<OPTION>1979</OPTION>
+<OPTION>1980</OPTION>
+<OPTION>1981</OPTION>
+<OPTION>1982</OPTION>
+<OPTION>1983</OPTION>
+<OPTION>1984</OPTION>
+<OPTION>1985</OPTION>
+<OPTION>1986</OPTION>
+<OPTION>1987</OPTION>
+<OPTION>1988</OPTION>
+<OPTION>1989</OPTION>
+<OPTION>1990</OPTION>
+<OPTION>1991</OPTION>
+<OPTION>1992</OPTION>
+<OPTION>1993</OPTION>
+<OPTION>1994</OPTION>
+<OPTION>1995</OPTION>
+<OPTION>1996</OPTION>
+<OPTION>1997</OPTION>
+<OPTION selected value='1998'>1998</OPTION>
+<OPTION>1999</OPTION>
+<OPTION>2000</OPTION>
+<OPTION>2001</OPTION>
+<OPTION>2002</OPTION>
+<OPTION>2003</OPTION>
+<OPTION>2004</OPTION>
+<OPTION>2005</OPTION>
+<OPTION>2006</OPTION>
+<OPTION>2007</OPTION>
+<OPTION>2008</OPTION>
+</SELECT>
+
+</FONT></TD><TD vAlign=center align="right" width="2%"><FONT face=helvetica,arial size=-2>&nbsp;&nbsp;To:</FONT></TD>
+<TD vAlign=center align="left" width="5%"><FONT face=helvetica,arial size=-2>
+<SELECT  onchange=validateYears() name='to_year'>
+<OPTION>1964</OPTION>
+<OPTION>1965</OPTION>
+<OPTION>1966</OPTION>
+<OPTION>1967</OPTION>
+<OPTION>1968</OPTION>
+<OPTION>1969</OPTION>
+<OPTION>1970</OPTION>
+<OPTION>1971</OPTION>
+<OPTION>1972</OPTION>
+<OPTION>1973</OPTION>
+<OPTION>1974</OPTION>
+<OPTION>1975</OPTION>
+<OPTION>1976</OPTION>
+<OPTION>1977</OPTION>
+<OPTION>1978</OPTION>
+<OPTION>1979</OPTION>
+<OPTION>1980</OPTION>
+<OPTION>1981</OPTION>
+<OPTION>1982</OPTION>
+<OPTION>1983</OPTION>
+<OPTION>1984</OPTION>
+<OPTION>1985</OPTION>
+<OPTION>1986</OPTION>
+<OPTION>1987</OPTION>
+<OPTION>1988</OPTION>
+<OPTION>1989</OPTION>
+<OPTION>1990</OPTION>
+<OPTION>1991</OPTION>
+<OPTION>1992</OPTION>
+<OPTION>1993</OPTION>
+<OPTION>1994</OPTION>
+<OPTION>1995</OPTION>
+<OPTION>1996</OPTION>
+<OPTION>1997</OPTION>
+<OPTION>1998</OPTION>
+<OPTION>1999</OPTION>
+<OPTION>2000</OPTION>
+<OPTION>2001</OPTION>
+<OPTION>2002</OPTION>
+<OPTION>2003</OPTION>
+<OPTION>2004</OPTION>
+<OPTION>2005</OPTION>
+<OPTION>2006</OPTION>
+<OPTION>2007</OPTION>
+<OPTION selected value='2008'>2008</OPTION>
+</SELECT>
+
+</FONT></TD><TD vAlign="center" align="left" width="10%">&nbsp;&nbsp;
+<INPUT type="image" height="18" alt="Retrieve Data Now!" width="20" src="/images/go.gif" border="0" name=Go></TD>
+<TD vAlign=center align=left width="20%">&nbsp;</TD></TR>
+<TR><TD vAlign=center align=right width="15%"></TD><TD vAlign=center align=left width="21%" colSpan=5>
+<input type="checkbox" name="include_graphs" value="true">include graphs
+
+<SPAN class=new>NEW!</SPAN></TD>
+<input type="hidden" name="initial_request" value="false">
+<input type="hidden" name="data_tool" value="surveymost">
+<input type="hidden" name="series_id" value="CES0500000032">
+<input type="hidden" name="years_option" value="all_years">
+<input type="hidden" name="output_type" value="column">
+<input type="hidden" name="periods_option" value="all_periods">
+<input type="hidden" name="output_view" value="data|">
+<input type="hidden" name="output_format" value="text">
+
+</FORM>
+<TD vAlign=center align=middle width="20%">
+<FORM action="http://data.bls.gov/PDQ/servlet/SurveyOutputServlet" METHOD="POST">
+<input type="hidden" name="request_action" value="show_formatting">
+<input type="hidden" name="initial_request" value="false">
+<input type="hidden" name="data_tool" value="surveymost">
+<input type="hidden" name="series_id" value="CES0500000032">
+<input type="hidden" name="years_option" value="all_years">
+<input type="hidden" name="output_type" value="column">
+<input type="hidden" name="periods_option" value="all_periods">
+<input type="hidden" name="output_view" value="data|">
+<input type="hidden" name="output_format" value="text">
+
+<INPUT type="image" src="/images/data/output.gif" height="18" alt="More Formatting Options" width="216" border="0">
+</FORM></TD></TR></TBODY></TABLE>
+<SPAN CLASS="extract"> Data extracted on: March 28, 2008 (3:13:31 PM)</SPAN>
+</P>
+<PRE STYLE="FONT-SIZE: x-small">
+<DIV class="SurveyTitle"> Employment, Hours, and Earnings from the Current Employment Statistics survey (National)</DIV>
+
+Series Id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CES0500000032
+
+Seasonally Adjusted
+Super Sector:&nbsp;&nbsp;Total private
+Industry:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total private
+NAICS Code:&nbsp;&nbsp;&nbsp;&nbsp;N/A
+Data Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVERAGE HOURLY EARNINGS, 1982 DOLLARS
+
+
+Series Id,Year,Period,Value,
+CES0500000032,1964,Jan,7.79
+CES0500000032,1964,Feb,7.79
+CES0500000032,1964,Mar,7.79
+CES0500000032,1964,Apr,7.85
+CES0500000032,1964,May,7.83
+CES0500000032,1964,Jun,7.86
+CES0500000032,1964,Jul,7.86
+CES0500000032,1964,Aug,7.92
+CES0500000032,1964,Sep,7.89
+CES0500000032,1964,Oct,7.89
+CES0500000032,1964,Nov,7.90
+CES0500000032,1964,Dec,7.96
+CES0500000032,1965,Jan,7.94
+CES0500000032,1965,Feb,7.97
+CES0500000032,1965,Mar,8.00
+CES0500000032,1965,Apr,7.98
+CES0500000032,1965,May,8.01
+CES0500000032,1965,Jun,7.99
+CES0500000032,1965,Jul,8.02
+CES0500000032,1965,Aug,8.07
+CES0500000032,1965,Sep,8.08
+CES0500000032,1965,Oct,8.11
+CES0500000032,1965,Nov,8.12
+CES0500000032,1965,Dec,8.12
+CES0500000032,1966,Jan,8.10
+CES0500000032,1966,Feb,8.08
+CES0500000032,1966,Mar,8.08
+CES0500000032,1966,Apr,8.09
+CES0500000032,1966,May,8.12
+CES0500000032,1966,Jun,8.10
+CES0500000032,1966,Jul,8.15
+CES0500000032,1966,Aug,8.11
+CES0500000032,1966,Sep,8.12
+CES0500000032,1966,Oct,8.12
+CES0500000032,1966,Nov,8.13
+CES0500000032,1966,Dec,8.13
+CES0500000032,1967,Jan,8.16
+CES0500000032,1967,Feb,8.19
+CES0500000032,1967,Mar,8.19
+CES0500000032,1967,Apr,8.20
+CES0500000032,1967,May,8.23
+CES0500000032,1967,Jun,8.21
+CES0500000032,1967,Jul,8.24
+CES0500000032,1967,Aug,8.25
+CES0500000032,1967,Sep,8.25
+CES0500000032,1967,Oct,8.26
+CES0500000032,1967,Nov,8.29
+CES0500000032,1967,Dec,8.30
+CES0500000032,1968,Jan,8.31
+CES0500000032,1968,Feb,8.31
+CES0500000032,1968,Mar,8.34
+CES0500000032,1968,Apr,8.35
+CES0500000032,1968,May,8.38
+CES0500000032,1968,Jun,8.36
+CES0500000032,1968,Jul,8.39
+CES0500000032,1968,Aug,8.35
+CES0500000032,1968,Sep,8.41
+CES0500000032,1968,Oct,8.39
+CES0500000032,1968,Nov,8.42
+CES0500000032,1968,Dec,8.43
+CES0500000032,1969,Jan,8.43
+CES0500000032,1969,Feb,8.44
+CES0500000032,1969,Mar,8.40
+CES0500000032,1969,Apr,8.41
+CES0500000032,1969,May,8.44
+CES0500000032,1969,Jun,8.42
+CES0500000032,1969,Jul,8.43
+CES0500000032,1969,Aug,8.46
+CES0500000032,1969,Sep,8.47
+CES0500000032,1969,Oct,8.48
+CES0500000032,1969,Nov,8.46
+CES0500000032,1969,Dec,8.44
+CES0500000032,1970,Jan,8.42
+CES0500000032,1970,Feb,8.43
+CES0500000032,1970,Mar,8.44
+CES0500000032,1970,Apr,8.42
+CES0500000032,1970,May,8.45
+CES0500000032,1970,Jun,8.43
+CES0500000032,1970,Jul,8.44
+CES0500000032,1970,Aug,8.47
+CES0500000032,1970,Sep,8.48
+CES0500000032,1970,Oct,8.46
+CES0500000032,1970,Nov,8.44
+CES0500000032,1970,Dec,8.47
+CES0500000032,1971,Jan,8.50
+CES0500000032,1971,Feb,8.53
+CES0500000032,1971,Mar,8.58
+CES0500000032,1971,Apr,8.56
+CES0500000032,1971,May,8.61
+CES0500000032,1971,Jun,8.62
+CES0500000032,1971,Jul,8.60
+CES0500000032,1971,Aug,8.65
+CES0500000032,1971,Sep,8.68
+CES0500000032,1971,Oct,8.68
+CES0500000032,1971,Nov,8.68
+CES0500000032,1971,Dec,8.74
+CES0500000032,1972,Jan,8.88
+CES0500000032,1972,Feb,8.90
+CES0500000032,1972,Mar,8.93
+CES0500000032,1972,Apr,8.98
+CES0500000032,1972,May,8.98
+CES0500000032,1972,Jun,8.98
+CES0500000032,1972,Jul,8.99
+CES0500000032,1972,Aug,8.99
+CES0500000032,1972,Sep,9.02
+CES0500000032,1972,Oct,9.04
+CES0500000032,1972,Nov,9.05
+CES0500000032,1972,Dec,9.07
+CES0500000032,1973,Jan,9.08
+CES0500000032,1973,Feb,9.06
+CES0500000032,1973,Mar,9.02
+CES0500000032,1973,Apr,9.01
+CES0500000032,1973,May,8.99
+CES0500000032,1973,Jun,9.00
+CES0500000032,1973,Jul,9.04
+CES0500000032,1973,Aug,8.89
+CES0500000032,1973,Sep,8.93
+CES0500000032,1973,Oct,8.90
+CES0500000032,1973,Nov,8.87
+CES0500000032,1973,Dec,8.85
+CES0500000032,1974,Jan,8.78
+CES0500000032,1974,Feb,8.74
+CES0500000032,1974,Mar,8.69
+CES0500000032,1974,Apr,8.71
+CES0500000032,1974,May,8.71
+CES0500000032,1974,Jun,8.72
+CES0500000032,1974,Jul,8.69
+CES0500000032,1974,Aug,8.67
+CES0500000032,1974,Sep,8.63
+CES0500000032,1974,Oct,8.62
+CES0500000032,1974,Nov,8.54
+CES0500000032,1974,Dec,8.55
+CES0500000032,1975,Jan,8.49
+CES0500000032,1975,Feb,8.48
+CES0500000032,1975,Mar,8.50
+CES0500000032,1975,Apr,8.47
+CES0500000032,1975,May,8.49
+CES0500000032,1975,Jun,8.50
+CES0500000032,1975,Jul,8.45
+CES0500000032,1975,Aug,8.49
+CES0500000032,1975,Sep,8.45
+CES0500000032,1975,Oct,8.44
+CES0500000032,1975,Nov,8.45
+CES0500000032,1975,Dec,8.44
+CES0500000032,1976,Jan,8.45
+CES0500000032,1976,Feb,8.52
+CES0500000032,1976,Mar,8.54
+CES0500000032,1976,Apr,8.54
+CES0500000032,1976,May,8.58
+CES0500000032,1976,Jun,8.57
+CES0500000032,1976,Jul,8.58
+CES0500000032,1976,Aug,8.62
+CES0500000032,1976,Sep,8.61
+CES0500000032,1976,Oct,8.60
+CES0500000032,1976,Nov,8.64
+CES0500000032,1976,Dec,8.63
+CES0500000032,1977,Jan,8.62
+CES0500000032,1977,Feb,8.62
+CES0500000032,1977,Mar,8.62
+CES0500000032,1977,Apr,8.63
+CES0500000032,1977,May,8.64
+CES0500000032,1977,Jun,8.63
+CES0500000032,1977,Jul,8.64
+CES0500000032,1977,Aug,8.64
+CES0500000032,1977,Sep,8.65
+CES0500000032,1977,Oct,8.70
+CES0500000032,1977,Nov,8.69
+CES0500000032,1977,Dec,8.68
+CES0500000032,1978,Jan,8.71
+CES0500000032,1978,Feb,8.71
+CES0500000032,1978,Mar,8.71
+CES0500000032,1978,Apr,8.73
+CES0500000032,1978,May,8.70
+CES0500000032,1978,Jun,8.71
+CES0500000032,1978,Jul,8.69
+CES0500000032,1978,Aug,8.68
+CES0500000032,1978,Sep,8.68
+CES0500000032,1978,Oct,8.66
+CES0500000032,1978,Nov,8.66
+CES0500000032,1978,Dec,8.65
+CES0500000032,1979,Jan,8.65
+CES0500000032,1979,Feb,8.61
+CES0500000032,1979,Mar,8.58
+CES0500000032,1979,Apr,8.47
+CES0500000032,1979,May,8.46
+CES0500000032,1979,Jun,8.43
+CES0500000032,1979,Jul,8.38
+CES0500000032,1979,Aug,8.36
+CES0500000032,1979,Sep,8.33
+CES0500000032,1979,Oct,8.28
+CES0500000032,1979,Nov,8.25
+CES0500000032,1979,Dec,8.23
+CES0500000032,1980,Jan,8.11
+CES0500000032,1980,Feb,8.10
+CES0500000032,1980,Mar,8.05
+CES0500000032,1980,Apr,8.00
+CES0500000032,1980,May,7.97
+CES0500000032,1980,Jun,7.96
+CES0500000032,1980,Jul,8.00
+CES0500000032,1980,Aug,8.00
+CES0500000032,1980,Sep,7.98
+CES0500000032,1980,Oct,7.98
+CES0500000032,1980,Nov,7.97
+CES0500000032,1980,Dec,7.94
+CES0500000032,1981,Jan,7.94
+CES0500000032,1981,Feb,7.91
+CES0500000032,1981,Mar,7.93
+CES0500000032,1981,Apr,7.92
+CES0500000032,1981,May,7.92
+CES0500000032,1981,Jun,7.91
+CES0500000032,1981,Jul,7.86
+CES0500000032,1981,Aug,7.87
+CES0500000032,1981,Sep,7.84
+CES0500000032,1981,Oct,7.84
+CES0500000032,1981,Nov,7.86
+CES0500000032,1981,Dec,7.84
+CES0500000032,1982,Jan,7.89
+CES0500000032,1982,Feb,7.88
+CES0500000032,1982,Mar,7.92
+CES0500000032,1982,Apr,7.90
+CES0500000032,1982,May,7.89
+CES0500000032,1982,Jun,7.82
+CES0500000032,1982,Jul,7.82
+CES0500000032,1982,Aug,7.85
+CES0500000032,1982,Sep,7.85
+CES0500000032,1982,Oct,7.83
+CES0500000032,1982,Nov,7.86
+CES0500000032,1982,Dec,7.92
+CES0500000032,1983,Jan,7.96
+CES0500000032,1983,Feb,8.00
+CES0500000032,1983,Mar,7.97
+CES0500000032,1983,Apr,7.95
+CES0500000032,1983,May,7.96
+CES0500000032,1983,Jun,7.96
+CES0500000032,1983,Jul,7.97
+CES0500000032,1983,Aug,7.91
+CES0500000032,1983,Sep,7.95
+CES0500000032,1983,Oct,7.98
+CES0500000032,1983,Nov,7.97
+CES0500000032,1983,Dec,7.97
+CES0500000032,1984,Jan,7.97
+CES0500000032,1984,Feb,7.95
+CES0500000032,1984,Mar,7.99
+CES0500000032,1984,Apr,8.01
+CES0500000032,1984,May,7.98
+CES0500000032,1984,Jun,8.00
+CES0500000032,1984,Jul,8.00
+CES0500000032,1984,Aug,7.93
+CES0500000032,1984,Sep,7.93
+CES0500000032,1984,Oct,7.91
+CES0500000032,1984,Nov,7.93
+CES0500000032,1984,Dec,7.95
+CES0500000032,1985,Jan,7.93
+CES0500000032,1985,Feb,7.92
+CES0500000032,1985,Mar,7.92
+CES0500000032,1985,Apr,7.91
+CES0500000032,1985,May,7.91
+CES0500000032,1985,Jun,7.92
+CES0500000032,1985,Jul,7.92
+CES0500000032,1985,Aug,7.94
+CES0500000032,1985,Sep,7.95
+CES0500000032,1985,Oct,7.90
+CES0500000032,1985,Nov,7.90
+CES0500000032,1985,Dec,7.91
+CES0500000032,1986,Jan,7.86
+CES0500000032,1986,Feb,7.91
+CES0500000032,1986,Mar,7.97
+CES0500000032,1986,Apr,8.00
+CES0500000032,1986,May,8.00
+CES0500000032,1986,Jun,7.97
+CES0500000032,1986,Jul,7.98
+CES0500000032,1986,Aug,7.99
+CES0500000032,1986,Sep,7.96
+CES0500000032,1986,Oct,7.97
+CES0500000032,1986,Nov,7.99
+CES0500000032,1986,Dec,7.97
+CES0500000032,1987,Jan,7.93
+CES0500000032,1987,Feb,7.92
+CES0500000032,1987,Mar,7.91
+CES0500000032,1987,Apr,7.88
+CES0500000032,1987,May,7.89
+CES0500000032,1987,Jun,7.85
+CES0500000032,1987,Jul,7.84
+CES0500000032,1987,Aug,7.86
+CES0500000032,1987,Sep,7.84
+CES0500000032,1987,Oct,7.84
+CES0500000032,1987,Nov,7.86
+CES0500000032,1987,Dec,7.86
+CES0500000032,1988,Jan,7.85
+CES0500000032,1988,Feb,7.83
+CES0500000032,1988,Mar,7.83
+CES0500000032,1988,Apr,7.83
+CES0500000032,1988,May,7.85
+CES0500000032,1988,Jun,7.83
+CES0500000032,1988,Jul,7.81
+CES0500000032,1988,Aug,7.79
+CES0500000032,1988,Sep,7.80
+CES0500000032,1988,Oct,7.81
+CES0500000032,1988,Nov,7.81
+CES0500000032,1988,Dec,7.80
+CES0500000032,1989,Jan,7.80
+CES0500000032,1989,Feb,7.80
+CES0500000032,1989,Mar,7.77
+CES0500000032,1989,Apr,7.75
+CES0500000032,1989,May,7.70
+CES0500000032,1989,Jun,7.71
+CES0500000032,1989,Jul,7.73
+CES0500000032,1989,Aug,7.73
+CES0500000032,1989,Sep,7.75
+CES0500000032,1989,Oct,7.76
+CES0500000032,1989,Nov,7.73
+CES0500000032,1989,Dec,7.74
+CES0500000032,1990,Jan,7.69
+CES0500000032,1990,Feb,7.72
+CES0500000032,1990,Mar,7.71
+CES0500000032,1990,Apr,7.71
+CES0500000032,1990,May,7.72
+CES0500000032,1990,Jun,7.71
+CES0500000032,1990,Jul,7.69
+CES0500000032,1990,Aug,7.64
+CES0500000032,1990,Sep,7.61
+CES0500000032,1990,Oct,7.58
+CES0500000032,1990,Nov,7.57
+CES0500000032,1990,Dec,7.57
+CES0500000032,1991,Jan,7.56
+CES0500000032,1991,Feb,7.58
+CES0500000032,1991,Mar,7.58
+CES0500000032,1991,Apr,7.59
+CES0500000032,1991,May,7.60
+CES0500000032,1991,Jun,7.60
+CES0500000032,1991,Jul,7.61
+CES0500000032,1991,Aug,7.60
+CES0500000032,1991,Sep,7.60
+CES0500000032,1991,Oct,7.59
+CES0500000032,1991,Nov,7.57
+CES0500000032,1991,Dec,7.57
+CES0500000032,1992,Jan,7.57
+CES0500000032,1992,Feb,7.57
+CES0500000032,1992,Mar,7.57
+CES0500000032,1992,Apr,7.57
+CES0500000032,1992,May,7.57
+CES0500000032,1992,Jun,7.56
+CES0500000032,1992,Jul,7.56
+CES0500000032,1992,Aug,7.56
+CES0500000032,1992,Sep,7.54
+CES0500000032,1992,Oct,7.54
+CES0500000032,1992,Nov,7.54
+CES0500000032,1992,Dec,7.53
+CES0500000032,1993,Jan,7.54
+CES0500000032,1993,Feb,7.54
+CES0500000032,1993,Mar,7.55
+CES0500000032,1993,Apr,7.53
+CES0500000032,1993,May,7.53
+CES0500000032,1993,Jun,7.53
+CES0500000032,1993,Jul,7.54
+CES0500000032,1993,Aug,7.54
+CES0500000032,1993,Sep,7.55
+CES0500000032,1993,Oct,7.53
+CES0500000032,1993,Nov,7.53
+CES0500000032,1993,Dec,7.54
+CES0500000032,1994,Jan,7.55
+CES0500000032,1994,Feb,7.57
+CES0500000032,1994,Mar,7.56
+CES0500000032,1994,Apr,7.56
+CES0500000032,1994,May,7.56
+CES0500000032,1994,Jun,7.54
+CES0500000032,1994,Jul,7.53
+CES0500000032,1994,Aug,7.51
+CES0500000032,1994,Sep,7.52
+CES0500000032,1994,Oct,7.54
+CES0500000032,1994,Nov,7.53
+CES0500000032,1994,Dec,7.54
+CES0500000032,1995,Jan,7.52
+CES0500000032,1995,Feb,7.53
+CES0500000032,1995,Mar,7.53
+CES0500000032,1995,Apr,7.51
+CES0500000032,1995,May,7.51
+CES0500000032,1995,Jun,7.52
+CES0500000032,1995,Jul,7.55
+CES0500000032,1995,Aug,7.54
+CES0500000032,1995,Sep,7.55
+CES0500000032,1995,Oct,7.56
+CES0500000032,1995,Nov,7.57
+CES0500000032,1995,Dec,7.57
+CES0500000032,1996,Jan,7.56
+CES0500000032,1996,Feb,7.55
+CES0500000032,1996,Mar,7.53
+CES0500000032,1996,Apr,7.55
+CES0500000032,1996,May,7.55
+CES0500000032,1996,Jun,7.58
+CES0500000032,1996,Jul,7.58
+CES0500000032,1996,Aug,7.58
+CES0500000032,1996,Sep,7.59
+CES0500000032,1996,Oct,7.58
+CES0500000032,1996,Nov,7.59
+CES0500000032,1996,Dec,7.59
+CES0500000032,1997,Jan,7.61
+CES0500000032,1997,Feb,7.61
+CES0500000032,1997,Mar,7.64
+CES0500000032,1997,Apr,7.64
+CES0500000032,1997,May,7.67
+CES0500000032,1997,Jun,7.68
+CES0500000032,1997,Jul,7.70
+CES0500000032,1997,Aug,7.72
+CES0500000032,1997,Sep,7.71
+CES0500000032,1997,Oct,7.75
+CES0500000032,1997,Nov,7.77
+CES0500000032,1997,Dec,7.79
+CES0500000032,1998,Jan,7.80
+CES0500000032,1998,Feb,7.84
+CES0500000032,1998,Mar,7.86
+CES0500000032,1998,Apr,7.88
+CES0500000032,1998,May,7.88
+CES0500000032,1998,Jun,7.89
+CES0500000032,1998,Jul,7.89
+CES0500000032,1998,Aug,7.93
+CES0500000032,1998,Sep,7.94
+CES0500000032,1998,Oct,7.93
+CES0500000032,1998,Nov,7.95
+CES0500000032,1998,Dec,7.95
+CES0500000032,1999,Jan,7.97
+CES0500000032,1999,Feb,7.99
+CES0500000032,1999,Mar,8.01
+CES0500000032,1999,Apr,7.98
+CES0500000032,1999,May,8.00
+CES0500000032,1999,Jun,8.03
+CES0500000032,1999,Jul,8.02
+CES0500000032,1999,Aug,8.02
+CES0500000032,1999,Sep,8.01
+CES0500000032,1999,Oct,8.01
+CES0500000032,1999,Nov,8.02
+CES0500000032,1999,Dec,8.02
+CES0500000032,2000,Jan,8.03
+CES0500000032,2000,Feb,8.02
+CES0500000032,2000,Mar,8.00
+CES0500000032,2000,Apr,8.04
+CES0500000032,2000,May,8.04
+CES0500000032,2000,Jun,8.02
+CES0500000032,2000,Jul,8.02
+CES0500000032,2000,Aug,8.05
+CES0500000032,2000,Sep,8.03
+CES0500000032,2000,Oct,8.06
+CES0500000032,2000,Nov,8.07
+CES0500000032,2000,Dec,8.08
+CES0500000032,2001,Jan,8.04
+CES0500000032,2001,Feb,8.08
+CES0500000032,2001,Mar,8.10
+CES0500000032,2001,Apr,8.09
+CES0500000032,2001,May,8.07
+CES0500000032,2001,Jun,8.09
+CES0500000032,2001,Jul,8.12
+CES0500000032,2001,Aug,8.14
+CES0500000032,2001,Sep,8.12
+CES0500000032,2001,Oct,8.17
+CES0500000032,2001,Nov,8.21
+CES0500000032,2001,Dec,8.24
+CES0500000032,2002,Jan,8.24
+CES0500000032,2002,Feb,8.24
+CES0500000032,2002,Mar,8.23
+CES0500000032,2002,Apr,8.19
+CES0500000032,2002,May,8.22
+CES0500000032,2002,Jun,8.25
+CES0500000032,2002,Jul,8.24
+CES0500000032,2002,Aug,8.24
+CES0500000032,2002,Sep,8.26
+CES0500000032,2002,Oct,8.27
+CES0500000032,2002,Nov,8.27
+CES0500000032,2002,Dec,8.29
+CES0500000032,2003,Jan,8.26
+CES0500000032,2003,Feb,8.25
+CES0500000032,2003,Mar,8.22
+CES0500000032,2003,Apr,8.26
+CES0500000032,2003,May,8.32
+CES0500000032,2003,Jun,8.32
+CES0500000032,2003,Jul,8.32
+CES0500000032,2003,Aug,8.29
+CES0500000032,2003,Sep,8.26
+CES0500000032,2003,Oct,8.28
+CES0500000032,2003,Nov,8.30
+CES0500000032,2003,Dec,8.29
+CES0500000032,2004,Jan,8.27
+CES0500000032,2004,Feb,8.26
+CES0500000032,2004,Mar,8.26
+CES0500000032,2004,Apr,8.27
+CES0500000032,2004,May,8.24
+CES0500000032,2004,Jun,8.23
+CES0500000032,2004,Jul,8.25
+CES0500000032,2004,Aug,8.25
+CES0500000032,2004,Sep,8.25
+CES0500000032,2004,Oct,8.22
+CES0500000032,2004,Nov,8.20
+CES0500000032,2004,Dec,8.21
+CES0500000032,2005,Jan,8.23
+CES0500000032,2005,Feb,8.22
+CES0500000032,2005,Mar,8.22
+CES0500000032,2005,Apr,8.20
+CES0500000032,2005,May,8.23
+CES0500000032,2005,Jun,8.23
+CES0500000032,2005,Jul,8.21
+CES0500000032,2005,Aug,8.16
+CES0500000032,2005,Sep,8.05
+CES0500000032,2005,Oct,8.09
+CES0500000032,2005,Nov,8.15
+CES0500000032,2005,Dec,8.18
+CES0500000032,2006,Jan,8.16
+CES0500000032,2006,Feb,8.20
+CES0500000032,2006,Mar,8.22
+CES0500000032,2006,Apr,8.23
+CES0500000032,2006,May,8.20
+CES0500000032,2006,Jun,8.20
+CES0500000032,2006,Jul,8.19
+CES0500000032,2006,Aug,8.17
+CES0500000032,2006,Sep,8.25
+CES0500000032,2006,Oct,8.34
+CES0500000032,2006,Nov,8.34
+CES0500000032,2006,Dec,8.33
+CES0500000032,2007,Jan,8.35
+CES0500000032,2007,Feb,8.35
+CES0500000032,2007,Mar,8.33
+CES0500000032,2007,Apr,8.33
+CES0500000032,2007,May,8.31
+CES0500000032,2007,Jun,8.32
+CES0500000032,2007,Jul,8.33
+CES0500000032,2007,Aug,8.35
+CES0500000032,2007,Sep,8.35
+CES0500000032,2007,Oct,8.34
+CES0500000032,2007,Nov,8.27
+CES0500000032,2007,Dec,8.27
+CES0500000032,2008,Jan,8.26(p)
+CES0500000032,2008,Feb,8.28(p)
+
+p : preliminary
+
+</PRE>
+<BR>
+<!-- ********************************************TRAILER FILES******************************************** -->
+		<!-- CONTENT SHOULDN'T PASS HERE-->
+	</TD>
+  </TR>
+</TABLE>
+<!-- THIS END THE MAIN CONTENT TABLE-->	  
+
+<!-- START FOOTER HERE -->	
+<!-- ************************** BEGIN BACK TO TOP/ DOL LINK ************************** -->
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 	<tr>
+		<!-- *********************** Begin GLOBAL FOOTER ***************************** -->   
+			<td width="50%" ALIGN="LEFT" valign="top"><span class="BotNavText"><A HREF="#content"><IMG SRC="/images/topdoc.gif" ALT="Back to Top" WIDTH="18" HEIGHT="18" BORDER="0" ALIGN="MIDDLE"></A> <A HREF="#content">Back to Top</A></span></td>
+      <td width="50%" ALIGN="RIGHT" valign="top"><span class="BotNavText"><a href="http://www.dol.gov/" target="new">www.dol.gov</A></span></td>
+
+
+		<!-- ************************ End GLOBAL FOOTER ****************************** -->   
+    </tr> 
+  </table>
+<!-- ************************** ENDS BACK TO TOP/ DOL LINK *************************** -->
+
+<!-- ************************** BEGIN GLOBAL FOOTER NAVIGATION *********************** -->  
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">    
+    <tr class="TopNav" nowrap>
+      <td width="100%" colspan="2" bgColor="#003399" height="2"><SPACER type="block" width="100%" height="1"></td>
+    </tr>
+    <tr>
+      <td width="100%" height="40" colspan="2">
+		<div align="center" class="BotNavText">
+<font face="verdana,arial,helvetica" size="1"> 	
+<a href="/dolfaq/blsfaqtoc.htm">Frequently Asked Questions</A> | 
+<a href="/bls/blsfoia.htm">Freedom of Information Act</a> | 
+<a href="http://www.dol.gov/feedback/FeedbackSurvey.asp">Customer Survey</a> |
+<a href="http://www.dol.gov/dol/aboutdol/website-policies.htm">Important Web Site Notices</a><br>
+<a href="/bls/pss.htm">Privacy &amp; Security Statement</a> | 
+<a href="/bls/linksite.htm">Linking and Copyright Information</a> | 
+<a href="/bls/ada.htm">Accessibility</a> <br>
+<a href="http://data.bls.gov/cgi-bin/forms/lab?(none)">Technical (web) question</a> | 
+<a href="http://data.bls.gov/cgi-bin/forms/opb?(none)">Other comments</a>
+</font>
+</div>
+<!-- ************************** ENDS GLOBAL FOOTER NAVIGATION *********************** -->  
+
+<!-- ************************ End WEBTREND INCLUDES ****************************** -->   
+      </td>
+	</tr> 
+	<tr nowrap>
+      <td width="100%" colspan="2">&nbsp;</td>
+    </tr>	
+  </table>
+<!-- ************************** ENDS GLOBAL FOOTER NAVIGATION *********************** -->  
+
+<!-- ************************** BEGIN CONTACT INFORMATION *************************** -->  
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">  
+	<tr>
+      <td width="100%" align="center" valign="top">
+	  <DIV CLASS="footer-address" ALIGN="center">
+		<span id="footer-address"><strong>U.S. Bureau of Labor Statistics</strong> <br /> 2 Massachusetts Avenue, NE Washington, DC 20212-0001 </span> 	<br />	
+  
+		<span id="footer-contact"><a href="home.htm">www.bls.gov</a> | Telephone: (202) 691-5200 |Do you have a <a href="http://data.bls.gov/cgi-bin/forms/opb?(none)">Data question</a>?</span>
+  	
+	</div>	
+      </td>
+	</tr> 
+	<tr>
+		<td width="100%" align="center" valign="top">&nbsp;</td>
+	</tr>
+  </table>
+<!-- ************************** ENDS CONTACT INFORMATION *************************** -->  
+
+</CENTER>
+</DIV>
+</BODY></HTML>

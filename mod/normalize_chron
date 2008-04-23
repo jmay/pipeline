@@ -1,0 +1,83 @@
+#!/usr/bin/env perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+
+=head1 NAME
+
+normalize_chron - convert string values in a column from standard stringified chrons to integers
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, apply chron conversion, write to stdout
+
+=head1 CONTRACT
+
+Standard TSV contract for input and output
+
+=head1 OPTIONS
+
+  --column colnum [REQUIRED] column in input to expect to contain correct chron values
+  --chron chron-type [REQUIRED] YYYY, YYYYMM, YYYYQ, YYMMDD
+
+=head1 TODO
+
+Verify legal chron formats.  Possibly use a dispatch table instead of the if logic in convert_chron?
+
+Error handling when chron column doesn't match the specified format - skip the row or abort?
+If skipping, need to count the skipped rows.
+
+More sophisticated chron matching algorithm - copy rules from chron.rb
+
+=cut
+
+my $USAGE = "usage: normalize_chron --column colnum --chron chron-type";
+
+my ($column, $chron);
+GetOptions(
+  'column=i' => \$column,
+  'chron=s' => \$chron,
+  );
+die $USAGE, "\n" unless defined($column) && defined($chron);
+
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+######################################################################
+## CONVERT INPUT
+######################################################################
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    $fields[$column] = convert_chron($fields[$column], $chron);
+
+    if ($csv->combine(@fields)) {
+      print $csv->string, "\n";
+    }
+  }
+}
+
+
+sub convert_chron {
+  my ($value, $chron) = @_;
+
+  if ($chron eq "YYYYMM") {
+    my ($month, $year) = $value =~ /^(\d\d?)\/(\d\d\d\d)$/;
+    return $year * 12 + $month - 1;
+  } elsif ($chron eq "YYYYQ") {
+    my ($year, $quarter) = $value =~ /^(\d\d\d\d)Q(\d)$/;
+    $year * 4 + $quarter - 1;
+  } else {
+    die "Invalid chron $chron"
+  }
+}

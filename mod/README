@@ -1,0 +1,17 @@
+# README
+
+Documentation for table manipulation tools
+
+# CONTRACT
+
+All scripts that expect "normalized TSV" have the following expectations for input:
+
+* no blank lines
+* tab-separated fields
+* all fields have been stripped of leading and trailing whitespace
+* fields have no internal whitespace except for single spaces(" ") - no newlines, no tabs
+* fields are not quoted, any quotation marks are assumed to be part of the value
+* text is in UTF-8
+* any chronology values have been converted to sequential integer indexes
+
+Output is guaranteed to have the same characteristics as the input.

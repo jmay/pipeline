@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+
+use strict;
+
+=head1 NAME
+
+filestrip - remove header and footer lines from input
+
+=head1 DESCRIPTION
+
+Snips off lines from the top of a file
+
+The trimmed input is send to stdout.  The removed lines are sent to a named file, or dropped if no filename is provided.
+
+=head1 CONTRACT
+
+Expects input to be newline-delimited
+
+Expects input in UTF-8
+
+Writes UTF-8 as output.
+
+=head1 OPTIONS
+
+  -h nrows [OPTIONAL] number of header lines to remove
+  -f nrows [OPTIONAL] number of footer lines to remove
+  -o filename [OPTIONAL] filename to write removed lines to
+
+=cut
+
+my $USAGE = "usage: filestrip [-h nrows] [-f nrows] [-o filename]";
+
+use Getopt::Std;
+my %opts;
+getopts('h:f:o:', \%opts);
+die $USAGE, "\n" unless defined($opts{h}) || defined($opts{f});
+
+my $header_rows = $opts{h};
+my $footer_rows = $opts{f};
+my $outfile = $opts{o};
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my @lines = <>;
+
+my @removed;
+push @removed, splice(@lines, 0, $header_rows);
+push @removed, splice(@lines, -$footer_rows, $footer_rows);
+print @lines;
+# for (1..$header_rows) {
+#   push @removed, <>;
+#   print "HEADER\n";
+# }
+# for (1..$footer_rows) {
+#   print "FOOTER\n";
+#   push @removed, <>;
+# }
+
+if (defined $outfile) {
+  open(OUT, ">$outfile") or die $!;
+  print OUT @removed;
+  close OUT;
+}

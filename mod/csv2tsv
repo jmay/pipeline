@@ -1,0 +1,119 @@
+#!/usr/bin/perl
+
+use strict;
+
+use Getopt::Long;
+use Text::CSV_XS;
+use YAML;
+
+=head1 NAME
+
+csv2tsv - Convert comma-separated to tab separated
+
+=head1 DESCRIPTION
+
+Reads CSV from stdin, writes tab-separated (TSV) to stdout
+
+Skips blank lines
+
+Strips leading and trailing whitespace from all fields
+
+=head1 OPTIONS
+
+  -d delim [OPTIONAL] expect delim in the source instead of comma
+
+=head1 CONTRACT
+
+Expects input in CSV
+
+Expects input to have no empty lines
+
+Expects input fields to have been stripped of leading & trailing whitespace
+
+Expects input in UTF-8
+
+Writes UTF-8 as output
+
+Output will have no blank lines
+
+=head1 REQUIRED MODULES
+
+This script requires the following modules:
+
+	Text::CSV_XS
+
+=head1 TODO
+
+Compress any whitespace (spaces, tabs, newlines) in every field to a single space (so that the expectation
+  of a normalized source can be that every line is a row and there are no embedded tabs)
+
+Ensure that every output line has the same number of fields (either make this an expectation on the source,
+  or pad the output, or require a command-line parameter)
+
+=cut
+
+my $USAGE = "usage: csv2tsv [--delim delim] [--headers n] [--footers n]";
+my ($delimiter, $headers, $footers);
+GetOptions(
+  'delim=s' => \$delimiter,
+  'headers=i' => \$headers,
+  'footers=i' => \$footers);
+$headers ||= 0;
+$footers ||= 0;
+
+my $csv_in_options = {
+  binary => 1,
+  sep_char => $delimiter || ',',
+};
+my $csv_out_options = {
+  binary => 1,
+  sep_char => "\t",
+  # always_quote => 1,
+};
+
+my $csv_in = Text::CSV_XS->new($csv_in_options);
+my $csv_out = Text::CSV_XS->new($csv_out_options);
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+binmode STDERR, ":utf8";
+
+my (@rows, @errors);
+
+while (<>) {
+  if (my $status = $csv_in->parse($_)) {
+    # strip leading and trailing whitespace from every field
+    my @fields = map { s/^\s*|\s*$//g; $_ } $csv_in->fields;
+
+    my @nonblank_fields = grep { ! /^$/ } @fields;
+    if ($#nonblank_fields > 0) {
+      # write output only if there is at least one field with data
+      push @rows, \@fields;
+    }
+  } else {
+    push @errors, $_;
+  }
+}
+
+my @headers = splice(@rows, 0, $headers);
+my @footers = splice(@rows, -$footers, $footers);
+
+# write the execution statistics to stderr
+my $results = {
+  errors => \@errors,
+  headers => \@headers,
+  footers => \@footers,
+  stats => {
+    nrows => scalar(@rows),
+    nerrors => scalar(@errors),
+    ncolumns => scalar(@{$rows[0]}),
+  },
+};
+print STDERR YAML::Dump($results);
+
+# write the data records to stdout
+for my $row (@rows) {
+  if ($csv_out->combine(@$row)) {
+    print $csv_out->string, "\n";
+  }
+}

@@ -1,0 +1,75 @@
+#!/usr/bin/env perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+use YAML::Syck;
+
+=head1 NAME
+
+scrub_numeric - clean up numeric values in a specified column
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, scrub the column, write to stdout
+
+=head1 CONTRACT
+
+Standard TSV contract for input and output
+
+=head1 OPTIONS
+
+  --column colnum [REQUIRED] input column to scrub
+
+=cut
+
+my $USAGE = "usage: scrub_numeric --column colnum";
+
+my ($column);
+GetOptions(
+  'column=i' => \$column,
+  );
+die $USAGE, "\n" unless defined($column);
+
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+######################################################################
+## CONVERT INPUT
+######################################################################
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my $nrows = 0;
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    # my $number = scrub($fields[$column]);
+    $fields[$column] = scrub($fields[$column]);
+
+    if ($csv->combine(@fields)) {
+      print $csv->string, "\n";
+      $nrows++;
+    }
+  }
+}
+
+my $stats = {
+  ":nrows" => $nrows,
+};
+print STDERR Dump($stats);
+
+exit;
+
+sub scrub {
+  my ($value) = @_;
+
+  $value =~ s/[^0-9.]*$//;
+  $value;
+}

@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+use strict;
+
+=head1 NAME
+
+transpose - transpose input data matrix (TSV format)
+
+=head1 DESCRIPTION
+
+Swap rows & columns and vice versa.
+
+=head1 CONTRACT
+
+Expects input in TSV format
+
+Expects input in UTF-8
+
+Writes UTF-8 TSV as output.
+
+=cut
+
+my $USAGE = "usage: transpose";
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my @rows;
+
+while (<>) {
+  chop;
+  my @row = split(/\t/);
+  push @rows, \@row;
+}
+
+my @transposed =
+  map {
+    my $j = $_;
+    [ map $rows[$_][$j], 0..$#rows ]
+  } 0..$#{$rows[0]};
+
+for (@transposed) {
+  print join("\t", @$_), "\n";
+}

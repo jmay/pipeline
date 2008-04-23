@@ -1,0 +1,12 @@
+---
+- command: exclude
+  args:
+    column: 0
+- command: chronify
+  args:
+    column:
+    - 0:YYYY
+    - 1:Mon
+- command: scrub_numeric
+  args:
+    column: 1

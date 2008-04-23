@@ -1,0 +1,89 @@
+#!/usr/bin/perl
+
+use strict;
+use Text::CSV_XS;
+use Getopt::Long;
+
+=head1 NAME
+
+sum - collapse rows in input using straight summation
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, sum up rows in memory, drop out extraneous fields, write results to stdout
+
+=head1 CONTRACT
+
+Expects input in normalized TSV, writes output as normalized TSV
+
+=head1 OPTIONS
+
+  --dimensions colnum,colnum,colnum [at least one REQUIRED] columns to collapse on
+  --measures colnum,colnum,colnum [at least one REQUIRED] columns to aggregate
+
+=cut
+
+my $USAGE = 'usage: sum --dimensions colnum,colnum,colnum --measures colnum,colnum,colnum';
+
+my ($dimensions, $measures);
+GetOptions(
+  'dimensions=s' => \$dimensions,
+  'measures=s' => \$measures,
+  );
+die $USAGE, "\n" unless defined($dimensions) && defined($measures);
+
+######################################################################
+## PROCESS THE OPTIONS
+######################################################################
+
+my @dimension_columns = split(/\s*,\s*/, $dimensions);
+
+my @measure_columns = split(/\s*,\s*/, $measures);
+
+######################################################################
+## PROCESS THE INPUT
+######################################################################
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my %results;
+
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    my @keys = @fields[@dimension_columns];
+    my @row_values = @fields[@measure_columns];
+
+    my $key = join("\t", @keys);
+    if ($results{$key}) {
+      # need to add this to the running totals
+      my @values = @{$results{$key}};
+      for my $i (0..$#values) {
+        $values[$i] += $row_values[$i];
+      }
+      $results{$key} = \@values;
+    } else {
+      # new key
+      $results{$key} = \@row_values;
+    }
+  }
+}
+
+# Done with the aggregation.  Write the output.
+
+for my $key (keys %results) {
+  my @keys = split("\t", $key);
+  my @values = @{$results{$key}};
+
+  if ($csv->combine(@keys, @values)) {
+    print $csv->string, "\n";
+  }
+}

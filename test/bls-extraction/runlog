@@ -1,0 +1,21 @@
+--- 
+actions: 
+  - "Fri Apr  4 16:24:22 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.v7gg/input0"
+  - "Fri Apr  4 16:24:22 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.v7gg/output.nsf"
+  - "Fri Apr  4 16:24:22 2008: cat bls-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.v7gg/input0 &"
+  - "Fri Apr  4 16:24:22 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.v7gg/output.nsf >bls-extraction/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.v7gg
+  - "Fri Apr  4 16:24:22 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/mod/extract.rb /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.v7gg/extract.cn82 2>log0) >output.nsf"
+  - "Fri Apr  4 16:24:22 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :error: ~
+    :headers: 
+      - Series Id
+      - Year
+      - Period
+      - Value
+    :ncolumns: 4
+    :notes: "Employment, Hours, and Earnings from the Current Employment Statistics survey (National)\n\nSeries Id:     CES0500000032\n\nSeasonally Adjusted\nSuper Sector:  Total private\nIndustry:      Total private\nNAICS Code:    N/A\nData Type:     AVERAGE HOURLY EARNINGS, 1982 DOLLARS\n\n\n"
+    :nrows: 530

@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+use strict;
+use Getopt::Long; # for GetOptions()
+use Text::CSV_XS;
+use YAML::Syck;
+
+=head1 NAME
+
+exclude - exclude a column from TSV
+
+=head1 DESCRIPTION
+
+Read TSV from stdin, remove the specified column, write to stdout
+
+=head1 OPTIONS
+
+  --column colnum [REQUIRED] column number to strip out
+
+=cut
+
+my $USAGE = "usage: exclude --column n";
+
+my ($exclude);
+GetOptions(
+  'column=i' => \$exclude,
+  );
+die $USAGE, "\n" unless defined($exclude);
+
+my $csv_options = {
+  binary => 1,
+  sep_char => "\t",
+};
+my $csv = Text::CSV_XS->new($csv_options);
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my $nrows = 0;
+while (<>) {
+  if (my $status = $csv->parse($_)) {
+    my @fields = $csv->fields;
+
+    splice(@fields, $exclude, 1);
+
+    if ($csv->combine(@fields)) {
+      print $csv->string, "\n";
+      $nrows++;
+    }
+  }
+}
+
+my $stats = {
+  ":nrows" => $nrows,
+};
+print STDERR Dump($stats);
