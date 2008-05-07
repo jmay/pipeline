@@ -4,6 +4,10 @@ use strict;
 use File::Basename;
 use Getopt::Std;
 use POSIX qw(mkfifo);
+use File::Temp; # for tempdir
+use YAML::Syck qw(Load Dump LoadFile DumpFile);
+use Storable; $Storable::canonical = 1; # for runlog hash comparison
+
 
 my %opts;
 getopts("f", \%opts) or die "usage: test.pl [-f] [tests]";
@@ -17,6 +21,8 @@ if (scalar(@ARGV) > 0) {
   }
   exit;
 }
+
+my $testdir = File::Temp::tempdir("pipeline_test.XXXX", DIR => $ENV{TMPDIR});
 
 opendir DIR, "." or die $!;
 for my $testcase (readdir DIR) {
@@ -40,13 +46,28 @@ sub runtest {
     print STDERR $cmd, "\n";
     system($cmd);
   } else {
+    # runs the test case and compares output to expectation
 
-    my $cmd = "../bin/pipeline.pl --input $testcase/input $extra_args --recipe $testcase/recipe --output test-output --runlog test-runlog";
+    my $cmd = "../bin/pipeline.pl --input $testcase/input $extra_args --recipe $testcase/recipe --output $testdir/output --runlog $testdir/runlog";
 
-    print STDERR $cmd, "\n";
+    print STDERR "RUNNING: $testcase\n";
     system($cmd);
 
-    system "diff $testcase/output test-output";
-    system "diff $testcase/runlog test-runlog";
+    my $expected_runlog = LoadFile("$testcase/runlog");
+    my $actual_runlog = LoadFile("$testdir/runlog");
+    if (Storable::freeze( $actual_runlog->{stagelogs} ) ne Storable::freeze( $expected_runlog->{stagelogs} )) {
+      print STDERR "RUNLOG MISMATCH\n";
+      system "diff $testcase/runlog $testdir/runlog;"
+    }
+
+    if (`cmp $testcase/output $testdir/output`) {
+      print STDERR "OUTPUT MISMATCH\n";
+      system "diff $testcase/output $testdir/output";
+    }
+
+    # if (`cmp $testcase/runlog $testdir/runlog`) {
+    #   print STDERR "RUNLOG MISMATCH\n";
+    #   system "diff $testcase/runlog $testdir/runlog;"
+    # }
   }
 }

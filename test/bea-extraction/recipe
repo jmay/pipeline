@@ -1,0 +1,7 @@
+---
+- command: extract
+  code: |
+    csv
+    @notes = []
+    (@notes << data.shift) until (data.first.size > 1)
+    @notes = @notes.join("\n")

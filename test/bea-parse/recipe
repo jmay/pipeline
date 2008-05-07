@@ -1,0 +1,15 @@
+---
+- command: exclude
+  args:
+    column: 0
+- command: transpose.rb
+- command: re_filter.rb
+  args:
+    column: 0
+    filter: 'sub(/\-(.*)/) {{"I" => "Q1", "II" => "Q2", "III" => "Q3", "IV" => "Q4"}[$1]}'
+- command: chronify.rb
+  args:
+    column: 0:YYYYQ
+- command: headers.rb
+  args:
+    rows: 1

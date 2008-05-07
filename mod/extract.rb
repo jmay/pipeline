@@ -5,7 +5,7 @@
 require "fastercsv"
 require "yaml"
 
-require "dataset"
+require "dataset" # for CustomExtractor
 
 # datafile, codefile = ARGV
 codefile = ARGV.shift
@@ -33,10 +33,12 @@ ce.data.each do |row|
 end
 
 stats = {
-  :notes => ce.notes && ce.notes.gsub(/\A\s*/, ''), # needed to avoid libsyck YAML parsing bug
-  :headers => ce.headers,
   :nrows => ce.data.size,
   :ncolumns => ce.data.first && ce.data.first.size,
-  :error => error
+  :error => error,
+  :hints => {
+    :notes => ce.notes && ce.notes.gsub(/\A\s*/, ''), # needed to avoid libsyck YAML parsing bug
+    :headers => ce.headers,
+  },
 }
 $stderr.puts stats.to_yaml

@@ -40,7 +40,7 @@ FasterCSV.filter(:col_sep => "\t") do |row|
     end
   end
 
-  new_chron = Dataset::Chron.new(*chrons)
+  new_chron = chrons.size > 1 ? Dataset::Chron.new(*chrons) : chrons.first
   if new_chron.nil?
     # something bad in the chron values
     rejected_rows += 1

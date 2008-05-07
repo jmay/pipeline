@@ -1,0 +1,53 @@
+--- 
+actions: 
+  - "Wed May  7 14:46:20 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.pA2R/input0"
+  - "Wed May  7 14:46:20 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.pA2R/output.nsf"
+  - "Wed May  7 14:46:20 2008: cat bea-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.pA2R/input0 &"
+  - "Wed May  7 14:46:20 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.pA2R/output.nsf >bea-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.pA2R
+  - "Wed May  7 14:46:20 2008: cat input0 | (exclude --column '0' 2>log0) | (transpose.rb  2>log1) | (re_filter.rb --filter 'sub(/\\-(.*)/) {{\"I\" => \"Q1\", \"II\" => \"Q2\", \"III\" => \"Q3\", \"IV\" => \"Q4\"}[$1]}' --column '0' 2>log2) | (chronify.rb --column '0:YYYYQ' 2>log3) | (headers.rb --rows '1' 2>log4) >output.nsf"
+  - "Wed May  7 14:46:20 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :nrows: 25
+  - 
+    :ncolumn_rows: 
+      1: 2
+      246: 23
+    :ncolumns: 246
+    :nrows: 246
+    :rejected_nrows: 2
+  - 
+    :nrows: 246
+  - 
+    :chron_rows: 
+      YYYYQ: 245
+    :nrows: 245
+    :rejected_rows: 1
+  - 
+    :headers: 
+      - ''
+      - Gross domestic product
+      - Personal consumption expenditures
+      - Durable goods
+      - Nondurable goods
+      - Services
+      - Gross private domestic investment
+      - Fixed investment
+      - Nonresidential
+      - Structures
+      - Equipment and software
+      - Residential
+      - Exports
+      - Goods
+      - Services
+      - Imports
+      - Goods
+      - Services
+      - Government consumption expenditures and gross investment
+      - Federal
+      - National defense
+      - Nondefense
+      - State and local
+    :nrows: 245

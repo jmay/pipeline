@@ -97,10 +97,10 @@ for my $stage (@$recipe_stages) {
     while (my ($param, $value) = each(%{$stage->{args}})) {
       if (UNIVERSAL::isa($value, "ARRAY")) {
         for (@$value) {
-          push @arglist, "--$param $_";
+          push @arglist, "--$param '$_'";
         }
       } else {
-        push @arglist, "--$param $value";
+        push @arglist, "--$param '$value'";
       }
     }
   }
