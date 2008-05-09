@@ -30,6 +30,7 @@ die $USAGE, "\n" unless defined($exclude);
 my $csv_options = {
   binary => 1,
   sep_char => "\t",
+  quote_char => '',
 };
 my $csv = Text::CSV_XS->new($csv_options);
 

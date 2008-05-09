@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# specify a chron role for a single column
+
 require "fastercsv"
 require "getoptlong"
 require "yaml"
@@ -7,14 +9,20 @@ require "yaml"
 require "dataset" # for Dataset::Chron
 
 opts = GetoptLong.new(
-  [ '--column', GetoptLong::REQUIRED_ARGUMENT ]
+  [ '--column', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--format', GetoptLong::REQUIRED_ARGUMENT ]
 )
 
+# colnum = chron_spec = nil
 chron_cols = []
 chron_specs = []
 begin
   opts.each do |opt, arg|
     case opt
+    # when '--column'
+    #   colnum = arg.to_i
+    # when '--format'
+    #   chron_spec = Dataset::Chron.const_get(arg)
     when '--column'
       arg.split(/\s*,\s*/).map do |spec|
         a, b = spec.split(/\s*:\s*/)
@@ -28,15 +36,20 @@ rescue
   exit 1
 end
 
+# chron_cols = [colnum]
+# chron_specs = []
+# chron_specs[colnum] = chron_spec
+
 nrows = 0
 rejected_rows = 0
 chron_rows = {}
+last_chron = nil
 
 FasterCSV.filter(:col_sep => "\t") do |row|
   chrons = []
   chron_specs.each_with_index do |klass, i|
     if klass
-      chrons << klass.new(row[i]) rescue nil
+      chrons << klass.new(row[i])
     end
   end
 
@@ -59,5 +72,6 @@ stats = {
   :nrows => nrows,
   :rejected_rows => rejected_rows,
   :chron_rows => chron_rows,
+  :columns => [ :chron => chron_rows.keys.first ]
 }
 $stderr.puts stats.to_yaml

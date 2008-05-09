@@ -49,17 +49,17 @@ nrows = 0
 rejected_rows = 0
 ncolumns = 0
 
-measure_columns = []
+column_units = []
 
 $stdin.each_line do |line|
   if range.nil?
     row = line.chomp.split(/\t/)
     ncolumns = row.size
 
-    range = eval(ranges.join('+').gsub(/END/, ncolumns.to_s)).sort.uniq
+    range = eval(ranges.join('+').gsub(/END/, (ncolumns-1).to_s)).sort.uniq
     measure_columns = []
     range.each do |colnum|
-      measure_columns[colnum] = format
+      column_units[colnum] = format
     end
   end
 
@@ -71,6 +71,6 @@ stats = {
   :nrows => nrows,
   :rejected_rows => rejected_rows,
   :ncolumns => ncolumns,
-  :columns => measure_columns,
+  :columns => column_units.map {|units| units && {:units => units}},
 }
 $stderr.puts stats.to_yaml

@@ -5,11 +5,11 @@ require "yaml"
 
 describe "chronify" do
   before(:all) do
-    @chronify = File.dirname(__FILE__) + "/../mod/chronify"
+    @chronify = File.dirname(__FILE__) + "/../mod/chronify.rb"
   end
 
   it "should handle YYYY, Mon" do
-    cmd = "#{@chronify} --column 0:YYYY --column 1:Mon"
+    cmd = "#{@chronify} --column 0:YYYY --column 1:Month"
     Open3.popen3(cmd) do |stdin, stdout, stderr|
       stdin << "2005\tAug\t42\n"
       stdin.close
@@ -17,12 +17,12 @@ describe "chronify" do
       log = YAML.load(stderr.read)
 
       result.should == "24067\t42\n"
-      log[:chron].should == 'YYYYMM'
+      log[:columns].first[:chron].should == 'YYYYMM'
     end
   end
 
   it "should handle YYYY, Q" do
-    cmd = "#{@chronify} --column 0:YYYY --column 1:Q"
+    cmd = "#{@chronify} --column 0:YYYY --column 1:Quarter"
     Open3.popen3(cmd) do |stdin, stdout, stderr|
       stdin << "2004\t3\t42\n"
       stdin.close
@@ -30,12 +30,12 @@ describe "chronify" do
       log = YAML.load(stderr.read)
 
       result.should == "8018\t42\n"
-      log[:chron].should == 'YYYYQ'
+      log[:columns].first[:chron].should == 'YYYYQ'
     end
   end
 
   it "should handle YYYY, QtrQ" do
-    cmd = "#{@chronify} --column 0:YYYY --column 1:Q"
+    cmd = "#{@chronify} --column 0:YYYY --column 1:Quarter"
     Open3.popen3(cmd) do |stdin, stdout, stderr|
       stdin << "2004\tQtr2\t42\n"
       stdin.close
@@ -43,7 +43,7 @@ describe "chronify" do
       log = YAML.load(stderr.read)
 
       result.should == "8017\t42\n"
-      log[:chron].should == 'YYYYQ'
+      log[:columns].first[:chron].should == 'YYYYQ'
     end
   end
 end

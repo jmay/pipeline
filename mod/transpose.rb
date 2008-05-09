@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "fastercsv"
+# require "fastercsv"
 require "getoptlong"
 require "yaml"
 
