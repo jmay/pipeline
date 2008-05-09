@@ -52,8 +52,9 @@ ncolumns = 0
 column_units = []
 
 $stdin.each_line do |line|
+  row = line.chomp.split(/\t/)
+
   if range.nil?
-    row = line.chomp.split(/\t/)
     ncolumns = row.size
 
     range = eval(ranges.join('+').gsub(/END/, (ncolumns-1).to_s)).sort.uniq
@@ -63,7 +64,12 @@ $stdin.each_line do |line|
     end
   end
 
-  puts line
+  column_units.each_with_index do |format, colnum|
+    next if format.nil?
+    row[colnum] = nil if row[colnum] !~ /\d/
+  end
+
+  puts row.join("\t")
   nrows += 1
 end
 

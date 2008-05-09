@@ -46,4 +46,17 @@ describe "chronify" do
       log[:columns].first[:chron].should == 'YYYYQ'
     end
   end
+
+  it "should handle YYYYQ" do
+    cmd = "#{@chronify} --column 0:YYYYQ"
+    Open3.popen3(cmd) do |stdin, stdout, stderr|
+      stdin << "2004Q2\t42\n"
+      stdin.close
+      result = stdout.read
+      log = YAML.load(stderr.read)
+
+      result.should == "8017\t42\n"
+      log[:columns].first[:chron].should == 'YYYYQ'
+    end
+  end
 end
