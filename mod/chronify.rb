@@ -6,7 +6,7 @@ require "fastercsv"
 require "getoptlong"
 require "yaml"
 
-require "dataset" # for Dataset::Chron
+require "chron"
 
 opts = GetoptLong.new(
   [ '--column', GetoptLong::REQUIRED_ARGUMENT ],
@@ -27,7 +27,7 @@ begin
       arg.split(/\s*,\s*/).map do |spec|
         a, b = spec.split(/\s*:\s*/)
         chron_cols << a.to_i
-        chron_specs[a.to_i] = Dataset::Chron.const_get(b)
+        chron_specs[a.to_i] = Chron.const_get(b)
       end
     end
   end
@@ -43,7 +43,7 @@ end
 nrows = 0
 rejected_rows = 0
 chron_rows = {}
-last_chron = nil
+chronvalues = []
 
 FasterCSV.filter(:col_sep => "\t") do |row|
   chrons = []
@@ -53,7 +53,7 @@ FasterCSV.filter(:col_sep => "\t") do |row|
     end
   end
 
-  new_chron = chrons.size > 1 ? Dataset::Chron.new(*chrons) : chrons.first
+  new_chron = chrons.size > 1 ? Chron.new(*chrons) : chrons.first
   if new_chron.nil?
     # something bad in the chron values
     rejected_rows += 1
@@ -63,6 +63,8 @@ FasterCSV.filter(:col_sep => "\t") do |row|
     chron_rows[kname] = chron_rows[kname].to_i + 1
 
     chron_cols.reverse.each {|colnum| row.slice!(colnum)}
+
+    chronvalues << new_chron.index
     row.unshift(new_chron.index)
     nrows += 1
   end
@@ -72,6 +74,10 @@ stats = {
   :nrows => nrows,
   :rejected_rows => rejected_rows,
   :chron_rows => chron_rows,
-  :columns => [ :chron => chron_rows.keys.first ]
+  :columns => [
+    :chron => chron_rows.keys.first,
+    :min => chronvalues.min,
+    :max => chronvalues.max
+    ]
 }
 $stderr.puts stats.to_yaml

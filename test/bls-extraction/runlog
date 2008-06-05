@@ -11,12 +11,11 @@ actions:
 stagelogs: 
   - 
     :error: ~
-    :hints: 
-      :headers: 
-        - Series Id
-        - Year
-        - Period
-        - Value
-      :notes: "Employment, Hours, and Earnings from the Current Employment Statistics survey (National)\n\nSeries Id:     CES0500000032\n\nSeasonally Adjusted\nSuper Sector:  Total private\nIndustry:      Total private\nNAICS Code:    N/A\nData Type:     AVERAGE HOURLY EARNINGS, 1982 DOLLARS\n\n\n"
+    :columns: 
+      - :headings: Series Id
+      - :headings: Year
+      - :headings: Period
+      - :headings: Value
+    :notes: "Employment, Hours, and Earnings from the Current Employment Statistics survey (National)\n\nSeries Id:     CES0500000032\n\nSeasonally Adjusted\nSuper Sector:  Total private\nIndustry:      Total private\nNAICS Code:    N/A\nData Type:     AVERAGE HOURLY EARNINGS, 1982 DOLLARS\n\n\n"
     :ncolumns: 4
     :nrows: 530

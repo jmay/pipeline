@@ -60,8 +60,12 @@ while (<>) {
   }
 }
 
+my @coldata = ();
+$coldata[$column] = { ":number" => "Quantity" };
+
 my $stats = {
   ":nrows" => $nrows,
+  ":columns" => \@coldata,
 };
 print STDERR Dump($stats);
 

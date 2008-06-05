@@ -36,9 +36,7 @@ stats = {
   :nrows => ce.data.size,
   :ncolumns => ce.data.first && ce.data.first.size,
   :error => error,
-  :hints => {
-    :notes => ce.notes && ce.notes.gsub(/\A\s*/, ''), # needed to avoid libsyck YAML parsing bug
-    :headers => ce.headers,
-  },
+  :notes => ce.notes && ce.notes.gsub(/\A\s*/, ''), # needed to avoid libsyck YAML parsing bug
+  :columns => ce.headers.map {|h| {:headings => h}}
 }
 $stderr.puts stats.to_yaml

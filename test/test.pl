@@ -10,7 +10,7 @@ use Storable; $Storable::canonical = 1; # for runlog hash comparison
 
 
 my %opts;
-getopts("f", \%opts) or die "usage: test.pl [-f] [tests]";
+getopts("fv", \%opts) or die "usage: test.pl [-f] [tests]";
 
 my $dirname = dirname(__FILE__);
 chdir $dirname or die $!;
@@ -51,6 +51,7 @@ sub runtest {
     my $cmd = "../bin/pipeline.pl --input $testcase/input $extra_args --recipe $testcase/recipe --output $testdir/output --runlog $testdir/runlog";
 
     print STDERR "RUNNING: $testcase\n";
+    print STDERR $cmd, "\n" if $opts{v};
     system($cmd);
 
     my $expected_runlog = LoadFile("$testcase/runlog");

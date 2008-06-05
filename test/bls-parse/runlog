@@ -1,14 +1,14 @@
 --- 
 actions: 
-  - "Fri May  9 09:56:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V/input0"
-  - "Fri May  9 09:56:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V/input1"
-  - "Fri May  9 09:56:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V/output.nsf"
-  - "Fri May  9 09:56:41 2008: cat bls-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V/input0 &"
-  - "Fri May  9 09:56:41 2008: cat bls-parse/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V/input1 &"
-  - "Fri May  9 09:56:41 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V/output.nsf >bls-parse/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Od1V
-  - "Fri May  9 09:56:41 2008: cat input0 | (exclude --column '0' 2>log0) | (chronify.rb --column '0:YYYY' --column '1:Month' 2>log1) | (scrub_numeric --column '1' 2>log2) >output.nsf"
-  - "Fri May  9 09:56:42 2008: done"
+  - "Thu May 29 17:21:11 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input0"
+  - "Thu May 29 17:21:11 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input1"
+  - "Thu May 29 17:21:11 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/output.nsf"
+  - "Thu May 29 17:21:11 2008: cat bls-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input0 &"
+  - "Thu May 29 17:21:11 2008: cat bls-parse/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input1 &"
+  - "Thu May 29 17:21:11 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/output.nsf >bls-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu
+  - "Thu May 29 17:21:11 2008: cat input0 | (exclude --column '0' 2>log0) | (chronify.rb --column '0:YYYY' --column '1:Month' 2>log1) | (scrub_numeric --column '1' 2>log2) >output.nsf"
+  - "Thu May 29 17:21:12 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -19,7 +19,13 @@ stagelogs:
     :columns: 
       - 
         :chron: YYYYMM
+        :max: 24097
+        :min: 23568
     :nrows: 530
     :rejected_rows: 0
   - 
+    :columns: 
+      - ~
+      - 
+        :number: Quantity
     :nrows: 530
