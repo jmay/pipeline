@@ -1,19 +1,18 @@
 --- 
 actions: 
-  - "Wed May  7 13:39:35 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.2Vhk/input0"
-  - "Wed May  7 13:39:35 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.2Vhk/output.nsf"
-  - "Wed May  7 13:39:35 2008: cat bea-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.2Vhk/input0 &"
-  - "Wed May  7 13:39:35 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.2Vhk/output.nsf >bea-extraction/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.2Vhk
-  - "Wed May  7 13:39:35 2008: cat input0 | (extract.rb  /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.2Vhk/extract.XJ9V 2>log0) >output.nsf"
-  - "Wed May  7 13:39:36 2008: done"
+  - "Fri Jun  6 16:16:42 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/input0"
+  - "Fri Jun  6 16:16:42 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/output.nsf"
+  - "Fri Jun  6 16:16:42 2008: cat bea-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/input0 &"
+  - "Fri Jun  6 16:16:42 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/output.nsf >bea-extraction/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy
+  - "Fri Jun  6 16:16:42 2008: cat input0 | (extract.rb  /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/extract.mmMR 2>log0) >output.nsf"
+  - "Fri Jun  6 16:16:42 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
-    :error: ~
-    :hints: 
-      :headers: []
+    :columns: []
 
-      :notes: "Table 1.1.4. Price Indexes for Gross Domestic Product\n[Index numbers, 2000=100]\nSeasonally adjusted\nBureau of Economic Analysis\nDownloaded on 5/7/2008 At 4:01:03 PM    Last Revised April 30, 2008"
+    :error: ~
     :ncolumns: 247
+    :notes: "Table 1.1.4. Price Indexes for Gross Domestic Product\n[Index numbers, 2000=100]\nSeasonally adjusted\nBureau of Economic Analysis\nDownloaded on 5/7/2008 At 4:01:03 PM    Last Revised April 30, 2008"
     :nrows: 25

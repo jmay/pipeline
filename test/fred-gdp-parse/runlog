@@ -1,0 +1,27 @@
+--- 
+actions: 
+  - "Fri Jun  6 15:43:07 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.FkaK/input0"
+  - "Fri Jun  6 15:43:07 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.FkaK/output.nsf"
+  - "Fri Jun  6 15:43:07 2008: cat fred-gdp-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.FkaK/input0 &"
+  - "Fri Jun  6 15:43:07 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.FkaK/output.nsf >fred-gdp-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.FkaK
+  - "Fri Jun  6 15:43:07 2008: cat input0 | (chronify.rb --column '0:YYYYMM' 2>log0) | (scrub_numeric --column '1' 2>log1) >output.nsf"
+  - "Fri Jun  6 15:43:07 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :chron_rows: 
+      YYYYMM: 245
+    :columns: 
+      - 
+        :chron: YYYYMM
+        :max: 24096
+        :min: 23364
+    :nrows: 245
+    :rejected_rows: 0
+  - 
+    :columns: 
+      - ~
+      - 
+        :number: Quantity
+    :nrows: 245

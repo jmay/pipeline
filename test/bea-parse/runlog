@@ -1,12 +1,12 @@
 --- 
 actions: 
-  - "Fri May  9 10:51:59 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.46vY/input0"
-  - "Fri May  9 10:51:59 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.46vY/output.nsf"
-  - "Fri May  9 10:51:59 2008: cat bea-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.46vY/input0 &"
-  - "Fri May  9 10:51:59 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.46vY/output.nsf >bea-parse/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.46vY
-  - "Fri May  9 10:52:00 2008: cat input0 | (exclude --column '0' 2>log0) | (transpose.rb  2>log1) | (re_filter.rb --filter 'sub(/\\-(.*)/) {{\"I\" => \"Q1\", \"II\" => \"Q2\", \"III\" => \"Q3\", \"IV\" => \"Q4\"}[$1]}' --column '0' 2>log2) | (headers.rb --rows '1' 2>log3) | (chronify.rb --column '0:YYYYQ' 2>log4) | (measures.rb --format 'Continuous' --column '1-' 2>log5) >output.nsf"
-  - "Fri May  9 10:52:00 2008: done"
+  - "Fri Jun  6 16:16:59 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ge2y/input0"
+  - "Fri Jun  6 16:16:59 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ge2y/output.nsf"
+  - "Fri Jun  6 16:16:59 2008: cat bea-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ge2y/input0 &"
+  - "Fri Jun  6 16:17:00 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ge2y/output.nsf >bea-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ge2y
+  - "Fri Jun  6 16:17:00 2008: cat input0 | (exclude --column '0' 2>log0) | (transpose.rb  2>log1) | (re_filter.rb --filter 'sub(/\\-(.*)/) {{\"I\" => \"Q1\", \"II\" => \"Q2\", \"III\" => \"Q3\", \"IV\" => \"Q4\"}[$1]}' --column '0' 2>log2) | (headers.rb --rows '1' 2>log3) | (chronify.rb --column '0:YYYYQ' 2>log4) | (measures.rb --format 'Continuous' --column '1-' 2>log5) >output.nsf"
+  - "Fri Jun  6 16:17:00 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -75,6 +75,8 @@ stagelogs:
     :columns: 
       - 
         :chron: YYYYQ
+        :max: 8032
+        :min: 7788
     :nrows: 245
     :rejected_rows: 0
   - 

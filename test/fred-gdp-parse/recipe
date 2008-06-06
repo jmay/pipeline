@@ -1,0 +1,7 @@
+---
+- command: chronify.rb
+  args:
+    column: 0:YYYYMM
+- command: scrub_numeric
+  args:
+    column: 1

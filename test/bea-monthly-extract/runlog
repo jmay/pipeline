@@ -1,19 +1,18 @@
 --- 
 actions: 
-  - "Thu May 22 15:27:26 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.LsXK/input0"
-  - "Thu May 22 15:27:26 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.LsXK/output.nsf"
-  - "Thu May 22 15:27:26 2008: cat bea-monthly-extract/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.LsXK/input0 &"
-  - "Thu May 22 15:27:26 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.LsXK/output.nsf >bea-monthly-extract/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.LsXK
-  - "Thu May 22 15:27:26 2008: cat input0 | (extract.rb  /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.LsXK/extract.kY1w 2>log0) >output.nsf"
-  - "Thu May 22 15:27:26 2008: done"
+  - "Fri Jun  6 16:17:17 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.AzSj/input0"
+  - "Fri Jun  6 16:17:17 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.AzSj/output.nsf"
+  - "Fri Jun  6 16:17:17 2008: cat bea-monthly-extract/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.AzSj/input0 &"
+  - "Fri Jun  6 16:17:17 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.AzSj/output.nsf >bea-monthly-extract/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.AzSj
+  - "Fri Jun  6 16:17:17 2008: cat input0 | (extract.rb  /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.AzSj/extract.Q2P2 2>log0) >output.nsf"
+  - "Fri Jun  6 16:17:17 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
-    :error: ~
-    :hints: 
-      :headers: []
+    :columns: []
 
-      :notes: "Table 2.8.5. Personal Consumption Expenditures by Major Type of Product, Monthly\n[Billions of dollars; seasonally adjusted at annual rates]\nBureau of Economic Analysis\nDownloaded on 5/22/2008 At 6:18:25 PM    Last Revised May 01, 2008"
+    :error: ~
     :ncolumns: 593
+    :notes: "Table 2.8.5. Personal Consumption Expenditures by Major Type of Product, Monthly\n[Billions of dollars; seasonally adjusted at annual rates]\nBureau of Economic Analysis\nDownloaded on 5/22/2008 At 6:18:25 PM    Last Revised May 01, 2008"
     :nrows: 5

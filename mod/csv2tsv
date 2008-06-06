@@ -20,7 +20,7 @@ Strips leading and trailing whitespace from all fields
 
 =head1 OPTIONS
 
-  -d delim [OPTIONAL] expect delim in the source instead of comma
+  --delim delim [OPTIONAL] expect delim in the source instead of comma
 
 =head1 CONTRACT
 
