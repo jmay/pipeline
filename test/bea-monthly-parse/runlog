@@ -1,0 +1,54 @@
+--- 
+actions: 
+  - "Thu May 22 15:44:54 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TFGD/input0"
+  - "Thu May 22 15:44:54 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TFGD/output.nsf"
+  - "Thu May 22 15:44:54 2008: cat bea-monthly-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TFGD/input0 &"
+  - "Thu May 22 15:44:54 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TFGD/output.nsf >bea-monthly-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TFGD
+  - "Thu May 22 15:44:54 2008: cat input0 | (exclude --column '0' 2>log0) | (transpose.rb  2>log1) | (headers.rb --rows '1' 2>log2) | (chronify.rb --column '0:YYYYMM' 2>log3) | (measures.rb --format 'Continuous' --column '1-' 2>log4) >output.nsf"
+  - "Thu May 22 15:44:57 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :nrows: 5
+  - 
+    :ncolumn_rows: 
+      592: 5
+    :ncolumns: 592
+    :nrows: 592
+    :rejected_nrows: 0
+  - 
+    :columns: 
+      - 
+        :header: ''
+      - 
+        :header: Personal consumption expenditures
+      - 
+        :header: Durable goods
+      - 
+        :header: Nondurable goods
+      - 
+        :header: Services
+    :nrows: 591
+  - 
+    :chron_rows: 
+      YYYYMM: 591
+    :columns: 
+      - 
+        :chron: YYYYMM
+    :nrows: 591
+    :rejected_rows: 0
+  - 
+    :columns: 
+      - ~
+      - 
+        :units: Dataset::Units::Continuous
+      - 
+        :units: Dataset::Units::Continuous
+      - 
+        :units: Dataset::Units::Continuous
+      - 
+        :units: Dataset::Units::Continuous
+    :ncolumns: 5
+    :nrows: 591
+    :rejected_rows: 0

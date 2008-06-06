@@ -1,0 +1,8 @@
+---
+- command: strip
+  args:
+    until: '^DATE'
+- command: whitespace_separated.rb
+- command: headers.rb
+  args:
+    rows: 1

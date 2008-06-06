@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+
+use strict;
+use Getopt::Long;
+use YAML;
+
+=head1 NAME
+
+strip - remove header and footer lines from input; optionally write the removed pieces to a 'notes' field
+
+=head1 DESCRIPTION
+
+Snips off lines from the top of a file
+
+The trimmed input is send to stdout.  The removed lines are sent to a named file, or dropped if no filename is provided.
+
+=head1 CONTRACT
+
+Expects input to be newline-delimited
+
+Expects input in UTF-8
+
+Writes UTF-8 as output.
+
+=head1 OPTIONS
+
+  -h nrows [OPTIONAL] number of header lines to remove
+  -f nrows [OPTIONAL] number of footer lines to remove
+  -o filename [OPTIONAL] filename to write removed lines to
+
+=cut
+
+my $USAGE = "usage: strip [--headers nrows] [--footers nrows] [--until 'match'][--ignore]";
+
+my ($nheaders, $nfooters, $until_match);
+my $ignore = 0;
+GetOptions(
+  'headers=i' => \$nheaders,
+  'footers=i' => \$nfooters,
+  'until=s' => \$until_match,
+  'ignore' => \$ignore
+  );
+die $USAGE, "\n" unless $nheaders>0 || $nfooters>0 || $until_match;
+
+binmode STDIN, ":utf8";
+binmode STDOUT, ":utf8";
+
+my @lines = <>;
+
+my @removed;
+if ($nheaders) {
+  push @removed, splice(@lines, 0, $nheaders);
+}
+if ($until_match) {
+  until ($lines[0] =~ /$until_match/o) {
+    my $line  = shift(@lines);
+    $line =~ s/^\s*//g;
+    $line =~ s/\s*$//g;
+    push @removed, $line;
+  }
+}
+if ($nfooters) {
+  push @removed, splice(@lines, -$nfooters, $nfooters);
+}
+
+print @lines;
+
+if (!$ignore) {
+  my $stats = {
+    ':nrows' => scalar(@lines),
+    ':notes' => \@removed,
+  };
+  print STDERR YAML::Dump($stats);
+}

@@ -1,0 +1,35 @@
+--- 
+actions: 
+  - "Fri Jun  6 09:37:15 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.3d2q/input0"
+  - "Fri Jun  6 09:37:15 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.3d2q/output.nsf"
+  - "Fri Jun  6 09:37:15 2008: cat fred-gdp/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.3d2q/input0 &"
+  - "Fri Jun  6 09:37:15 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.3d2q/output.nsf >fred-gdp/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.3d2q
+  - "Fri Jun  6 09:37:15 2008: cat input0 | (strip --until '^DATE' 2>log0) | (whitespace_separated.rb  2>log1) | (headers.rb --rows '1' 2>log2) >output.nsf"
+  - "Fri Jun  6 09:37:15 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :notes: 
+      - "Title:               Real Gross Domestic Product, 1 Decimal"
+      - "Series ID:           GDPC1"
+      - "Source:              U.S. Department of Commerce: Bureau of Economic Analysis"
+      - "Release:             Gross Domestic Product"
+      - "Seasonal Adjustment: Seasonally Adjusted Annual Rate"
+      - "Frequency:           Quarterly"
+      - "Units:               Billions of Chained 2000 Dollars"
+      - "Date Range:          1947-01-01 to 2008-01-01"
+      - "Last Updated:        2008-05-29 10:01 AM CDT"
+      - "Notes:               A Guide to the National Income and Product Accounts of the United"
+      - States (NIPA) - (http://www.bea.gov/bea/an/nipaguid.pdf)
+      - ''
+    :nrows: 246
+  - 
+    :nrows: 246
+  - 
+    :columns: 
+      - 
+        :header: DATE
+      - 
+        :header: VALUE
+    :nrows: 245
