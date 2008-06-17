@@ -7,6 +7,7 @@
     column:
     - 0:YYYY
     - 1:Month
-- command: scrub_numeric
+- command: numbers.rb
   args:
     column: 1
+    format: Unspecified Measure

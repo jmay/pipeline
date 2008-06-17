@@ -1,14 +1,14 @@
 --- 
 actions: 
-  - "Thu May 29 17:21:11 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input0"
-  - "Thu May 29 17:21:11 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input1"
-  - "Thu May 29 17:21:11 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/output.nsf"
-  - "Thu May 29 17:21:11 2008: cat bls-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input0 &"
-  - "Thu May 29 17:21:11 2008: cat bls-parse/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/input1 &"
-  - "Thu May 29 17:21:11 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu/output.nsf >bls-parse/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.e1uu
-  - "Thu May 29 17:21:11 2008: cat input0 | (exclude --column '0' 2>log0) | (chronify.rb --column '0:YYYY' --column '1:Month' 2>log1) | (scrub_numeric --column '1' 2>log2) >output.nsf"
-  - "Thu May 29 17:21:12 2008: done"
+  - "Tue Jun 17 13:17:30 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv/input0"
+  - "Tue Jun 17 13:17:30 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv/input1"
+  - "Tue Jun 17 13:17:30 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv/output.nsf"
+  - "Tue Jun 17 13:17:30 2008: cat bls-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv/input0 &"
+  - "Tue Jun 17 13:17:30 2008: cat bls-parse/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv/input1 &"
+  - "Tue Jun 17 13:17:30 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv/output.nsf >bls-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.58tv
+  - "Tue Jun 17 13:17:30 2008: cat input0 | (exclude --column '0' 2>log0) | (chronify.rb --column '0:YYYY' --column '1:Month' 2>log1) | (numbers.rb --format 'Unspecified Measure' --column '1' 2>log2) >output.nsf"
+  - "Tue Jun 17 13:17:31 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -29,3 +29,4 @@ stagelogs:
       - 
         :number: Unspecified Measure
     :nrows: 530
+    :rejected_rows: 0
