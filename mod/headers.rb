@@ -37,6 +37,6 @@ end
 
 stats = {
   :nrows => nrows,
-  :columns => headers.map {|hdr| hdr && { :header => hdr }}
+  :columns => headers.map {|hdr| hdr && { :heading => hdr }}
 }
 $stderr.puts stats.to_yaml

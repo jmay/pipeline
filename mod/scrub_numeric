@@ -61,7 +61,7 @@ while (<>) {
 }
 
 my @coldata = ();
-$coldata[$column] = { ":number" => "Quantity" };
+$coldata[$column] = { ":number" => "Unspecified Measure" };
 
 my $stats = {
   ":nrows" => $nrows,

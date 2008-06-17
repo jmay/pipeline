@@ -23,51 +23,51 @@ stagelogs:
   - 
     :columns: 
       - 
-        :header: ''
+        :heading: ''
       - 
-        :header: Gross domestic product
+        :heading: Gross domestic product
       - 
-        :header: Personal consumption expenditures
+        :heading: Personal consumption expenditures
       - 
-        :header: Durable goods
+        :heading: Durable goods
       - 
-        :header: Nondurable goods
+        :heading: Nondurable goods
       - 
-        :header: Services
+        :heading: Services
       - 
-        :header: Gross private domestic investment
+        :heading: Gross private domestic investment
       - 
-        :header: Fixed investment
+        :heading: Fixed investment
       - 
-        :header: Nonresidential
+        :heading: Nonresidential
       - 
-        :header: Structures
+        :heading: Structures
       - 
-        :header: Equipment and software
+        :heading: Equipment and software
       - 
-        :header: Residential
+        :heading: Residential
       - 
-        :header: Exports
+        :heading: Exports
       - 
-        :header: Goods
+        :heading: Goods
       - 
-        :header: Services
+        :heading: Services
       - 
-        :header: Imports
+        :heading: Imports
       - 
-        :header: Goods
+        :heading: Goods
       - 
-        :header: Services
+        :heading: Services
       - 
-        :header: Government consumption expenditures and gross investment
+        :heading: Government consumption expenditures and gross investment
       - 
-        :header: Federal
+        :heading: Federal
       - 
-        :header: National defense
+        :heading: National defense
       - 
-        :header: Nondefense
+        :heading: Nondefense
       - 
-        :header: State and local
+        :heading: State and local
     :nrows: 245
   - 
     :chron_rows: 

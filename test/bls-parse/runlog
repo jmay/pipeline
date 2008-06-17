@@ -27,5 +27,5 @@ stagelogs:
     :columns: 
       - ~
       - 
-        :number: Quantity
+        :number: Unspecified Measure
     :nrows: 530

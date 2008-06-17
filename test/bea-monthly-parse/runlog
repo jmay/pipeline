@@ -20,15 +20,15 @@ stagelogs:
   - 
     :columns: 
       - 
-        :header: ''
+        :heading: ''
       - 
-        :header: Personal consumption expenditures
+        :heading: Personal consumption expenditures
       - 
-        :header: Durable goods
+        :heading: Durable goods
       - 
-        :header: Nondurable goods
+        :heading: Nondurable goods
       - 
-        :header: Services
+        :heading: Services
     :nrows: 591
   - 
     :chron_rows: 
