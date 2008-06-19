@@ -3,7 +3,7 @@
   code: |
     html
     pre_section
-    if text =~ /^Series Id,/
+    if text =~ /^Series Id,/i
       self.notes = $PREMATCH
       self.text = $MATCH + $POSTMATCH
     end
