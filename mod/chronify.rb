@@ -45,12 +45,20 @@ rejected_rows = 0
 chron_rows = {}
 chronvalues = []
 
-FasterCSV.filter(:col_sep => "\t") do |row|
+$stdin.each_line do |line|
+  row = line.split(/\t/)
+# FasterCSV.filter(:col_sep => "\t") do |row|
   chrons = []
-  chron_specs.each_with_index do |klass, i|
-    if klass
-      chrons << klass.new(row[i])
+
+  begin
+    chron_specs.each_with_index do |klass, i|
+      if klass
+        chrons << klass.new(row[i])
+      end
     end
+  rescue
+    rejected_rows += 1
+    next
   end
 
   new_chron = chrons.size > 1 ? Chron.new(*chrons) : chrons.first
@@ -66,6 +74,7 @@ FasterCSV.filter(:col_sep => "\t") do |row|
 
     chronvalues << new_chron.index
     row.unshift(new_chron.index)
+    puts row.join("\t")
     nrows += 1
   end
 end

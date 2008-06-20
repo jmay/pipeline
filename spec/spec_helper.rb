@@ -20,8 +20,7 @@ Spec::Runner.configure do |config|
   # for all of your examples, even those that don't use them.
 end
 
-# def testdata(testname)
-#   f = File.open(File.dirname(__FILE__) + "/testdata/#{testname}") rescue nil
-#   f ||= File.open(File.dirname(__FILE__) + "/../test/testdata/#{testname}") rescue nil
-#   f.read
-# end
+def testdata(testname)
+  f = File.open(File.dirname(__FILE__) + "/testdata/#{testname}") rescue nil
+  f.read
+end

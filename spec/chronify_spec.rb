@@ -59,4 +59,20 @@ describe "chronify" do
       log[:columns].first[:chron].should == 'YYYYQ'
     end
   end
+
+  it "should reject bad rows" do
+    cmd = "#{@chronify} --column 0:YYYY --column 1:Month"
+    Open3.popen3(cmd) do |stdin, stdout, stderr|
+      stdin << testdata('monthlydata.tsv')
+      stdin.close
+      result = stdout.read
+      log = YAML.load(stderr.read)
+
+      result.split(/\n/).size.should == 5
+      result.split(/\n/).size.should == log[:nrows]
+      log[:rejected_rows].should == 1
+      log[:columns].size.should == 1
+      log[:chron_rows].size.should == 1
+    end
+  end
 end
