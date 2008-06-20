@@ -34,7 +34,7 @@ begin
         end
       end
     when '--format'
-      format = Dataset::Units::const_get(arg)
+      format = Dataset::Units.find(arg) #::const_get(arg)
     end
   end
 rescue Exception => e
@@ -66,7 +66,8 @@ $stdin.each_line do |line|
 
   column_units.each_with_index do |format, colnum|
     next if format.nil?
-    row[colnum] = nil if row[colnum] !~ /\d/
+    row[colnum] = format.new(row[colnum]).value
+    # row[colnum] = nil if row[colnum] !~ /\d/
   end
 
   puts row.join("\t")
@@ -77,6 +78,7 @@ stats = {
   :nrows => nrows,
   :rejected_rows => rejected_rows,
   :ncolumns => ncolumns,
-  :columns => column_units.map {|units| units && {:units => units}},
+  # :columns => column_units.map {|units| units && {:units => units}},
+  :columns => column_units.map {|units| units && {:number => format.label}},
 }
 $stderr.puts stats.to_yaml

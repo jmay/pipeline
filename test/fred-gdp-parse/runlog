@@ -1,12 +1,12 @@
 --- 
 actions: 
-  - "Tue Jun 17 13:20:25 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.4TQm/input0"
-  - "Tue Jun 17 13:20:25 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.4TQm/output.nsf"
-  - "Tue Jun 17 13:20:25 2008: cat fred-gdp-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.4TQm/input0 &"
-  - "Tue Jun 17 13:20:25 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.4TQm/output.nsf >fred-gdp-parse/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.4TQm
-  - "Tue Jun 17 13:20:25 2008: cat input0 | (chronify.rb --column '0:YYYYMM' 2>log0) | (numbers.rb --format 'Unspecified Measure' --column '1' 2>log1) >output.nsf"
-  - "Tue Jun 17 13:20:25 2008: done"
+  - "Fri Jun 20 15:07:26 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cQ8X/input0"
+  - "Fri Jun 20 15:07:26 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cQ8X/output.nsf"
+  - "Fri Jun 20 15:07:26 2008: cat fred-gdp-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cQ8X/input0 &"
+  - "Fri Jun 20 15:07:26 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cQ8X/output.nsf >fred-gdp-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cQ8X
+  - "Fri Jun 20 15:07:26 2008: cat input0 | (chronify.rb --column '0:YYYYMM' 2>log0) | (measures.rb --format 'Unspecified Measure' --column '1' 2>log1) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Fri Jun 20 15:07:27 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -24,5 +24,6 @@ stagelogs:
       - ~
       - 
         :number: Unspecified Measure
+    :ncolumns: 2
     :nrows: 245
     :rejected_rows: 0

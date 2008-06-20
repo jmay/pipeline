@@ -2,7 +2,7 @@
 - command: chronify.rb
   args:
     column: 0:YYYYMM
-- command: numbers.rb
+- command: measures.rb
   args:
     column: 1
     format: Unspecified Measure

@@ -16,4 +16,4 @@
 - command: measures.rb
   args:
     column: 1-
-    format: Continuous
+    format: Unspecified Measure

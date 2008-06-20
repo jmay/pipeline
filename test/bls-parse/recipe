@@ -7,7 +7,7 @@
     column:
     - 0:YYYY
     - 1:Month
-- command: numbers.rb
+- command: measures.rb
   args:
     column: 1
     format: Unspecified Measure
