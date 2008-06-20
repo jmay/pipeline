@@ -1,0 +1,25 @@
+--- 
+actions: 
+  - "Fri Jun 20 14:46:21 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.qNx1/input0"
+  - "Fri Jun 20 14:46:21 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.qNx1/output.nsf"
+  - "Fri Jun 20 14:46:21 2008: cat failure/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.qNx1/input0 &"
+  - "Fri Jun 20 14:46:21 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.qNx1/output.nsf >failure/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.qNx1
+  - "Fri Jun 20 14:46:21 2008: cat input0 | (exclude --column '0' 2>log0) | (fail --column '0:YYYY' --column '1:Month' 2>log1) | (numbers.rb --format 'Unspecified Measure' --column '1' 2>log2) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Fri Jun 20 14:46:21 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :nrows: 4
+  - 
+    code: 1
+    errors: 
+      - "Garbage\n"
+      - "/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/fail:5: Dying horribly (RuntimeError)\n"
+  - 
+    :columns: 
+      - ~
+      - 
+        :number: Unspecified Measure
+    :nrows: 0
+    :rejected_rows: 0

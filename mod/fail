@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+$stderr.puts "Garbage"
+
+raise "Dying horribly"

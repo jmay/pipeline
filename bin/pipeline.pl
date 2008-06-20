@@ -5,6 +5,7 @@ use Getopt::Long; # for GetOptions()
 use File::Temp;   # for tempdir()
 use File::Slurp;  # for read_file()
 use YAML::Syck qw(Load Dump LoadFile DumpFile);
+$YAML::Syck::ImplicitTyping = 1;  # for compatibility with ruby & others
 use Cwd qw(getcwd abs_path);
 use File::Basename;
 
@@ -171,7 +172,9 @@ my $cwd = getcwd;
 print LOG "chdir $dir\n";
 chdir $dir;
 
-run "cat input0 | $recipe_pipeline >output.nsf";
+my $codes = run "cat input0 | $recipe_pipeline >output.nsf; echo \${PIPESTATUS[*]}";
+my @status_codes = split(/\s+/, $codes);
+shift(@status_codes);
 
 print LOG scalar(localtime), ": done\n";
 
@@ -189,11 +192,16 @@ chomp @masterlog;
 my @stagelogs;
 # for my $i (0..$#recipe_stages) {
 for my $i (0..$#chain) {
-  my $stats = eval { LoadFile("$dir/log$i") };
-  if ($@) {
-    push @stagelogs, { 'error' => $@ };
+  if ($status_codes[$i] != 0) {
+    my @errors = read_file("$dir/log$i");
+    push @stagelogs, { 'errors' => \@errors, 'code' => $status_codes[$i] };
   } else {
-    push @stagelogs, $stats;
+    my $stats = eval { LoadFile("$dir/log$i") };
+    if ($@) {
+      push @stagelogs, { 'error' => $@ }; # TODO: need test case for this
+    } else {
+      push @stagelogs, $stats;
+    }
   }
 }
 

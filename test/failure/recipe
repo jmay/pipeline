@@ -1,0 +1,13 @@
+---
+- command: exclude
+  args:
+    column: 0
+- command: fail
+  args:
+    column:
+    - 0:YYYY
+    - 1:Month
+- command: numbers.rb
+  args:
+    column: 1
+    format: Unspecified Measure
