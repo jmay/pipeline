@@ -1,12 +1,12 @@
 --- 
 actions: 
-  - "Fri Jun 20 15:07:19 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J8ax/input0"
-  - "Fri Jun 20 15:07:20 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J8ax/output.nsf"
-  - "Fri Jun 20 15:07:20 2008: cat bea-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J8ax/input0 &"
-  - "Fri Jun 20 15:07:20 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J8ax/output.nsf >bea-parse/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J8ax
-  - "Fri Jun 20 15:07:20 2008: cat input0 | (exclude --column '0' 2>log0) | (transpose.rb  2>log1) | (re_filter.rb --filter 'sub(/\\-(.*)/) {{\"I\" => \"Q1\", \"II\" => \"Q2\", \"III\" => \"Q3\", \"IV\" => \"Q4\"}[$1]}' --column '0' 2>log2) | (headers.rb --rows '1' 2>log3) | (chronify.rb --column '0:YYYYQ' 2>log4) | (measures.rb --format 'Unspecified Measure' --column '1-' 2>log5) >output.nsf; echo ${PIPESTATUS[*]}"
-  - "Fri Jun 20 15:07:20 2008: done"
+  - "Mon Jun 23 10:19:13 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ukc8/input0"
+  - "Mon Jun 23 10:19:13 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ukc8/output.nsf"
+  - "Mon Jun 23 10:19:13 2008: cat bea-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ukc8/input0 &"
+  - "Mon Jun 23 10:19:13 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ukc8/output.nsf >bea-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ukc8
+  - "Mon Jun 23 10:19:13 2008: cat input0 | (exclude --column '0' 2>log0) | (transpose.rb  2>log1) | (re_filter.rb --filter 'sub(/\\-(.*)/) {{\"I\" => \"Q1\", \"II\" => \"Q2\", \"III\" => \"Q3\", \"IV\" => \"Q4\"}[$1]}' --column '0' 2>log2) | (headers.rb --rows '1' 2>log3) | (chronify.rb --column '0:YYYYQ' 2>log4) | (measures.rb --format 'Unspecified Measure' --column '1-' 2>log5) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Mon Jun 23 10:19:14 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -83,48 +83,92 @@ stagelogs:
     :columns: 
       - ~
       - 
+        :max: 121.337
+        :min: 15.115
         :number: Unspecified Measure
       - 
+        :max: 120.052
+        :min: 15.366
         :number: Unspecified Measure
       - 
+        :max: 111.054
+        :min: 36.774
         :number: Unspecified Measure
       - 
+        :max: 122.756
+        :min: 18.501
         :number: Unspecified Measure
       - 
+        :max: 126.845
+        :min: 10.131
         :number: Unspecified Measure
       - 
+        :max: 116.549
+        :min: 19.953
         :number: Unspecified Measure
       - 
+        :max: 116.718
+        :min: 18.714
         :number: Unspecified Measure
       - 
+        :max: 108.44
+        :min: 22.229
         :number: Unspecified Measure
       - 
+        :max: 157.145
+        :min: 10.388
         :number: Unspecified Measure
       - 
+        :max: 120.37
+        :min: 31.539
         :number: Unspecified Measure
       - 
+        :max: 135.736
+        :min: 11.925
         :number: Unspecified Measure
       - 
+        :max: 121.282
+        :min: 23.353
         :number: Unspecified Measure
       - 
+        :max: 120.212
+        :min: 26.483
         :number: Unspecified Measure
       - 
+        :max: 123.789
+        :min: 16.674
         :number: Unspecified Measure
       - 
+        :max: 128.125
+        :min: 16.298
         :number: Unspecified Measure
       - 
+        :max: 127.278
+        :min: 15.687
         :number: Unspecified Measure
       - 
+        :max: 132.159
+        :min: 18.808
         :number: Unspecified Measure
       - 
+        :max: 137.56
+        :min: 10.687
         :number: Unspecified Measure
       - 
+        :max: 132.326
+        :min: 12.056
         :number: Unspecified Measure
       - 
+        :max: 133.916
+        :min: 11.696
         :number: Unspecified Measure
       - 
+        :max: 129.294
+        :min: 11.253
         :number: Unspecified Measure
       - 
+        :max: 140.702
+        :min: 8.831
         :number: Unspecified Measure
     :ncolumns: 23
     :nrows: 245

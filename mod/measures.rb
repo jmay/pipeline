@@ -50,6 +50,8 @@ rejected_rows = 0
 ncolumns = 0
 
 column_units = []
+column_min = []
+column_max = []
 
 $stdin.each_line do |line|
   row = line.chomp.split(/\t/)
@@ -65,8 +67,11 @@ $stdin.each_line do |line|
   end
 
   column_units.each_with_index do |format, colnum|
-    next if format.nil?
-    row[colnum] = format.new(row[colnum]).value
+    if format
+      row[colnum] = format.new(row[colnum]).value
+      column_min[colnum] = [ column_min[colnum], row[colnum] ].compact.min
+      column_max[colnum] = [ column_max[colnum], row[colnum] ].compact.max
+    end
     # row[colnum] = nil if row[colnum] !~ /\d/
   end
 
@@ -74,11 +79,21 @@ $stdin.each_line do |line|
   nrows += 1
 end
 
+columndata = Array.new(ncolumns)
+columndata = (0..ncolumns-1).map do |colnum|
+  column_units[colnum] &&
+  {
+    :number => column_units[colnum].label,
+    :min => column_min[colnum],
+    :max => column_max[colnum]
+  }
+end
+
 stats = {
   :nrows => nrows,
   :rejected_rows => rejected_rows,
   :ncolumns => ncolumns,
   # :columns => column_units.map {|units| units && {:units => units}},
-  :columns => column_units.map {|units| units && {:number => format.label}},
+  :columns => columndata #column_units.map {|units| units && {:number => format.label}},
 }
 $stderr.puts stats.to_yaml

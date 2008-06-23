@@ -1,14 +1,14 @@
 --- 
 actions: 
-  - "Fri Jun 20 15:07:30 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN/input0"
-  - "Fri Jun 20 15:07:30 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN/input1"
-  - "Fri Jun 20 15:07:30 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN/output.nsf"
-  - "Fri Jun 20 15:07:30 2008: cat bls-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN/input0 &"
-  - "Fri Jun 20 15:07:30 2008: cat bls-parse/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN/input1 &"
-  - "Fri Jun 20 15:07:30 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN/output.nsf >bls-parse/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5JjN
-  - "Fri Jun 20 15:07:30 2008: cat input0 | (exclude --column '0' 2>log0) | (chronify.rb --column '0:YYYY' --column '1:Month' 2>log1) | (measures.rb --format 'Unspecified Measure' --column '1' 2>log2) >output.nsf; echo ${PIPESTATUS[*]}"
-  - "Fri Jun 20 15:07:30 2008: done"
+  - "Mon Jun 23 10:18:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr/input0"
+  - "Mon Jun 23 10:18:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr/input1"
+  - "Mon Jun 23 10:18:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr/output.nsf"
+  - "Mon Jun 23 10:18:55 2008: cat bls-parse/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr/input0 &"
+  - "Mon Jun 23 10:18:55 2008: cat bls-parse/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr/input1 &"
+  - "Mon Jun 23 10:18:55 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr/output.nsf >bls-parse/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.WEXr
+  - "Mon Jun 23 10:18:55 2008: cat input0 | (exclude --column '0' 2>log0) | (chronify.rb --column '0:YYYY' --column '1:Month' 2>log1) | (measures.rb --format 'Unspecified Measure' --column '1' 2>log2) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Mon Jun 23 10:18:56 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -27,6 +27,8 @@ stagelogs:
     :columns: 
       - ~
       - 
+        :max: 9.08
+        :min: 7.51
         :number: Unspecified Measure
     :ncolumns: 2
     :nrows: 530
