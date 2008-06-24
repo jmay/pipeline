@@ -3,8 +3,10 @@
 use strict;
 
 use Getopt::Long;
+use IO::Handle;
+use IO::Wrap;
 use Text::CSV_XS;
-use YAML;
+use YAML::Syck;
 
 =head1 NAME
 
@@ -21,6 +23,7 @@ Strips leading and trailing whitespace from all fields
 =head1 OPTIONS
 
   --delim delim [OPTIONAL] expect delim in the source instead of comma
+  --eol eol [OPTIONAL] specifies end-of-line string (options are 'cr', 'lf' ,'crlf')
 
 =head1 CONTRACT
 
@@ -52,23 +55,35 @@ Ensure that every output line has the same number of fields (either make this an
 
 =cut
 
-my $USAGE = "usage: csv2tsv [--delim delim] [--headers n] [--footers n]";
-my ($delimiter, $headers, $footers);
+my $USAGE = "usage: csv2tsv [--delim delim] [--headers n] [--footers n] [--eol eol]";
+my ($delimiter, $headers, $footers, $eol);
 GetOptions(
   'delim=s' => \$delimiter,
+  'eol=s' => \$eol,
   'headers=i' => \$headers,
   'footers=i' => \$footers);
 $headers ||= 0;
 $footers ||= 0;
 
+# source can have a variety of line terminators
+# this is the best way I've found to catch the possibilities I've encountered so far
+if ($eol) {
+  $eol = "\015" if $eol eq 'cr';
+  $eol = "\012" if $eol eq 'lf';
+  $eol = "\015\012" if $eol eq 'crlf';
+  $/ = $eol;
+}
+
 my $csv_in_options = {
   binary => 1,
   sep_char => $delimiter || ',',
+  eol => $/,
 };
 my $csv_out_options = {
   binary => 1,
   sep_char => "\t",
-  # always_quote => 1,
+  eol => "\n",
+  quote_char => '', # no quoting in the TSV output; all whitespace is crushed so no embedded delims
 };
 
 my $csv_in = Text::CSV_XS->new($csv_in_options);
@@ -78,20 +93,18 @@ binmode STDIN, ":utf8";
 binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 
-my (@rows, @errors);
+my (@rows, %ncolumns);
 
-while (<>) {
-  if (my $status = $csv_in->parse($_)) {
-    # strip leading and trailing whitespace from every field
-    my @fields = map { s/^\s*|\s*$//g; $_ } $csv_in->fields;
+my $io = wraphandle(\*STDIN);
+while (my $row = $csv_in->getline($io)) {
+  # strip leading and trailing whitespace, compress internal whitespace to single space
+  my @fields = map { s/\s+/ /g; $_ } map { s/^\s*|\s*$//g; $_ } @$row;
 
-    my @nonblank_fields = grep { ! /^$/ } @fields;
-    if ($#nonblank_fields > 0) {
-      # write output only if there is at least one field with data
-      push @rows, \@fields;
-    }
-  } else {
-    push @errors, $_;
+  my @nonblank_fields = grep { ! /^$/ } @fields;
+  if ($#nonblank_fields > 0) {
+    # write output only if there is at least one field with data
+    push @rows, \@fields;
+    $ncolumns{scalar(@fields)}++;
   }
 }
 
@@ -100,20 +113,17 @@ my @footers = splice(@rows, -$footers, $footers);
 
 # write the execution statistics to stderr
 my $results = {
-  errors => \@errors,
-  headers => \@headers,
-  footers => \@footers,
-  stats => {
-    nrows => scalar(@rows),
-    nerrors => scalar(@errors),
-    ncolumns => scalar(@{$rows[0]}),
-  },
+  ':headers' => \@headers,
+  ':footers' => \@footers,
+  ':nrows' => scalar(@rows),
+  # ':rejected_rows' => scalar(@errors),
+  ':ncolumns' => \%ncolumns,
 };
-print STDERR YAML::Dump($results);
+print STDERR Dump($results);
 
 # write the data records to stdout
 for my $row (@rows) {
   if ($csv_out->combine(@$row)) {
-    print $csv_out->string, "\n";
+    print $csv_out->string;
   }
 }

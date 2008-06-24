@@ -1,18 +1,24 @@
 --- 
 actions: 
-  - "Fri Jun  6 16:16:42 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/input0"
-  - "Fri Jun  6 16:16:42 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/output.nsf"
-  - "Fri Jun  6 16:16:42 2008: cat bea-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/input0 &"
-  - "Fri Jun  6 16:16:42 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/output.nsf >bea-extraction/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy
-  - "Fri Jun  6 16:16:42 2008: cat input0 | (extract.rb  /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.iCvy/extract.mmMR 2>log0) >output.nsf"
-  - "Fri Jun  6 16:16:42 2008: done"
+  - "Tue Jun 24 13:06:15 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.1bx7/input0"
+  - "Tue Jun 24 13:06:15 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.1bx7/output.nsf"
+  - "Tue Jun 24 13:06:15 2008: cat bea-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.1bx7/input0 &"
+  - "Tue Jun 24 13:06:15 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.1bx7/output.nsf >bea-extraction/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.1bx7
+  - "Tue Jun 24 13:06:15 2008: cat input0 | (csv2tsv --eol 'cr' 2>log0) | (strip --until '^Line' 2>log1) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Tue Jun 24 13:06:16 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
-    :columns: []
+    :footers: []
 
-    :error: ~
-    :ncolumns: 247
-    :notes: "Table 1.1.4. Price Indexes for Gross Domestic Product\n[Index numbers, 2000=100]\nSeasonally adjusted\nBureau of Economic Analysis\nDownloaded on 5/7/2008 At 4:01:03 PM    Last Revised April 30, 2008"
+    :headers: []
+
+    :ncolumns: 
+      2: 2
+      247: 23
+    :nrows: 25
+  - 
+    :notes: []
+
     :nrows: 25
