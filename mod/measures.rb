@@ -34,7 +34,7 @@ begin
         end
       end
     when '--format'
-      format = Dataset::Units.find(arg) #::const_get(arg)
+      format = Dataset::Number.find(arg) or raise "Unknown number format '#{arg}'"
     end
   end
 rescue Exception => e
