@@ -1,0 +1,12 @@
+--- 
+actions: 
+  - "Wed Jun 25 13:57:08 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.kRiH/input0"
+  - "Wed Jun 25 13:57:08 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.kRiH/output.nsf"
+  - "Wed Jun 25 13:57:08 2008: cat columns/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.kRiH/input0 &"
+  - "Wed Jun 25 13:57:08 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.kRiH/output.nsf >columns/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.kRiH
+  - "Wed Jun 25 13:57:08 2008: cat input0 | (columns.pl --columns '0,1,3,7,11' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Wed Jun 25 13:57:08 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - ~

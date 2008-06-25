@@ -1,0 +1,4 @@
+---
+- command: columns.pl
+  args:
+    columns: "0,1,3,7,11"
