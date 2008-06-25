@@ -16,15 +16,15 @@ Expects UTF-8 for input, writes UTF-8 as output.
 
 =head1 OPTIONS
 
-  --include column-list [REQUIRED] list of columns to include in the output
+  --columns column-list [REQUIRED] list of columns to include in the output
 
 =cut
 
-my $USAGE = "usage: cut --include n,n-n,n";
+my $USAGE = "usage: cut --columns n,n-n,n";
 
 my ($include);
 GetOptions(
-  'include=s' => \$include,
+  'columns=s' => \$include,
   );
 die $USAGE, "\n" unless defined($include);
 
@@ -35,7 +35,9 @@ die $USAGE, "\n" unless @cols && scalar(@cols);
 my $csv_options = {
   binary => 1,
   sep_char => "\t",
+  quote_char => ''
 };
+
 my $csv = Text::CSV_XS->new($csv_options);
 my $csv_out = Text::CSV_XS->new($csv_options);
 
