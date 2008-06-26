@@ -3,10 +3,11 @@
 use strict;
 use Getopt::Long; # for GetOptions()
 use Text::CSV_XS;
+use YAML::Syck;
 
 =head1 NAME
 
-cut - cut columns in TSV
+columns.pl - cut columns in TSV
 
 =head1 DESCRIPTION
 
@@ -44,6 +45,7 @@ my $csv_out = Text::CSV_XS->new($csv_options);
 binmode STDIN, ":utf8";
 binmode STDOUT, ":utf8";
 
+my $nrows = 0;
 while (<>) {
   if (my $status = $csv->parse($_)) {
     my @input_fields = $csv->fields;
@@ -53,5 +55,12 @@ while (<>) {
     if ($csv_out->combine(@output_fields)) {
       print $csv_out->string, "\n";
     }
+    $nrows++;
   }
 }
+
+my $stats = {
+  ':nrows' => $nrows,
+  ':ncolumns' => scalar(@cols),
+};
+print STDERR Dump($stats);

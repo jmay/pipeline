@@ -9,4 +9,6 @@ actions:
   - "Wed Jun 25 13:57:08 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
-  - ~
+  - 
+    :nrows: 25
+    :ncolumns: 5
