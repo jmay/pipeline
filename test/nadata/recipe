@@ -1,0 +1,8 @@
+---
+- command: chronify.rb
+  args:
+    column: 0:YYYY
+- command: measures.rb
+  args:
+    column: 1
+    format: Units

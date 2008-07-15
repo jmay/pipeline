@@ -66,17 +66,21 @@ $stdin.each_line do |line|
     end
   end
 
-  column_units.each_with_index do |format, colnum|
-    if format
-      row[colnum] = format.new(row[colnum]).value
-      column_min[colnum] = [ column_min[colnum], row[colnum] ].compact.min
-      column_max[colnum] = [ column_max[colnum], row[colnum] ].compact.max
+  begin
+    column_units.each_with_index do |format, colnum|
+      if format
+        row[colnum] = format.new(row[colnum]).value
+        column_min[colnum] = [ column_min[colnum], row[colnum] ].compact.min
+        column_max[colnum] = [ column_max[colnum], row[colnum] ].compact.max
+      end
+      # row[colnum] = nil if row[colnum] !~ /\d/
     end
-    # row[colnum] = nil if row[colnum] !~ /\d/
-  end
 
-  puts row.join("\t")
-  nrows += 1
+    puts row.join("\t")
+    nrows += 1
+  rescue
+    rejected_rows += 1
+  end
 end
 
 columndata = Array.new(ncolumns)
