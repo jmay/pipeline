@@ -6,7 +6,7 @@ require "fastercsv"
 require "getoptlong"
 require "yaml"
 
-require "chron"
+require "dataset"
 
 opts = GetoptLong.new(
   [ '--column', GetoptLong::REQUIRED_ARGUMENT ],
@@ -27,7 +27,7 @@ begin
       arg.split(/\s*,\s*/).map do |spec|
         a, b = spec.split(/\s*:\s*/)
         chron_cols << a.to_i
-        chron_specs[a.to_i] = Chron.const_get(b)
+        chron_specs[a.to_i] = Dataset::Chron.const_get(b)
       end
     end
   end
@@ -61,7 +61,7 @@ $stdin.each_line do |line|
     next
   end
 
-  new_chron = chrons.size > 1 ? Chron.new(*chrons) : chrons.first
+  new_chron = chrons.size > 1 ? Dataset::Chron.new(*chrons) : chrons.first
   if new_chron.nil?
     # something bad in the chron values
     rejected_rows += 1
