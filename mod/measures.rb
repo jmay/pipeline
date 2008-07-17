@@ -56,11 +56,10 @@ column_max = []
 $stdin.each_line do |line|
   row = line.chomp.split(/\t/)
 
-  if range.nil?
+  if range.nil? || row.size > ncolumns
     ncolumns = row.size
 
     range = eval(ranges.join('+').gsub(/END/, (ncolumns-1).to_s)).sort.uniq
-    measure_columns = []
     range.each do |colnum|
       column_units[colnum] = format
     end
@@ -69,9 +68,11 @@ $stdin.each_line do |line|
   begin
     column_units.each_with_index do |format, colnum|
       if format
-        row[colnum] = format.new(row[colnum]).value
-        column_min[colnum] = [ column_min[colnum], row[colnum] ].compact.min
-        column_max[colnum] = [ column_max[colnum], row[colnum] ].compact.max
+        if !row[colnum].nil?
+          row[colnum] = format.new(row[colnum]).value
+          column_min[colnum] = [ column_min[colnum], row[colnum] ].compact.min
+          column_max[colnum] = [ column_max[colnum], row[colnum] ].compact.max
+        end
       end
       # row[colnum] = nil if row[colnum] !~ /\d/
     end
