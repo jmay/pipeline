@@ -3,6 +3,7 @@
 use strict;
 use Text::CSV_XS;
 use Getopt::Long;
+use YAML::Syck;
 
 =head1 NAME
 
@@ -37,15 +38,17 @@ Gaps will not cause errors.
 
 =cut
 
-my $USAGE = "usage: deltas --ordercol colnum --datacol colnum [--interval interval] [--percent] [--float]";
+my $USAGE = "usage: deltas --ordercol colnum --datacol colnum [--interval interval] [--percent 1/0] [--float 1/0]";
 
-my ($ordercol, $datacol, $interval, $percent, $float);
+my ($ordercol, $datacol, $interval);
+my $percent = 0;
+my $float = 0;
 GetOptions(
   'ordercol=i' => \$ordercol,
   'datacol=i' => \$datacol,
   'interval=i' => \$interval,
-  'percent' => \$percent,
-  'float' => \$float,
+  'percent=i' => \$percent,
+  'float=i' => \$float,
   );
 die $USAGE, "\n" unless defined($ordercol) && defined($datacol);
 
@@ -68,7 +71,7 @@ binmode STDOUT, ":utf8";
 
 my (%fullrows, %data);
 
-while (<>) {
+while (<STDIN>) {
   if (my $status = $csv->parse($_)) {
     my @fields = $csv->fields;
 
@@ -82,35 +85,71 @@ while (<>) {
 }
 
 my %results;
+my ($min_chron, $max_chron, $min_result, $max_result);
+
 for my $chron (sort keys %fullrows) {
   my $prev_chron = $chron - $interval;  # step back N intervals (months, quarters, years, whatever)
 
   next if !defined $data{$prev_chron};  # the output won't have a result row for this chron
+
 
   my $this_value = $data{$chron};
   my $prev_value = $data{$prev_chron};
 
   my @result_row = @{$fullrows{$chron}};
 
+  my $this_result;
   if ($percent) {
     # relative (percent) change
-    $result_row[$datacol] = sprintf("%0.3f", ($this_value - $prev_value) / $prev_value * 100);
+    $this_result = sprintf("%0.3f", ($this_value - $prev_value) / $prev_value * 100);
   } else {
     # absolute change
     if ($float) {
-      $result_row[$datacol] = sprintf("%0.3f", $this_value - $prev_value);
+      # float difference TODO: why is this treated separately?
+      $this_result = sprintf("%0.3f", $this_value - $prev_value);
     } else {
       # integer difference
-      $result_row[$datacol] = $this_value - $prev_value;
+      $this_result = $this_value - $prev_value;
     }
+  }
+
+  $result_row[$datacol] = $this_result;
+
+  if (!$max_chron) {
+    # first row
+    $min_chron = $max_chron = $chron;
+    $min_result = $max_result = $this_result;
+  } else {
+    $min_chron = $chron if $chron < $min_chron;
+    $max_chron = $chron if $chron > $max_chron;
+    $min_result = $this_result if $this_result < $min_result;
+    $max_result = $this_result if $this_result > $max_result;
   }
 
   $results{$chron} = \@result_row;
 }
 
+my @fields;
 for my $chron (sort keys %results) {
-  my @fields = @{$results{$chron}};
+  @fields = @{$results{$chron}};
   if ($csv->combine(@fields)) {
     print $csv->string, "\n";
   }
 }
+
+my @column_data = map { {} } @fields;
+$column_data[$ordercol] = {
+  ':min' => $min_chron,
+  ':max' => $max_chron,
+};
+$column_data[$datacol] = {
+  ':min' => $min_result,
+  ':max' => $max_result,
+};
+
+my $stats = {
+  ':nrows' => scalar(keys %results),
+  ':columns' => \@column_data,
+};
+
+print STDERR Dump($stats);
