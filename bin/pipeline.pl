@@ -237,7 +237,15 @@ sub run {
   my ($cmd) = @_;
 
   print LOG scalar(localtime), ": $cmd\n";
-  $_ = `$cmd`;
+
+  open(RUNME, ">runme.bash") or die $!;
+  print RUNME $cmd;
+  close RUNME;
+  $_ = `bash runme.bash`;
+  unlink "runme.bash";
+
+  # $_ = `$cmd`;
+
   $? and return; #die "command failed: $!";
   chomp;
   return $_;
