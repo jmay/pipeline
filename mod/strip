@@ -2,7 +2,7 @@
 
 use strict;
 use Getopt::Long;
-use YAML;
+use YAML::Syck;
 
 =head1 NAME
 
@@ -70,5 +70,5 @@ if (!$ignore) {
     ':nrows' => scalar(@lines),
     ':notes' => \@removed,
   };
-  print STDERR YAML::Dump($stats);
+  print STDERR Dump($stats);
 }
