@@ -75,9 +75,16 @@ GetOptions(
   'output=s' => \$output,
   'runlog=s' => \$runlog,
   );
-die $USAGE, "\n" unless @inputs && defined($recipe_file); # && defined($output) && defined($runlog);
+die $USAGE unless @inputs && defined($recipe_file); # && defined($output) && defined($runlog);
 $output ||= "&1";
 # $runlog ||= \*STDERR;
+
+for my $file (@inputs) {
+  if (!-r $file) {
+    die "Can't read input $file";
+  }
+}
+die "Can't read recipe $recipe_file" if !-r $recipe_file;
 
 my $TOOLPATH = dirname(abs_path($0)) . "/../mod";
 $ENV{PATH} = "$TOOLPATH:$ENV{PATH}"; # so that pipeline execution will find the command modules
