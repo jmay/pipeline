@@ -52,7 +52,7 @@ if ($nheaders) {
   push @removed, splice(@lines, 0, $nheaders);
 }
 if ($until_match) {
-  until ($lines[0] =~ /$until_match/io) {
+  while (@lines && ($lines[0] !~ /$until_match/io)) {
     my $line  = shift(@lines);
     $line =~ s/^\s*//g;
     $line =~ s/\s*$//g;
