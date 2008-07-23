@@ -21,7 +21,7 @@ Expects UTF-8 for input, writes UTF-8 as output.
 
 =cut
 
-my $USAGE = "usage: cut --columns n,n-n,n";
+my $USAGE = "usage: columns.pl --columns n,n-n,n";
 
 my ($include);
 GetOptions(
