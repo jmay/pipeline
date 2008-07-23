@@ -1,7 +1,7 @@
 ---
 - command: strip
   args:
-    until: '^DATE'
+    until: '^DATE\s+VALUE'
 - command: whitespace_separated.rb
 - command: headers.rb
   args:
