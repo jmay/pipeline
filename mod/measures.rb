@@ -66,6 +66,7 @@ $stdin.each_line do |line|
   end
 
   begin
+    converted_values = []
     column_units.each_with_index do |format, colnum|
       if format
         if !row[colnum].nil?
@@ -73,19 +74,24 @@ $stdin.each_line do |line|
           # If the cell value doesn't match the format, it might be some sort of "n/a" value, so
           # just put a nil in there; there may be other valid values in the column.
           # We could end up with an entire column of nils, if there's nothing there, or if the
-          # params to this pipeline module are incorrect.  Let the users work that out.
-          # Do not reject an entire row just because one field doesn't match the expectation.
+          # params to this pipeline module are incorrect.
+          # Only reject a row if *all* the measure values in that row are nil
           if row[colnum]
             column_min[colnum] = [ column_min[colnum], row[colnum] ].compact.min
             column_max[colnum] = [ column_max[colnum], row[colnum] ].compact.max
           end
+          converted_values << row[colnum]
         end
       end
       # row[colnum] = nil if row[colnum] !~ /\d/
     end
-
-    puts row.join("\t")
-    nrows += 1
+    if converted_values.compact.empty?
+      # there were no measures at all in this row; reject it
+      rejected_rows += 1
+    else
+      puts row.join("\t")
+      nrows += 1
+    end
   # rescue
   #   rejected_rows += 1
   end
