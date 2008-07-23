@@ -25,9 +25,15 @@ begin
     #   chron_spec = Dataset::Chron.const_get(arg)
     when '--column'
       arg.split(/\s*,\s*/).map do |spec|
-        a, b = spec.split(/\s*:\s*/)
-        chron_cols << a.to_i
-        chron_specs[a.to_i] = Dataset::Chron.const_get(b)
+        colnum, chrontype = spec.split(/\s*:\s*/)
+        chron_cols << colnum.to_i
+        if chrontype =~ /%/
+          # explicit strptime format, so this must be a date, not some higher-order chron
+          chron_specs[colnum.to_i] = chrontype
+        else
+          # Dataset::Chron type, attempts automatic format recognition
+          chron_specs[colnum.to_i] = Dataset::Chron.const_get(chrontype)
+        end
       end
     end
   end
@@ -53,7 +59,12 @@ $stdin.each_line do |line|
   begin
     chron_specs.each_with_index do |klass, i|
       if klass
-        chrons << klass.new(row[i])
+        if klass.is_a?(Class)
+          chrons << klass.new(row[i])
+        else
+          # strptime
+          chrons << Dataset::Chron::YYMMDD.new(Date.parse(row[i], klass))
+        end
       end
     end
   rescue
