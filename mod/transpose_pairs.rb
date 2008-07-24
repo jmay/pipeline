@@ -36,6 +36,7 @@ $stdin.each_line do |line|
   end
 
   fields.each_by(2) do |a,b|
+    next if a == ''
     row = frozen.dup
     row << a << b
     puts row.join("\t")
@@ -45,5 +46,6 @@ end
 
 stats = {
   :nrows => nrows,
+  :columns => Array.new(freeze + 2)
 }
 $stderr.puts stats.to_yaml
