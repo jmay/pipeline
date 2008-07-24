@@ -1,13 +1,11 @@
 ---
-- command: extract
-  code: |
-    html
-    pre_section
-    if text =~ /^Series Id,/i
-      self.notes = $PREMATCH
-      self.text = $MATCH + $POSTMATCH
-    end
-    csv
-    autoheaders
-    headers.pop
-    data.pop while data.last.size != headers.size
+- command: html.rb
+  args:
+    xpath: 'pre'
+- command: strip
+  args:
+    until:  '^series id,'
+- command: csv2tsv
+- command: headers.rb
+  args:
+    rows: 1

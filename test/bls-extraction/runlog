@@ -1,21 +1,48 @@
 --- 
 actions: 
-  - "Wed May  7 13:07:03 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TtMU/input0"
-  - "Wed May  7 13:07:03 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TtMU/output.nsf"
-  - "Wed May  7 13:07:03 2008: cat bls-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TtMU/input0 &"
-  - "Wed May  7 13:07:03 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TtMU/output.nsf >bls-extraction/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TtMU
-  - "Wed May  7 13:07:03 2008: cat input0 | (extract.rb  /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.TtMU/extract.k36p 2>log0) >output.nsf"
-  - "Wed May  7 13:07:04 2008: done"
+  - "Thu Jul 24 12:21:37 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.GI9F/input0"
+  - "Thu Jul 24 12:21:37 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.GI9F/output.nsf"
+  - "Thu Jul 24 12:21:37 2008: cat bls-extraction/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.GI9F/input0 &"
+  - "Thu Jul 24 12:21:37 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.GI9F/output.nsf >bls-extraction/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.GI9F
+  - "Thu Jul 24 12:21:37 2008: cat input0 | (html.rb --xpath 'pre' 2>log0) | (strip --until '^series id,' 2>log1) | (csv2tsv  2>log2) | (headers.rb --rows '1' 2>log3) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Thu Jul 24 12:21:38 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
+  - {}
+
   - 
-    :error: ~
+    :notes: 
+      - ''
+      - <div class="SurveyTitle"> Employment, Hours, and Earnings from the Current Employment Statistics survey (National)</div>
+      - ''
+      - "Series Id:\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0CES0500000032"
+      - ''
+      - Seasonally Adjusted
+      - "Super Sector:\xC2\xA0\xC2\xA0Total private"
+      - "Industry:\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0Total private"
+      - "NAICS Code:\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0N/A"
+      - "Data Type:\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0AVERAGE HOURLY EARNINGS, 1982 DOLLARS"
+      - ''
+      - ''
+    :nrows: 534
+  - 
+    :footers: []
+
+    :headers: []
+
+    :ncolumns: 
+      4: 530
+      5: 1
+    :nrows: 531
+  - 
     :columns: 
-      - :heading: Series Id
-      - :heading: Year
-      - :heading: Period
-      - :heading: Value
-    :notes: "Employment, Hours, and Earnings from the Current Employment Statistics survey (National)\n\nSeries Id:     CES0500000032\n\nSeasonally Adjusted\nSuper Sector:  Total private\nIndustry:      Total private\nNAICS Code:    N/A\nData Type:     AVERAGE HOURLY EARNINGS, 1982 DOLLARS\n\n\n"
-    :ncolumns: 4
+      - 
+        :heading: Series Id
+      - 
+        :heading: Year
+      - 
+        :heading: Period
+      - 
+        :heading: Value
     :nrows: 530
