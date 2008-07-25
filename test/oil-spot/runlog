@@ -1,0 +1,40 @@
+--- 
+actions: 
+  - "Thu Jul 24 13:34:32 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J414/input0"
+  - "Thu Jul 24 13:34:32 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J414/output.nsf"
+  - "Thu Jul 24 13:34:32 2008: cat oil-spot/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J414/input0 &"
+  - "Thu Jul 24 13:34:32 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J414/output.nsf >oil-spot/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.J414
+  - "Thu Jul 24 13:34:32 2008: cat input0 | (html.rb --table '1' --xpath '//table' --nth '8' 2>log0) | (chronify.rb --column '0:YYYY' 2>log1) | (transpose_pairs.rb --freeze '1' 2>log2) | (glue_columns --columns '0,1' --delim '/' 2>log3) | (chronify.rb --column '0:YYMMDD' 2>log4) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Thu Jul 24 13:34:34 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - {}
+
+  - 
+    :chron_rows: 
+      YYYY: 151
+    :columns: 
+      - 
+        :chron: YYYY
+        :max: 2008
+        :min: 1978
+    :nrows: 151
+    :rejected_rows: 2
+  - 
+    :columns: 
+      - ~
+      - ~
+      - ~
+    :nrows: 615
+  - ~
+  - 
+    :chron_rows: 
+      YYMMDD: 615
+    :columns: 
+      - 
+        :chron: YYMMDD
+        :max: 54665
+        :min: 43514
+    :nrows: 615
+    :rejected_rows: 0

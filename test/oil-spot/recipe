@@ -1,0 +1,19 @@
+--- 
+- args: 
+    nth: "8"
+    table: "1"
+    xpath: //table
+  command: html.rb
+- args: 
+    column: 0:YYYY
+  command: chronify.rb
+- command: transpose_pairs.rb
+  args:
+    freeze: 1
+- command: glue_columns
+  args:
+    columns: "0,1"
+    delim: "/"
+- command: chronify.rb
+  args:
+    column: 0:YYMMDD
