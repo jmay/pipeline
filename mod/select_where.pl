@@ -12,6 +12,8 @@ select_where.pl - restrict rows in TSV pipeline
 
 Read TSV from stdin, apply filter rules, write to stdout
 
+Removes the select-by columns from the output, so the output has fewer columns than the input.
+
 =head1 CONTRACT
 
 Expects input in TSV
@@ -49,11 +51,12 @@ my $nrows = 0;
 my $excluded_rows = 0;
 
 while (<>) {
-  my @input_fields = split(/\t/);
-  my $match = ($input_fields[$colnum] eq $value);
+  my @fields = split(/\t/);
+  my $match = ($fields[$colnum] eq $value);
   if ($match xor $invert) {
-    # output is the input line, unchanged
-    print;
+    # output is the input line with the match column removed
+    splice @fields, $colnum, 1;
+    print join("\t", @fields);
     $nrows++;
   } else {
     $excluded_rows++;
