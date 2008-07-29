@@ -206,7 +206,7 @@ my @stagelogs;
 for my $i (0..$#chain) {
   if ($status_codes[$i] != 0) {
     my @errors = read_file("$dir/log$i");
-    push @stagelogs, { 'errors' => \@errors, 'code' => $status_codes[$i] };
+    push @stagelogs, { ':errors' => \@errors, ':error_code' => $status_codes[$i] };
   } else {
     my $stats = eval { LoadFile("$dir/log$i") };
     if ($@) {
