@@ -1,0 +1,54 @@
+--- 
+actions: 
+  - "Tue Jul 29 10:54:36 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ia1L/input0"
+  - "Tue Jul 29 10:54:36 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ia1L/output.nsf"
+  - "Tue Jul 29 10:54:36 2008: cat enrollment/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ia1L/input0 &"
+  - "Tue Jul 29 10:54:36 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ia1L/output.nsf >enrollment/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.Ia1L
+  - "Tue Jul 29 10:54:36 2008: cat input0 | (tsv.pl  2>log0) | (transpose_dimensions.rb --freeze '1' --dimension 'Level' 2>log1) | (chronify.rb --column '0:SchoolYear' 2>log2) | (dimension.rb --columns '1' 2>log3) | (measures.rb --format 'People' --column '2' 2>log4) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Tue Jul 29 10:54:37 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :ncolumns: 
+      5: 15
+    :nrows: 15
+  - 
+    :columns: 
+      - 
+        :heading: Year
+      - 
+        :label: Level
+      - ~
+    :nrows: 56
+  - 
+    :chron_rows: 
+      SchoolYear: 56
+    :columns: 
+      - 
+        :chron: SchoolYear
+        :max: 2006
+        :min: 1993
+    :nrows: 56
+    :rejected_rows: 0
+  - 
+    :columns: 
+      - ~
+      - 
+        :values: 
+          - Grades 9 thru 12
+          - Kindergarten & 1st thru 8th
+          - Total
+          - Ungraded programs
+    :nrows: 56
+  - 
+    :columns: 
+      - ~
+      - ~
+      - 
+        :max: 6322167
+        :min: 52131
+        :number: People
+    :ncolumns: 3
+    :nrows: 56
+    :rejected_rows: 0

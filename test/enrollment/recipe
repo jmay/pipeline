@@ -1,0 +1,16 @@
+--- 
+- command: tsv.pl
+- command: transpose_dimensions.rb
+  args:
+    freeze: 1
+    dimension: Level
+- command: chronify.rb
+  args: 
+    column: 0:SchoolYear
+- command: dimension.rb
+  args:
+    columns: 1
+- command: measures.rb
+  args: 
+    format: People
+    column: 2
