@@ -30,6 +30,7 @@ Reads TSV from stdin, writes TSV to stdout, but applies cleaning process:
 
 my $USAGE = "usage: tsv.pl\n";
 my ($delimiter, $headers, $footers, $eol);
+$eol = 'crlf'; # default
 GetOptions(
   'eol=s' => \$eol,
   );
