@@ -43,6 +43,8 @@ rescue Exception => e
 end
 
 
+format ||= Dataset::Number::Quantity  # default
+
 range = nil
 
 nrows = 0
