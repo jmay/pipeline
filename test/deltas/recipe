@@ -1,0 +1,7 @@
+--- 
+- command: deltas
+  args:
+    :ordercol: 0
+    :datacol: 1
+    :interval: 12
+    :percent: 1
