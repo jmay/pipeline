@@ -1,5 +1,7 @@
 --- 
 - command: tsv.pl
+  args:
+    eol: lf
 - command: transpose_dimensions.rb
   args:
     freeze: 1
