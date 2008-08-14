@@ -1,0 +1,16 @@
+--- 
+actions: 
+  - "Thu Aug 14 13:44:03 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv/input0"
+  - "Thu Aug 14 13:44:03 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv/input1"
+  - "Thu Aug 14 13:44:03 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv/output.nsf"
+  - "Thu Aug 14 13:44:03 2008: cat merge_emp_cpi/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv/input0 &"
+  - "Thu Aug 14 13:44:03 2008: cat merge_emp_cpi/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv/input1 &"
+  - "Thu Aug 14 13:44:03 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv/output.nsf >merge_emp_cpi/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.cOZv
+  - "Thu Aug 14 13:44:03 2008: cat input0 | (merge.rb --input input1 --group2 '0' --pick2 '1' --group1 '0' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Thu Aug 14 13:44:04 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :ncolumns: 3
+    :nrows: 835

@@ -99,13 +99,17 @@ my $dir = File::Temp::tempdir("numbrary.XXXX", DIR => $ENV{TMPDIR});
 my $recipe_stages = LoadFile($recipe_file);
 my @chain;
 my $i = 0;
+my $secondary_input_num = 1;
 for my $stage (@$recipe_stages) {
   my $args = $stage->{args} || $stage->{':args'}; # either string or ruby-symbol are valid
   my @arglist;
   if ($args) {
     while (my ($param, $value) = each(%{$args})) {
       $param =~ s/^://; # delete any leading colon
-      if (UNIVERSAL::isa($value, "ARRAY")) {
+      if ($param =~ /input/) {
+        push @arglist, "--input input$secondary_input_num";
+        $secondary_input_num++;
+      } elsif (UNIVERSAL::isa($value, "ARRAY")) {
         for (@$value) {
           push @arglist, "--$param '$_'";
         }
@@ -114,20 +118,20 @@ for my $stage (@$recipe_stages) {
       }
     }
   }
-  my $args = join(' ', @arglist);
+  my $argstring = join(' ', @arglist);
 
   my $command = $stage->{command} || $stage->{':command'}; # either string or ruby-symbol are valid
   if (!$command) {
-    push @chain, "(error.rb $args 2>log$i)";
+    push @chain, "(error.rb $argstring 2>log$i)";
   } elsif ($command eq 'extract') {
     my ($fh, $codefile) = File::Temp::tempfile("extract.XXXX", DIR => $dir, UNLINK => 0);
     print $fh $stage->{code};
     close $fh;
     # push @chain, "($TOOLPATH/extract.rb $args $codefile 2>log$i)";
-    push @chain, "(extract.rb $args $codefile 2>log$i)";
+    push @chain, "(extract.rb $argstring $codefile 2>log$i)";
   } else {
     # push @chain, "($TOOLPATH/$stage->{command} $args 2>log$i)";
-    push @chain, "($command $args 2>log$i)";
+    push @chain, "($command $argstring 2>log$i)";
   }
   $i++;
 }

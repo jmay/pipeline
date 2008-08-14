@@ -1,0 +1,7 @@
+---
+- command: merge.rb
+  args:
+    input: ~
+    group1: 0
+    group2: 0
+    pick2: 1
