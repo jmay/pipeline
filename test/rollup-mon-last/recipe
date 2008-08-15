@@ -1,0 +1,8 @@
+---
+- command: rollup.rb
+  args:
+    chron: YYMMDD
+    level: month
+    formula: last
+    chroncol: 0
+    datacol: 1
