@@ -83,7 +83,10 @@ end
 stats = {
   :nrows => nrows,
   :columns => [
-    {}, # new chron level
+    {
+      :min => output.keys.min.index,
+      :max => output.keys.max.index
+    },
     {
       :max => max,
       :min => min
