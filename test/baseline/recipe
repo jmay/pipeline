@@ -1,0 +1,6 @@
+---
+- command: baseline.rb
+  args:
+    chroncol: 0
+    datacols: 1
+    baseline: 24000

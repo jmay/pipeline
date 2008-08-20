@@ -1,0 +1,21 @@
+--- 
+actions: 
+  - "Wed Aug 20 15:14:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/input0"
+  - "Wed Aug 20 15:14:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/output.nsf"
+  - "Wed Aug 20 15:14:55 2008: cat baseline/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/input0 &"
+  - "Wed Aug 20 15:14:55 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/output.nsf >baseline/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw
+  - "Wed Aug 20 15:14:55 2008: cat input0 | (baseline.rb --baseline '24000' --chroncol '0' --datacols '1' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Wed Aug 20 15:14:55 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :columns: 
+      - 
+        :max: 24103
+        :min: 23400
+      - 
+        :max: 106.309698877146
+        :min: 1.14484407855857
+        :number: Index
+    :nrows: 704
