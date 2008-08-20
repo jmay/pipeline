@@ -11,7 +11,7 @@ def process_row(row, baseline_values, datacols, maximums, minimums)
     maximums[colnum] = row[colnum] if row[colnum] > maximums[colnum]
     minimums[colnum] = row[colnum] if row[colnum] < minimums[colnum]
   end
-  puts row.join(',')
+  puts row.join("\t")
 end
 
 opts = GetoptLong.new(
