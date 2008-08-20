@@ -1,18 +1,19 @@
 --- 
 actions: 
-  - "Fri Aug 15 16:08:18 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.xAtM/input0"
-  - "Fri Aug 15 16:08:18 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.xAtM/output.nsf"
-  - "Fri Aug 15 16:08:18 2008: cat rollup-mon-last/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.xAtM/input0 &"
-  - "Fri Aug 15 16:08:18 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.xAtM/output.nsf >rollup-mon-last/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.xAtM
-  - "Fri Aug 15 16:08:18 2008: cat input0 | (rollup.rb --datacol '1' --chroncol '0' --level 'month' --formula 'last' --chron 'YYMMDD' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
-  - "Fri Aug 15 16:08:27 2008: done"
+  - "Wed Aug 20 15:17:51 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.YM8V/input0"
+  - "Wed Aug 20 15:17:51 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.YM8V/output.nsf"
+  - "Wed Aug 20 15:17:51 2008: cat rollup-mon-last/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.YM8V/input0 &"
+  - "Wed Aug 20 15:17:51 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.YM8V/output.nsf >rollup-mon-last/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.YM8V
+  - "Wed Aug 20 15:17:51 2008: cat input0 | (rollup.rb --datacol '1' --chroncol '0' --level 'month' --formula 'last' --chron 'YYMMDD' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Wed Aug 20 15:18:03 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
     :columns: 
-      - {}
-
+      - 
+        :max: 24103
+        :min: 23400
       - 
         :max: 1547.04
         :min: 16.66
