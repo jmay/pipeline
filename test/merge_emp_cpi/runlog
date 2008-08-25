@@ -13,4 +13,4 @@ actions:
 stagelogs: 
   - 
     :ncolumns: 3
-    :nrows: 835
+    :nrows: 739
