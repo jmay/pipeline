@@ -1,0 +1,15 @@
+---
+- command: tsv.pl
+  args:
+    eol: lf
+- command: addheaders.rb
+  args:
+    headers: ",,1,2,3,4,5,6,7,8,9,10,11,12"
+- command: transpose_dimensions.rb
+  args:
+    freeze: 2
+- command: chronify.rb
+  args:
+    column:
+      - 1:YYYY
+      - 2:Month
