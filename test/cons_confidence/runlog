@@ -1,0 +1,51 @@
+--- 
+actions: 
+  - "Tue Sep  2 14:17:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5N6P/input0"
+  - "Tue Sep  2 14:17:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5N6P/output.nsf"
+  - "Tue Sep  2 14:17:41 2008: cat cons_confidence/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5N6P/input0 &"
+  - "Tue Sep  2 14:17:41 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5N6P/output.nsf >cons_confidence/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.5N6P
+  - "Tue Sep  2 14:17:41 2008: cat input0 | (html.rb --table '1' --xpath '//table' --nth '7' 2>log0) | (strip --until '\\w+\\s+\\d\\d\\d\\d' 2>log1) | (columns.pl --columns '1,2,3,4' 2>log2) | (chronify.rb --column '0:YYYYMM' 2>log3) | (measures.rb --column '1-' 2>log4) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Tue Sep  2 14:17:46 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - {}
+
+  - 
+    :notes: 
+      - Conference Board CONSUMER CONFIDENCE INDEX conducted by TNS (methodology)
+      - .
+      - Consumer Confidence Index (1985=100)	Present Situation Index	Expectations Index
+      - .
+    :nrows: 146
+  - 
+    :ncolumns: 4
+    :nrows: 146
+  - 
+    :chron_rows: 
+      YYYYMM: 123
+    :columns: 
+      - 
+        :chron: YYYYMM
+        :max: 24101
+        :min: 23969
+    :nrows: 123
+    :rejected_rows: 23
+  - 
+    :columns: 
+      - ~
+      - 
+        :max: 144.7
+        :min: 50.4
+        :number: Unspecified Measure
+      - 
+        :max: 186.8
+        :min: 61.4
+        :number: Unspecified Measure
+      - 
+        :max: 119.1
+        :min: 41
+        :number: Unspecified Measure
+    :ncolumns: 4
+    :nrows: 123
+    :rejected_rows: 0

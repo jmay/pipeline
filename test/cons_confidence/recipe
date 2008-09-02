@@ -1,0 +1,18 @@
+--- 
+- command: html.rb
+  args: 
+    nth: "7"
+    xpath: //table
+    table: "1"
+- command: strip
+  args: 
+    until: "\w+\s+\d\d\d\d"
+- command: columns.pl
+  args:
+    columns: "1,2,3,4"
+- command: chronify.rb
+  args:
+    column: "0:YYYYMM"
+- command: measures.rb
+  args:
+    column: "1-"
