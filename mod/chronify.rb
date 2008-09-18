@@ -90,14 +90,23 @@ $stdin.each_line do |line|
   end
 end
 
+metadata = {
+  :chron => chron_rows.keys.first,
+  :min => chronvalues.min,
+  :max => chronvalues.max
+}
+
+columndata = []
+if chron_cols.size > 1
+  columndata[0] = metadata
+else
+  columndata[chron_cols.first] = metadata
+end
+
 stats = {
   :nrows => nrows,
   :rejected_rows => rejected_rows,
   :chron_rows => chron_rows,
-  :columns => [
-    :chron => chron_rows.keys.first,
-    :min => chronvalues.min,
-    :max => chronvalues.max
-    ]
+  :columns => columndata
 }
 $stderr.puts stats.to_yaml

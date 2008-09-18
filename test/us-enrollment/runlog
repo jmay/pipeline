@@ -1,12 +1,12 @@
 --- 
 actions: 
-  - "Thu Sep 18 14:50:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/input0"
-  - "Thu Sep 18 14:50:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/output.nsf"
-  - "Thu Sep 18 14:50:41 2008: cat us-enrollment/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/input0 &"
-  - "Thu Sep 18 14:50:41 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/output.nsf >us-enrollment/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4
-  - "Thu Sep 18 14:50:41 2008: cat input0 | (csv2tsv  2>log0) | (transpose_dimensions.rb --freeze '1' 2>log1) | (chronify.rb --column '1:YYYY' 2>log2) | (dimension.rb --columns '0' 2>log3) | (measures.rb --format 'People' --column '2' 2>log4) >output.nsf; echo ${PIPESTATUS[*]}"
-  - "Thu Sep 18 14:50:43 2008: done"
+  - "Thu Sep 18 15:02:59 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QAk6/input0"
+  - "Thu Sep 18 15:02:59 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QAk6/output.nsf"
+  - "Thu Sep 18 15:02:59 2008: cat us-enrollment/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QAk6/input0 &"
+  - "Thu Sep 18 15:02:59 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QAk6/output.nsf >us-enrollment/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QAk6
+  - "Thu Sep 18 15:02:59 2008: cat input0 | (csv2tsv  2>log0) | (transpose_dimensions.rb --freeze '1' 2>log1) | (chronify.rb --column '1:YYYY' 2>log2) | (dimension.rb --columns '0' 2>log3) | (measures.rb --format 'People' --column '2' 2>log4) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Thu Sep 18 15:03:00 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -28,6 +28,7 @@ stagelogs:
     :chron_rows: 
       YYYY: 1020
     :columns: 
+      - ~
       - 
         :chron: YYYY
         :max: 2005
