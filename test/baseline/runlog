@@ -1,12 +1,12 @@
 --- 
 actions: 
-  - "Wed Aug 20 15:14:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/input0"
-  - "Wed Aug 20 15:14:55 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/output.nsf"
-  - "Wed Aug 20 15:14:55 2008: cat baseline/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/input0 &"
-  - "Wed Aug 20 15:14:55 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw/output.nsf >baseline/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.KZNw
-  - "Wed Aug 20 15:14:55 2008: cat input0 | (baseline.rb --baseline '24000' --chroncol '0' --datacols '1' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
-  - "Wed Aug 20 15:14:55 2008: done"
+  - "Thu Sep 18 10:24:15 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ATpi/input0"
+  - "Thu Sep 18 10:24:15 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ATpi/output.nsf"
+  - "Thu Sep 18 10:24:15 2008: cat baseline/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ATpi/input0 &"
+  - "Thu Sep 18 10:24:15 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ATpi/output.nsf >baseline/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.ATpi
+  - "Thu Sep 18 10:24:15 2008: cat input0 | (baseline.rb --baseline '24000' --chroncol '0' --datacols '1' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Thu Sep 18 10:24:15 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 

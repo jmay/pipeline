@@ -63,9 +63,6 @@ else
   puts Coder.decode(node.inner_html)
 end
 
-
 stats = {
 }
 $stderr.puts stats.to_yaml
-
-
