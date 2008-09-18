@@ -42,10 +42,6 @@ rescue
   exit 1
 end
 
-# chron_cols = [colnum]
-# chron_specs = []
-# chron_specs[colnum] = chron_spec
-
 nrows = 0
 rejected_rows = 0
 chron_rows = {}
@@ -53,7 +49,6 @@ chronvalues = []
 
 $stdin.each_line do |line|
   row = line.split(/\t/)
-# FasterCSV.filter(:col_sep => "\t") do |row|
   chrons = []
 
   begin
@@ -80,11 +75,16 @@ $stdin.each_line do |line|
     # all's well
     kname = new_chron.class.name.split(/::/).last
     chron_rows[kname] = chron_rows[kname].to_i + 1
-
-    chron_cols.reverse.each {|colnum| row.slice!(colnum)}
-
     chronvalues << new_chron.index
-    row.unshift(new_chron.index)
+
+    if chrons.size == 1
+      # don't move the chron column
+      row[chron_cols.first] = new_chron.index
+    else
+      # erase the original chron columns and put a new chron column at the front
+      chron_cols.reverse.each {|colnum| row.slice!(colnum)}
+      row.unshift(new_chron.index)
+    end
     puts row.join("\t")
     nrows += 1
   end

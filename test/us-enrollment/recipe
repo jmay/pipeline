@@ -1,0 +1,15 @@
+--- 
+- command: csv2tsv
+- command: transpose_dimensions.rb
+  args:
+    freeze: 1
+- command: chronify.rb
+  args: 
+    column: 1:YYYY
+- command: dimension.rb
+  args:
+    columns: 0
+- command: measures.rb
+  args: 
+    format: People
+    column: 2

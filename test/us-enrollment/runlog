@@ -1,0 +1,103 @@
+--- 
+actions: 
+  - "Thu Sep 18 14:50:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/input0"
+  - "Thu Sep 18 14:50:41 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/output.nsf"
+  - "Thu Sep 18 14:50:41 2008: cat us-enrollment/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/input0 &"
+  - "Thu Sep 18 14:50:41 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4/output.nsf >us-enrollment/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.OHC4
+  - "Thu Sep 18 14:50:41 2008: cat input0 | (csv2tsv  2>log0) | (transpose_dimensions.rb --freeze '1' 2>log1) | (chronify.rb --column '1:YYYY' 2>log2) | (dimension.rb --columns '0' 2>log3) | (measures.rb --format 'People' --column '2' 2>log4) >output.nsf; echo ${PIPESTATUS[*]}"
+  - "Thu Sep 18 14:50:43 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :footers: []
+
+    :headers: []
+
+    :ncolumns: 
+      21: 52
+    :nrows: 52
+  - 
+    :columns: 
+      - 
+        :heading: STATE
+      - ~
+      - ~
+    :nrows: 1020
+  - 
+    :chron_rows: 
+      YYYY: 1020
+    :columns: 
+      - 
+        :chron: YYYY
+        :max: 2005
+        :min: 1986
+    :nrows: 1020
+    :rejected_rows: 0
+  - 
+    :columns: 
+      - 
+        :values: 
+          - AK
+          - AL
+          - AR
+          - AZ
+          - CA
+          - CO
+          - CT
+          - DC
+          - DE
+          - FL
+          - GA
+          - HI
+          - IA
+          - ID
+          - IL
+          - IN
+          - KS
+          - KY
+          - LA
+          - MA
+          - MD
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - NC
+          - ND
+          - NE
+          - NH
+          - NJ
+          - NM
+          - NV
+          - NY
+          - OH
+          - OK
+          - OR
+          - PA
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VA
+          - VT
+          - WA
+          - WI
+          - WV
+          - WY
+    :nrows: 1020
+  - 
+    :columns: 
+      - ~
+      - ~
+      - 
+        :max: 6441557
+        :min: 68925
+        :number: People
+    :ncolumns: 3
+    :nrows: 1020
+    :rejected_rows: 0
