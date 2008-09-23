@@ -7,6 +7,8 @@ use File::Path; # for mkpath, rmtree
 use File::Temp;   # for tempdir()
 use File::Copy;
 use YAML::Syck;
+use LWP::UserAgent; # for postback
+use Proc::Daemon;
 
 =head1 NAME
 
@@ -19,7 +21,9 @@ Download a document in preparation for injection into the Numbrary components sy
 =head1 OPTIONS
 
   --root directory [REQUIRED]
-  --uri uri [REQUIRED]
+  --uri uri [optional]
+  --postback url [optional]
+  --background [optional]
 
 =head1 REQUIRED MODULES
 
@@ -41,14 +45,19 @@ Catching errors from curl
 ##################################################
 # PROCESS COMMAND-LINE OPTIONS
 
-my $USAGE = "usage: download.pl --uri uri --root root";
+my $USAGE = "usage: download.pl --uri uri [--root root]\n";
 
-my ($root, $uri);
+my ($root, $uri, $postback_url);
+my $background = 0;
 GetOptions(
   'root=s' => \$root,
   'uri=s' => \$uri,
+  'postback=s' => \$postback_url,
+  'background' => \$background
   );
-die $USAGE, "\n" unless defined($root) && defined($uri);
+die $USAGE unless defined($uri);
+
+Proc::Daemon::Init if $background;
 
 ##################################################
 
@@ -71,28 +80,42 @@ my ($http_status, $content_type) = $results =~ /^(\d+) (.*)/;
 my $stats = {};
 
 if ($curl_error == 0) {
-  $stats->{':http_status'} = $http_status,
-  $stats->{':content_type'} = $content_type,
+  $stats->{':http_status'} = $http_status;
+  $stats->{':content_type'} = $content_type;
 
-  my $uuid = lc(Data::UUID->new->create_str);
-  my ($one, $two) = $uuid =~ /^(..)(..)/;
-  my $fullpath = "$root/$one/$two/$uuid";
+  if ($root) {
+    my $uuid = lc(Data::UUID->new->create_str);
+    my ($one, $two) = $uuid =~ /^(..)(..)/;
+    my $fullpath = "$root/$one/$two/$uuid";
 
-  mkpath("$root/$one/$two"); # no error checking, OK if path exists already
-  move("$dir/$output", $fullpath);
+    mkpath("$root/$one/$two"); # no error checking, OK if path exists already
+    move("$dir/$output", $fullpath);
 
-  $stats->{':storage_id'} = $uuid;
+    $stats->{':storage_id'} = $uuid;
+  } else {
+    $stats->{':dir'} = $dir;
+    $stats->{':file'} = $output;
+  }
 } else {
   $stats->{':curl_error'} = $curl_error;
 }
 
-# my $cmd = "curl --silent '$uri' > $fullpath";
-# print STDERR "$cmd\n";
-# (system($cmd) == 0) or die $!;
+##################################################
+# POSTBACK - transmit acknowledgement of completion
+# No checking of the response to the postback, this is fire-and-forget
 
-print Dump($stats);
-# print $uuid;
+if ($postback_url) {
+  my $ua = LWP::UserAgent->new;
+  $ua->timeout(10);
 
-rmtree($dir);
+  my $response = $ua->post($postback_url, [ ':result' => Dump($stats) ]);
+} else {
+  # no postback url, so output the results directly to stdout
+  print Dump($stats);
+}
+
+if ($root) {
+  rmtree($dir);
+}
 
 exit;

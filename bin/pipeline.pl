@@ -8,6 +8,8 @@ use YAML::Syck qw(Load Dump LoadFile DumpFile);
 $YAML::Syck::ImplicitTyping = 1;  # for compatibility with ruby & others
 use Cwd qw(getcwd abs_path);
 use File::Basename;
+use LWP::UserAgent; # for postback
+use Proc::Daemon;
 
 =head1 NAME
 
@@ -35,8 +37,9 @@ to pipeline.pl.
 
   --input file [AT LEAST ONE REQUIRED]
   --recipe file [REQUIRED]
-  --output file [REQUIRED]
-  --runlog file [REQUIRED]
+  --output file [optional, defaults to stdout]
+  --runlog file [optional, defaults to stderr]
+  --postback url [optional, no POST attempt if missing]
 
 =head1 REQUIRED MODULES
 
@@ -66,14 +69,17 @@ sub runbg;
 ##################################################
 # PROCESS COMMAND-LINE OPTIONS
 
-my $USAGE = "usage: pipeline.pl --input source --recipe recipe --output destination --runlog metadata";
+my $USAGE = "usage: pipeline.pl --input source --recipe recipe --output destination --runlog metadata [--postback url] [--background]";
 
-my (@inputs, $recipe_file, $output, $runlog);
+my (@inputs, $recipe_file, $output, $runlog, $postback_url);
+my $background = 0;
 GetOptions(
   'input=s' => \@inputs,
   'recipe=s' => \$recipe_file,
   'output=s' => \$output,
   'runlog=s' => \$runlog,
+  'postback=s' => \$postback_url,
+  'background' => \$background
   );
 die $USAGE unless @inputs && defined($recipe_file); # && defined($output) && defined($runlog);
 $output ||= "&1";
@@ -92,6 +98,8 @@ $ENV{PATH} = "$TOOLPATH:$ENV{PATH}"; # so that pipeline execution will find the 
 ##################################################
 
 my $dir = File::Temp::tempdir("numbrary.XXXX", DIR => $ENV{TMPDIR});
+
+Proc::Daemon::Init if $background;
 
 ##################################################
 # ASSEMBLE THE PIPELINE
@@ -206,10 +214,12 @@ my @masterlog = read_file("$dir/masterlog");
 chomp @masterlog;
 
 my @stagelogs;
+my @stage_errors;
 # for my $i (0..$#recipe_stages) {
 for my $i (0..$#chain) {
   if ($status_codes[$i] != 0) {
     my @errors = read_file("$dir/log$i");
+    push @stage_errors, \@errors;
     push @stagelogs, { ':errors' => \@errors, ':error_code' => $status_codes[$i] };
   } else {
     my $stats = eval { LoadFile("$dir/log$i") };
@@ -239,6 +249,24 @@ if ($runlog) {
 
 # delete the working directory and all its contents
 run "/bin/rm -rf $dir";
+
+##################################################
+# POSTBACK - transmit acknowledgement of completion
+# No checking of the response to the postback, this is fire-and-forget
+
+if ($postback_url) {
+  my $ua = LWP::UserAgent->new;
+  $ua->timeout(10);
+
+  my $response = $ua->post($postback_url, {':errors' => \@stage_errors});
+  # ignore the response
+  # if ($response->is_success) {
+  #   print $response->decoded_content;  # or whatever
+  # }
+  # else {
+  #   print $response->status_line;
+  # }
+}
 
 exit;
 
