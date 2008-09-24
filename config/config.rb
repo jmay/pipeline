@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 
 require "thin"
-require "pp"
 
 def arg_string_for(param, value)
-  Array(value).map {|v| "--#{param} '#{v}'"}.join(' ')
+  # Rails Hash#to_query inserts "[]" at the end of the name for array parameters; that must
+  # be stripped off to get strings that will work as command-line param labels
+  Array(value).map {|v| "--#{param.gsub(/\[\]$/,'')} '#{v}'"}.join(' ')
 end
 
 def command_line_for(command, args)
