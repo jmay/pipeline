@@ -82,7 +82,7 @@ GetOptions(
   'background' => \$background
   );
 die $USAGE unless @inputs && defined($recipe_file); # && defined($output) && defined($runlog);
-$output ||= "&1";
+# $output ||= "&1";
 # $runlog ||= \*STDERR;
 
 for my $file (@inputs) {
@@ -181,13 +181,21 @@ for my $i (0..$#inputs) {
   run "mkfifo $dir/input$i";
 }
 
-run "mkfifo $dir/output.nsf";
-
 for my $i (0..$#inputs) {
   runbg "cat $inputs[$i] >$dir/input$i";
 }
 
-runbg "cat $dir/output.nsf >$output";
+if ($output) {
+  # output filename was provided
+  run "mkfifo $dir/output";
+  runbg "cat $dir/output >$output";
+} elsif ($background) {
+  # no output filename, but run in background so leave in 'output' file
+} else {
+  # no output filename, run in foreground, output to stdout
+  run "mkfifo $dir/output";
+  runbg "cat $dir/output";
+}
 
 ##################################################
 # RUN THE PIPELINE
@@ -196,7 +204,7 @@ my $cwd = getcwd;
 print LOG "chdir $dir\n";
 chdir $dir;
 
-my $codes = run "cat input0 | $recipe_pipeline >output.nsf; echo \${PIPESTATUS[*]}";
+my $codes = run "cat input0 | $recipe_pipeline >output; echo \${PIPESTATUS[*]}";
 my @status_codes = split(/\s+/, $codes);
 shift(@status_codes);
 
@@ -236,10 +244,15 @@ my $runlog_data = {
   actions => \@masterlog,
 };
 
-# write the log of this script's activity to the runlog, as YAML
+# activity log is written out as YAML
 if ($runlog) {
+  # runlog filename provided, write to there
   DumpFile($runlog, $runlog_data);
+} elsif ($background) {
+  # no filename, but in background, so leave in 'runlog' file
+  DumpFile("$dir/runlog", $runlog_data);
 } else {
+  # no filename, running in foreground, output to stderr
   print STDERR Dump($runlog_data);
 }
 # open(RUNLOG, ">$runlog") or die $!;
@@ -247,18 +260,16 @@ if ($runlog) {
 # close RUNLOG;
 
 
-# delete the working directory and all its contents
-run "/bin/rm -rf $dir";
-
 ##################################################
 # POSTBACK - transmit acknowledgement of completion
 # No checking of the response to the postback, this is fire-and-forget
+# On postback, don't clean up the working directory, leave it for the recipient to take care of
 
 if ($postback_url) {
   my $ua = LWP::UserAgent->new;
   $ua->timeout(10);
 
-  my $response = $ua->post($postback_url, [ 'errors' => \@stage_errors ]);
+  my $response = $ua->post($postback_url, [ 'response' => Dump({':dir' => $dir, ':errors' => \@stage_errors}) ]);
 
   # ignore the response
   # if ($response->is_success) {
@@ -267,6 +278,9 @@ if ($postback_url) {
   # else {
   #   print $response->status_line;
   # }
+} else {
+  # delete the working directory and all its contents
+  run "/bin/rm -rf $dir";
 }
 
 exit;

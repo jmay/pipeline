@@ -1,12 +1,20 @@
 #!/usr/bin/env ruby
 
 require "thin"
+require "pp"
+
+def arg_string_for(param, value)
+  Array(value).map {|v| "--#{param} '#{v}'"}.join(' ')
+end
+
+def command_line_for(command, args)
+  command + ' ' + args.map {|k, v| arg_string_for(k, v)}.join(' ')
+end
 
 class DownloadAdapter
   def call(env)
     req = Rack::Request.new(env)
-    cmd_args = req.params.map {|k,v| "--#{k} '#{v}'"}.join(' ')
-    cmd = "bin/download.pl #{cmd_args} --background"
+    cmd = command_line_for('bin/download.pl', req.params) + ' --background'
     system(cmd)
     status = $?.success? ? 200 : 500
     [
@@ -23,8 +31,7 @@ end
 class PipelineAdapter
   def call(env)
     req = Rack::Request.new(env)
-    cmd_args = req.params.map {|k,v| "--#{k} '#{v}'"}.join(' ')
-    cmd = "bin/pipeline.pl #{cmd_args} --background"
+    cmd = command_line_for('bin/pipeline.pl', req.params) + ' --background'
     system(cmd)
     status = $?.success? ? 200 : 500
     [
@@ -43,37 +50,10 @@ Thin::Server.start('0.0.0.0', 9999) do
   map '/download' do
     run DownloadAdapter.new
   end
-  map '/pipeline' do
+  map '/decipher' do
+    run PipelineAdapter.new
+  end
+  map '/parse' do
     run PipelineAdapter.new
   end
 end
-# 
-# download = proc do |env|
-#   
-#   body = ["you said: #{query_string}\n"]                                       # Body of the response
-#   [
-#     200,                                        # Status code
-#     {
-#       'Content-Type' => 'text/html',            # Response headers
-#       'Content-Length' => body.join.size.to_s
-#     },
-#     body
-#   ]
-# end
-# 
-# pipeline = proc do |env|
-#   body = ["bingo\n"]                                       # Body of the response
-#   [
-#     200,                                        # Status code
-#     {
-#       'Content-Type' => 'text/html',            # Response headers
-#       'Content-Length' => body.join.size.to_s
-#     },
-#     body
-#   ]
-# end
-# 
-# bigapp = Rack::URLMap.new('/download'  => download,
-#                        '/pipeline' => pipeline)
-# 
-# Thin::Server.new('0.0.0.0', 9999, bigapp).start
