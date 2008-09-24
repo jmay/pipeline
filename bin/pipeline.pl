@@ -258,7 +258,8 @@ if ($postback_url) {
   my $ua = LWP::UserAgent->new;
   $ua->timeout(10);
 
-  my $response = $ua->post($postback_url, {':errors' => \@stage_errors});
+  my $response = $ua->post($postback_url, [ 'errors' => \@stage_errors ]);
+
   # ignore the response
   # if ($response->is_success) {
   #   print $response->decoded_content;  # or whatever

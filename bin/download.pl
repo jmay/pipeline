@@ -108,7 +108,7 @@ if ($postback_url) {
   my $ua = LWP::UserAgent->new;
   $ua->timeout(10);
 
-  my $response = $ua->post($postback_url, [ ':result' => Dump($stats) ]);
+  my $response = $ua->post($postback_url, [ 'response' => Dump($stats) ]);
 } else {
   # no postback url, so output the results directly to stdout
   print Dump($stats);

@@ -20,13 +20,31 @@ class DownloadAdapter
   end
 end
 
+class PipelineAdapter
+  def call(env)
+    req = Rack::Request.new(env)
+    cmd_args = req.params.map {|k,v| "--#{k} '#{v}'"}.join(' ')
+    cmd = "bin/pipeline.pl #{cmd_args} --background"
+    system(cmd)
+    status = $?.success? ? 200 : 500
+    [
+      status,
+      {
+        'Content-Type'   => 'text/plain',
+        'Content-Length' => '0',
+      },
+      []
+    ]
+  end
+end
+
 Thin::Server.start('0.0.0.0', 9999) do
   use Rack::CommonLogger
   map '/download' do
     run DownloadAdapter.new
   end
-  map '/files' do
-    run Rack::File.new('.')
+  map '/pipeline' do
+    run PipelineAdapter.new
   end
 end
 # 
