@@ -1,7 +1,25 @@
 #!/usr/bin/env ruby
-
-# require "thin"
-require "pp"
+#
+# Numbrary batch server
+#
+# This server runs under thin/rack
+#
+# Start it up with
+#
+#    thin start -R config/server.ru -p XXXX -d
+#
+# Handles POST requests to:
+#
+#    /download - runs bin/download.pl
+#    /decipher - runs bin/pipeline.pl
+#    /parse    - runs bin/pipeline.pl
+#    /calculate - runs bin/pipeline.pl
+#
+# In response to a POST, it will send back an empty response, either a success (200) or error (500).
+# A success indicates that the batch process was successfully initiated in the background; if all
+# goes well it should transmit results via POST back to the postback URL provided in the request payload.
+# An error means that it was unable to start up the process, e.g. if required parameters are missing.
+#
 
 class MyAdapter
   def arg_string_for(param, value)
@@ -52,7 +70,7 @@ end
 ObjectSpace.each_object(Thin::Server) do |obj|
   ServerPort = obj.port.to_s
 end
-logpath = "log/pipelineserver.#{$$}.#{ServerPort}.log"
+logpath = "log/batchserver.#{$$}.#{ServerPort}.log"
 logfile = File.new(logpath, "w+")
 logfile.sync = true # to force unbuffered writes
 use Rack::CommonLogger, logfile
