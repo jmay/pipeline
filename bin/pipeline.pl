@@ -292,11 +292,11 @@ sub run {
 
   print LOG scalar(localtime), ": $cmd\n";
 
-  open(RUNME, ">runme.bash") or die $!;
+  open(RUNME, ">$dir/runme.bash") or die $!;
   print RUNME $cmd;
   close RUNME;
-  $_ = `bash runme.bash`;
-  unlink "runme.bash";
+  $_ = `bash $dir/runme.bash`;
+  unlink "$dir/runme.bash";
 
   # $_ = `$cmd`;
 
