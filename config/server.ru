@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "thin"
+# require "thin"
 
 def arg_string_for(param, value)
   # Rails Hash#to_query inserts "[]" at the end of the name for array parameters; that must
@@ -46,18 +46,17 @@ class PipelineAdapter
   end
 end
 
-Thin::Server.start('0.0.0.0', 9999) do
-  use Rack::CommonLogger
-  map '/download' do
-    run DownloadAdapter.new
-  end
-  map '/decipher' do
-    run PipelineAdapter.new
-  end
-  map '/parse' do
-    run PipelineAdapter.new
-  end
-  map '/calculate' do
-    run PipelineAdapter.new
-  end
+use Rack::CommonLogger
+
+map '/download' do
+  run DownloadAdapter.new
+end
+map '/decipher' do
+  run PipelineAdapter.new
+end
+map '/parse' do
+  run PipelineAdapter.new
+end
+map '/calculate' do
+  run PipelineAdapter.new
 end
