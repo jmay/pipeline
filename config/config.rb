@@ -57,4 +57,7 @@ Thin::Server.start('0.0.0.0', 9999) do
   map '/parse' do
     run PipelineAdapter.new
   end
+  map '/calculate' do
+    run PipelineAdapter.new
+  end
 end
