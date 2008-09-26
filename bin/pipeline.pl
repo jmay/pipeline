@@ -93,7 +93,7 @@ for my $file (@inputs) {
 die "Can't read recipe $recipe_file" if !-r $recipe_file;
 
 my $TOOLPATH = dirname(abs_path($0)) . "/../mod";
-$ENV{PATH} = "$TOOLPATH:$ENV{PATH}"; # so that pipeline execution will find the command modules
+#$ENV{PATH} = "$TOOLPATH:$ENV{PATH}"; # so that pipeline execution will find the command modules
 
 ##################################################
 
@@ -136,10 +136,10 @@ for my $stage (@$recipe_stages) {
     print $fh $stage->{code};
     close $fh;
     # push @chain, "($TOOLPATH/extract.rb $args $codefile 2>log$i)";
-    push @chain, "(extract.rb $argstring $codefile 2>log$i)";
+    push @chain, "($TOOLPATH/extract.rb $argstring $codefile 2>log$i)";
   } else {
     # push @chain, "($TOOLPATH/$stage->{command} $args 2>log$i)";
-    push @chain, "($command $argstring 2>log$i)";
+    push @chain, "($TOOLPATH/$command $argstring 2>log$i)";
   }
   $i++;
 }
