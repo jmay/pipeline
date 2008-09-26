@@ -24,7 +24,7 @@
         <method_context working_directory='<%= working_directory %>'>
           <method_credential user='<%= user %>' group='<%= group %>' />
           <method_environment>
-            <envvar name='PATH' value='/home/numbrary/bin:/home/numbrary/.gems/bin:/home/numbrary/perl/bin:/a/1/languages/ruby/bin:/a/1/languages/perl/bin:/usr/local/bin:/usr/bin:/bin:/opt/csw/bin' />
+            <envvar name='PATH' value='/home/numbrary/bin:/home/numbrary/.gems/bin:/home/numbrary/perl/bin:/a/1/languages/ruby/bin:/a/1/languages/perl/bin:/home/admin/bin:/usr/local/bin:/usr/bin:/bin:/opt/csw/bin' />
             <envvar name='GEM_PATH' value='/home/numbrary/.gems:/opt/csw/lib/ruby/gems/1.8:/a/1/languages/ruby186d/lib/ruby/gems/1.8' />
             <envvar name='PERL5LIB' value='/home/numbrary/perl/lib/perl5/site_perl' />
             <envvar name='RUBYOPT' value='rubygems' />
