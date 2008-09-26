@@ -27,6 +27,7 @@
             <envvar name='PATH' value='/home/numbrary/bin:/home/numbrary/.gems/bin:/home/numbrary/perl/bin:/a/1/languages/ruby/bin:/a/1/languages/perl/bin:/usr/bin:/bin:/opt/csw/bin' />
             <envvar name='GEM_PATH' value='/home/numbrary/.gems:/opt/csw/lib/ruby/gems/1.8:/a/1/languages/ruby186d/lib/ruby/gems/1.8' />
             <envvar name='RUBYOPT' value='rubygems' />
+            <envvar name='TMPDIR' value='/home/numbrary/numbrary/shared/BATCHTEMP' />
           </method_environment>
         </method_context>
       </exec_method>
