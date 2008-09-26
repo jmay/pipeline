@@ -8,6 +8,6 @@ set :repository, "git@github.com:jmay/pipeline.git"
 
 desc "Tasks to execute after code update"
 task :after_update_code do
-  run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
-  run "ln -nfs #{shared_path}/log #{release_path}/log"
+  run "ln -nfs #{shared_path}/tmp #{release_path}"
+  run "ln -nfs #{shared_path}/log #{release_path}"
 end
