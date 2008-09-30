@@ -31,8 +31,8 @@ nrows = 0
 rejected_rows = 0
 
 $stdin.each_line do |row|
-  fields = row.split("\t")
-  if fields[colnum] == match
+  fields = row.chomp.split("\t")
+  if (fields[colnum] || '') == match
     rejected_rows += 1
   else
     nrows += 1

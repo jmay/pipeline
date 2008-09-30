@@ -1,0 +1,8 @@
+--- 
+- :command: columns.pl
+  :args: 
+    :columns: "0,2"
+- :command: filter_out.rb
+  :args:
+    :column: 1
+    :match: ''

@@ -1,0 +1,17 @@
+--- 
+actions: 
+  - "Tue Sep 30 15:35:29 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.vZof/input0"
+  - "Tue Sep 30 15:35:29 2008: cat columns2/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.vZof/input0 &"
+  - "Tue Sep 30 15:35:29 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.vZof/output"
+  - "Tue Sep 30 15:35:29 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.vZof/output >columns2/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.vZof
+  - "Tue Sep 30 15:35:29 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/columns.pl --columns '0,2' 2>log0) | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/filter_out.rb --match '' --column '1' 2>log1) >output; echo ${PIPESTATUS[*]}"
+  - "Tue Sep 30 15:35:30 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :ncolumns: 2
+    :nrows: 11670
+  - 
+    :nrows: 6687
+    :rejected_rows: 4983
