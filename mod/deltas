@@ -101,7 +101,7 @@ for my $chron (sort keys %fullrows) {
   my $this_result;
   if ($percent) {
     # relative (percent) change
-    $this_result = sprintf("%0.4f", ($this_value - $prev_value) / $prev_value);
+    $this_result = sprintf("%0.4f", ($this_value - $prev_value) / $prev_value * 100);
   } else {
     # absolute change
     if ($float) {

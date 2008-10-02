@@ -1,12 +1,12 @@
 --- 
 actions: 
-  - "Wed Aug 13 10:11:25 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.b1uX/input0"
-  - "Wed Aug 13 10:11:25 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.b1uX/output.nsf"
-  - "Wed Aug 13 10:11:25 2008: cat deltas/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.b1uX/input0 &"
-  - "Wed Aug 13 10:11:25 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.b1uX/output.nsf >deltas/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.b1uX
-  - "Wed Aug 13 10:11:25 2008: cat input0 | (deltas --percent '1' --interval '12' --datacol '1' --ordercol '0' 2>log0) >output.nsf; echo ${PIPESTATUS[*]}"
-  - "Wed Aug 13 10:11:25 2008: done"
+  - "Thu Oct  2 15:07:09 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.MJWP/input0"
+  - "Thu Oct  2 15:07:09 2008: cat deltas/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.MJWP/input0 &"
+  - "Thu Oct  2 15:07:09 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.MJWP/output"
+  - "Thu Oct  2 15:07:09 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.MJWP/output >deltas/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.MJWP
+  - "Thu Oct  2 15:07:09 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/deltas --percent '1' --interval '12' --datacol '1' --ordercol '0' 2>log0) >output; echo ${PIPESTATUS[*]}"
+  - "Thu Oct  2 15:07:09 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
@@ -15,6 +15,6 @@ stagelogs:
         :max: 24102
         :min: 23280
       - 
-        :max: 0.1626
-        :min: -0.0761
+        :max: 16.2639
+        :min: -7.6096
     :nrows: 823
