@@ -67,6 +67,40 @@ class PipelineAdapter < MyAdapter
   end
 end
 
+class AnalyzeAdapter < MyAdapter
+  def call(env)
+    req = Rack::Request.new(env)
+    cmd = command_line_for('bin/analyze.pl', req.params) + ' --background'
+    system(cmd)
+    status = $?.success? ? 200 : 500
+    [
+      status,
+      {
+        'Content-Type'   => 'text/plain',
+        'Content-Length' => '0',
+      },
+      []
+    ]
+  end
+end
+
+class DissectAdapter < MyAdapter
+  def call(env)
+    req = Rack::Request.new(env)
+    cmd = command_line_for('bin/dissect.pl', req.params) + ' --background'
+    system(cmd)
+    status = $?.success? ? 200 : 500
+    [
+      status,
+      {
+        'Content-Type'   => 'text/plain',
+        'Content-Length' => '0',
+      },
+      []
+    ]
+  end
+end
+
 ObjectSpace.each_object(Thin::Server) do |obj|
   ServerPort = obj.port.to_s
 end
@@ -89,4 +123,10 @@ map '/parse' do
 end
 map '/calculate' do
   run PipelineAdapter.new
+end
+map '/inspect' do
+  run AnalyzeAdapter.new
+end
+map '/dissect' do
+  run DissectAdapter.new
 end
