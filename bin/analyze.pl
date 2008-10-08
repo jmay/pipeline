@@ -81,14 +81,14 @@ if ($mimetype =~ /html/i) {
   my @tabs = $input =~ /\t/msg;
   if (scalar(@tabs) > 3) {
     # looks like TSV
-    push @recipe, { ':command' => 'tsv.pl' };
+    push @recipe, { 'command' => 'tsv.pl' };
   } else {
     my @commas = $input =~ /,/msg;
     if (scalar(@commas) > 3) {
       # looks like CSV
-      push @recipe, { ':command' => "csv2tsv" };
+      push @recipe, { 'command' => "csv2tsv" };
     } else {
-      push @recipe, { ':command' => "whitespace_separated.rb" };
+      push @recipe, { 'command' => "whitespace_separated.rb" };
     }
   }
 }
