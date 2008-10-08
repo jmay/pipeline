@@ -3,5 +3,9 @@
 require "dataset"
 require "yaml"
 
-dissector = Dataset::Dissect.new(:input => $stdin)
-puts dissector.recipe.to_yaml
+begin
+  dissector = Dataset::Dissect.new(:input => $stdin)
+  puts dissector.recipe.to_yaml
+rescue Exception => e
+  puts e.to_yaml
+end

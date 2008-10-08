@@ -23,16 +23,16 @@ use YAML::Syck qw(Load Dump LoadFile DumpFile);
 use LWP::UserAgent; # for postback
 use Proc::Daemon; # for background
 use File::Basename; # for dirname()
-use IPC::Open3;
+# use IPC::Open3;
+use IPC::Open2;
+use File::Spec;
 
 ##################################################
 
 my ($postback_url, $file);
-my $mimetype = 'text/plain';
 my $background = 0;
 GetOptions(
   'input=s' => \$file,
-  'content-type=s' => \$mimetype,
   'postback=s' => \$postback_url,
   'background' => \$background
   );
@@ -46,7 +46,7 @@ if ($file && !-r $file) {
 # die "Can't find dissector" if !$dissector;
 # print "DISSECTOR IS [$dissector]\n";
 
-my $dissector = dirname(__FILE__) . "/dissection.rb";
+my $dissector = dirname(File::Spec->rel2abs(__FILE__)) . "/dissection.rb";
 # print "DISSECTOR IS [$dissector]\n";
 
 ##################################################
@@ -75,13 +75,36 @@ while ($i < 100 && !eof(INPUT)) {
 
 close INPUT;
 
+##################################################
 # now we should have <=200 rows to work with
 
-my $pid = open3(\*CHLD_IN, \*CHLD_OUT, \*CHLD_ERR, "/usr/bin/env ruby $dissector");
-print CHLD_IN @rows;
-close CHLD_IN;
+my $response;
+
+my $pid = open2(*Reader, *Writer, $dissector);
+print Writer @rows;
+close Writer;
 $/ = undef;
-my $yaml = <CHLD_OUT>;
+my $yaml = <Reader>;
+$response = Load($yaml);
+
+# my ($writer, $reader, $errfd);
+# my $rc = system("echo | $dissector");
+# my $pid = open3($writer, $reader, $errfd, $dissector);
+# if ($!) {
+#   $response->{':error'} = "TROUBLE on $dissector ($pid) ($rc): $! $@"
+# } else {
+#   print $writer @rows;
+#   close $writer;
+#   $/ = undef;
+#   my $yaml = <$reader>;
+#   $response = Load($yaml);
+# 
+#   my $errs = <$errfd>;
+# 
+#   $response->{':error'} = $errs if $errs;
+#   # push @payload, {'response' => $yaml} if $yaml;
+#   # push @payload, {'error' => $errs} if $errs;
+# }
 
 # open(DISSECT, "| /usr/bin/env ruby $dissector |") or die $!;
 # print DISSECT @rows;
@@ -96,9 +119,9 @@ if ($postback_url) {
   my $ua = LWP::UserAgent->new;
   $ua->timeout(10);
 
-  my $response = $ua->post($postback_url, [ 'response' => $yaml ]);
+  my $response = $ua->post($postback_url, ['response' => Dump($response)]);
   # ignore the response
 } else {
   # delete the working directory and all its contents
-  print $yaml;
+  print Dump($response);
 }
