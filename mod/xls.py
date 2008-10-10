@@ -3,8 +3,13 @@
 import xlrd
 import sys
 import csv
+import yaml
 
-book = xlrd.open_workbook("/Users/jmay/Downloads/phosphate.xls")
+# slurp entire input into string
+input = sys.stdin.read()
+
+# book = xlrd.open_workbook(filename = "/dev/stdin")
+book = xlrd.open_workbook(file_contents = input)
 sheet = book.sheet_by_index(0)
 
 writer = csv.writer(sys.stdout, delimiter = "\t")
@@ -17,6 +22,5 @@ for rownum in range(sheet.nrows)[0:]:
 
   writer.writerow(row)
 
-# stats
-# stats = { ':nrows': sheet.nrows }
-# print stats
+stats = { ':nrows': sheet.nrows }
+sys.stderr.write(yaml.dump(stats, default_flow_style = False))
