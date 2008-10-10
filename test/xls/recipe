@@ -1,0 +1,5 @@
+--- 
+- command: xls.py
+- command: strip
+  args:
+    until: '^Year'

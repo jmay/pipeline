@@ -1,0 +1,19 @@
+--- 
+actions: 
+  - "Thu Oct  9 17:44:48 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QVHx/input0"
+  - "Thu Oct  9 17:44:48 2008: cat pythonmods/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QVHx/input0 &"
+  - "Thu Oct  9 17:44:48 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QVHx/output"
+  - "Thu Oct  9 17:44:48 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QVHx/output >pythonmods/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.QVHx
+  - "Thu Oct  9 17:44:49 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/xls.py  2>log0) | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/strip --until '^Year' 2>log1) >output; echo ${PIPESTATUS[*]}"
+  - "Thu Oct  9 17:44:49 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - ~
+  - 
+    :notes: 
+      - PHOSPHATE ROCK STATISTICS1
+      - U.S. GEOLOGICAL SURVEY
+      - "[All values are in metric tons (t) phosphate rock unless otherwise noted]"
+      - "Last modification:  October 19, 2007"
+    :nrows: 110
