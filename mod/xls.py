@@ -4,6 +4,7 @@ import xlrd
 import sys
 import csv
 import yaml
+import datetime
 
 # slurp entire input into string
 input = sys.stdin.read()
@@ -18,7 +19,13 @@ for rownum in range(sheet.nrows)[0:]:
   row = []
 
   for cell in sheet.row(rownum):
-    row.append(cell.value)
+    if cell.ctype == 3:
+      # date
+      dtuple = xlrd.xldate_as_tuple(cell.value, book.datemode)
+      row.append(datetime.date(dtuple[0], dtuple[1], dtuple[2]).strftime("%m-%d-%Y"))
+    else:
+      # numbers and strings
+      row.append(cell.value)
 
   writer.writerow(row)
 
