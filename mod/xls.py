@@ -22,7 +22,7 @@ for rownum in range(sheet.nrows)[0:]:
     if cell.ctype == 3:
       # date
       dtuple = xlrd.xldate_as_tuple(cell.value, book.datemode)
-      row.append(datetime.date(dtuple[0], dtuple[1], dtuple[2]).strftime("%m-%d-%Y"))
+      row.append(datetime.date(dtuple[0], dtuple[1], dtuple[2]).strftime("%Y-%m-%d"))
     else:
       # numbers and strings
       row.append(cell.value)
