@@ -1,20 +1,13 @@
 --- 
 actions: 
-  - "Fri Oct 10 11:25:48 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.7ilF/input0"
-  - "Fri Oct 10 11:25:48 2008: cat xls/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.7ilF/input0 &"
-  - "Fri Oct 10 11:25:48 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.7ilF/output"
-  - "Fri Oct 10 11:25:48 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.7ilF/output >xls/output &"
-  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.7ilF
-  - "Fri Oct 10 11:25:48 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/xls.py  2>log0) | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/strip --until '^Year' 2>log1) >output; echo ${PIPESTATUS[*]}"
-  - "Fri Oct 10 11:25:48 2008: done"
+  - "Wed Oct 15 11:59:06 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.S5Xs/input0"
+  - "Wed Oct 15 11:59:06 2008: cat xls/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.S5Xs/input0 &"
+  - "Wed Oct 15 11:59:06 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.S5Xs/output"
+  - "Wed Oct 15 11:59:06 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.S5Xs/output >xls/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.S5Xs
+  - "Wed Oct 15 11:59:06 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/xls.py  2>log0) >output; echo ${PIPESTATUS[*]}"
+  - "Wed Oct 15 11:59:06 2008: done"
   - chdir /Users/jmay/Projects/Numbrary/pipeline/test
 stagelogs: 
   - 
     :nrows: 114
-  - 
-    :notes: 
-      - PHOSPHATE ROCK STATISTICS1
-      - U.S. GEOLOGICAL SURVEY
-      - "[All values are in metric tons (t) phosphate rock unless otherwise noted]"
-      - "Last modification:  October 19, 2007"
-    :nrows: 110
