@@ -1,0 +1,45 @@
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long; # for GetOptions()
+use YAML::Syck; # for Dump()
+
+=head1 NAME
+
+coalesce - merge sources
+
+=head1 DESCRIPTION
+
+Same as `cat`ting together a list of files, plus YAML stats at the end.
+
+The files *ought* to be of the same structure, but this is not verified here.
+
+=head1 OPTIONS
+
+  --input list of inputs [REQUIRED] list of files to cat together
+
+=cut
+
+my $USAGE = "usage: coalesce --files file [--files file ...]";
+
+my @inputs;
+GetOptions(
+  'files=s' => \@inputs
+  );
+die $USAGE, "\n" unless scalar(@inputs);
+
+
+my $nrows = 0;
+for my $input (@inputs) {
+  open(INPUT, "<$input") or die $!;
+  while(<INPUT>) {
+    print;
+    $nrows++;
+  }
+  close INPUT;
+}
+
+my $stats = {
+  ':nrows' => $nrows,
+};
+print STDERR Dump($stats);
