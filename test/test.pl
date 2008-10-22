@@ -7,6 +7,7 @@ use POSIX qw(mkfifo);
 use File::Temp; # for tempdir
 use YAML::Syck qw(Load Dump LoadFile DumpFile);
 use Storable; $Storable::canonical = 1; # for runlog hash comparison
+use Cwd;
 
 
 my %opts;
@@ -36,34 +37,36 @@ closedir DIR;
 sub runtest {
   my ($testcase) = @_;
 
-  my @extra_inputs = glob("$testcase/input[0-9]*");
+  my $casedir = getcwd() . "/" . $testcase;
+
+  my @extra_inputs = glob("$casedir/input[0-9]*");
   my $extra_args = join(' ', map { "--input $_" } @extra_inputs);
 
   if ($opts{f}) {
     # -f provided; this updates the test case, so overwrite the output
     print "$testcase OVERWRITE\n";
-    my $cmd = "../bin/pipeline.pl --input $testcase/input $extra_args --recipe $testcase/recipe --output $testcase/output --runlog $testcase/runlog";
+    my $cmd = "../bin/pipeline.pl --input $casedir/input $extra_args --recipe $casedir/recipe --output $casedir/output --runlog $casedir/runlog";
     print STDERR $cmd, "\n";
     system($cmd);
   } else {
     # runs the test case and compares output to expectation
 
-    my $cmd = "../bin/pipeline.pl --input $testcase/input $extra_args --recipe $testcase/recipe --output $testdir/output --runlog $testdir/runlog";
+    my $cmd = "../bin/pipeline.pl --input $casedir/input $extra_args --recipe $casedir/recipe --output $testdir/output --runlog $testdir/runlog";
 
     print STDERR "RUNNING: $testcase\n";
     print STDERR $cmd, "\n" if $opts{v};
     system($cmd);
 
-    my $expected_runlog = LoadFile("$testcase/runlog");
+    my $expected_runlog = LoadFile("$casedir/runlog");
     my $actual_runlog = LoadFile("$testdir/runlog");
     if (Storable::freeze( $actual_runlog->{stagelogs} ) ne Storable::freeze( $expected_runlog->{stagelogs} )) {
       print STDERR "RUNLOG MISMATCH\n";
-      system "diff $testcase/runlog $testdir/runlog;"
+      system "diff $casedir/runlog $testdir/runlog;"
     }
 
-    if (`cmp $testcase/output $testdir/output`) {
+    if (`cmp $casedir/output $testdir/output`) {
       print STDERR "OUTPUT MISMATCH\n";
-      system "diff $testcase/output $testdir/output";
+      system "diff $casedir/output $testdir/output";
     }
 
     # if (`cmp $testcase/runlog $testdir/runlog`) {

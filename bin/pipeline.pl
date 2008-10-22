@@ -181,6 +181,8 @@ for my $i (0..$#inputs) {
   run "mkfifo $dir/input$i";
 }
 
+$ENV{'INPUT0'} = $inputs[0];
+
 for my $i (0..$#inputs) {
   runbg "cat $inputs[$i] >$dir/input$i";
 }
