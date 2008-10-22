@@ -37,6 +37,7 @@ class DownloadAdapter < MyAdapter
   def call(env)
     req = Rack::Request.new(env)
     cmd = command_line_for('bin/download.pl', req.params) + ' --background'
+    $stderr.puts cmd
     system(cmd)
     status = $?.success? ? 200 : 500
     [
@@ -54,6 +55,7 @@ class PipelineAdapter < MyAdapter
   def call(env)
     req = Rack::Request.new(env)
     cmd = command_line_for('bin/pipeline.pl', req.params) + ' --background'
+    $stderr.puts cmd
     system(cmd)
     status = $?.success? ? 200 : 500
     [
@@ -71,6 +73,7 @@ class AnalyzeAdapter < MyAdapter
   def call(env)
     req = Rack::Request.new(env)
     cmd = command_line_for('bin/analyze.pl', req.params) + ' --background'
+    $stderr.puts cmd
     system(cmd)
     status = $?.success? ? 200 : 500
     [
@@ -88,6 +91,25 @@ class DissectAdapter < MyAdapter
   def call(env)
     req = Rack::Request.new(env)
     cmd = command_line_for('bin/dissect.pl', req.params) + ' --background'
+    $stderr.puts cmd
+    system(cmd)
+    status = $?.success? ? 200 : 500
+    [
+      status,
+      {
+        'Content-Type'   => 'text/plain',
+        'Content-Length' => '0',
+      },
+      []
+    ]
+  end
+end
+
+class CoalesceAdapter < MyAdapter
+  def call(env)
+    req = Rack::Request.new(env)
+    cmd = "bin/coalesce.pl --background --postback #{req.params['postback']} #{req.params['files[]'].join(' ')}"
+    $stderr.puts cmd
     system(cmd)
     status = $?.success? ? 200 : 500
     [
@@ -129,4 +151,7 @@ map '/inspect' do
 end
 map '/dissect' do
   run DissectAdapter.new
+end
+map '/coalesce' do
+  run CoalesceAdapter.new
 end
