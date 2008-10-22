@@ -51,8 +51,12 @@ for rownum in range(sheet.nrows)[0:]:
           if merges[mergekey] == mergekey:
             merges[mergekey] = cell.value
 
-  while row[-1] == "":
+  # Truncate blank cells from the end of each row.
+  # This will make it easier to guess the number of columns in the source.
+  while len(row) > 0 and row[-1] == '':
     row.pop()
+
+  # TODO: A blank line will be emitted for empty source rows; is this what we want?
   writer.writerow(row)
 
 stats = { ':nrows': sheet.nrows }
