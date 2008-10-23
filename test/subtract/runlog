@@ -1,0 +1,15 @@
+--- 
+actions: 
+  - "Thu Oct 23 11:09:07 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh/input0"
+  - "Thu Oct 23 11:09:07 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh/input1"
+  - "Thu Oct 23 11:09:07 2008: cat /Users/jmay/Projects/Numbrary/pipeline/test/subtract/input >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh/input0 &"
+  - "Thu Oct 23 11:09:07 2008: cat /Users/jmay/Projects/Numbrary/pipeline/test/subtract/input1 >/var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh/input1 &"
+  - "Thu Oct 23 11:09:07 2008: mkfifo /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh/output"
+  - "Thu Oct 23 11:09:07 2008: cat /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh/output >/Users/jmay/Projects/Numbrary/pipeline/test/subtract/output &"
+  - chdir /var/folders/e6/e6prtNdjHY0VH3tZIOnupE+++TI/-Tmp-/numbrary.V1Kh
+  - "Thu Oct 23 11:09:07 2008: cat input0 | (/Users/jmay/Projects/Numbrary/pipeline/bin/../mod/subtract.rb --pick1 '1' --input input1 --group2 '0' --pick2 '2' --group1 '0' 2>log0) >output; echo ${PIPESTATUS[*]}"
+  - "Thu Oct 23 11:09:08 2008: done"
+  - chdir /Users/jmay/Projects/Numbrary/pipeline/test
+stagelogs: 
+  - 
+    :nrows: 131

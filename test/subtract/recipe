@@ -1,0 +1,8 @@
+---
+- command: subtract.rb
+  args:
+    input: ~
+    group1: 0
+    group2: 0
+    pick1: 1
+    pick2: 2
