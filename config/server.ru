@@ -108,7 +108,7 @@ end
 class CoalesceAdapter < MyAdapter
   def call(env)
     req = Rack::Request.new(env)
-    cmd = "bin/coalesce.pl --background --postback #{req.params['postback']} #{req.params['files[]'].join(' ')}"
+    cmd = "bin/coalesce.pl --background --postback #{req.params['postback']} --sortcol #{req.params['sortcol']} #{req.params['files[]'].join(' ')}"
     $stderr.puts cmd
     system(cmd)
     status = $?.success? ? 200 : 500

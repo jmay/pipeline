@@ -26,13 +26,15 @@ The input files *ought* to be of the same structure, but this is not verified he
 
 =cut
 
-my $USAGE = "usage: coalesce.pl [--background] [--postback URL] files...";
+my $USAGE = "usage: coalesce.pl [--background] [--postback URL] [--sortcol sortcol] files...";
 
 my $postback_url;
 my $background = 0;
+my $sortcol;
 GetOptions(
   'postback=s' => \$postback_url,
-  'background' => \$background
+  'background' => \$background,
+  'sortcol=i' => \$sortcol
   );
 
 my @inputs = @ARGV;
@@ -42,7 +44,16 @@ for my $input (@inputs) {
 
 my $dir = File::Temp::tempdir("numbrary.XXXX", DIR => $ENV{TMPDIR});
 
-my $cmd = "cat " . join(' ', @inputs) . " > $dir/output";
+# do it with UNIX built-in cat and sort
+my $sort = '';
+if ($sortcol) {
+  # sort -k counts columns starting from 1, Numbrary counts from zero
+  my $sortkcol = $sortcol+1;
+  # this crazy \$'\\t' business is to pass a tab to sort -t
+  $sort = " | sort -t \$'\\t' -k$sortkcol -n";
+}
+my $cmd = "cat " . join(' ', @inputs) . " $sort > $dir/output";
+print STDERR $cmd;
 # open(OUTPUT, ">$dir/output") or die $!;
 
 Proc::Daemon::Init if $background;
