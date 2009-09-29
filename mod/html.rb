@@ -3,7 +3,12 @@
 # extract from HTML source using hpricot
 
 require "getoptlong"
-require "hpricot"
+
+# hpricot 0.8.1 can't handle <h1> nested inside <pre>
+# gem "hpricot", "= 0.6.164"
+# require "hpricot"
+require "nokogiri"
+
 require "htmlentities"  # for converting HTML entities like &nbsp;
 require "yaml"
 require "pp"
@@ -34,10 +39,11 @@ rescue Exception => e
 end
 
 Coder = HTMLEntities.new
-doc = Hpricot(STDIN.readlines.join)
+# doc = Hpricot(STDIN.readlines.join)
+doc = Nokogiri::HTML(STDIN.readlines.join)
 
 def mydecode(cell)
-  Coder.decode(cell.inner_text.gsub(/&nbsp;/, ' ').gsub(/[[:space:]]+/, ' ').gsub(/\?/, '')).strip
+  Coder.decode(cell.inner_text.gsub(/\240/, ' ').gsub(/&nbsp;/, ' ').gsub(/[[:space:]]+/, ' ').gsub(/\?/, '')).strip
 end
 
 node = doc.search(xpath)
@@ -60,7 +66,8 @@ if parsetable
     end
   end
 else
-  puts Coder.decode(node.inner_html)
+  # puts Coder.decode(node.inner_html)
+  puts node.inner_html.gsub(/\240/, ' ')
 end
 
 stats = {
