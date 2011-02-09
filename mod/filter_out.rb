@@ -5,7 +5,7 @@
 require "getoptlong"
 require "yaml"
 
-require "dataset"
+# require "dataset"
 
 opts = GetoptLong.new(
   [ '--column', GetoptLong::REQUIRED_ARGUMENT ],
